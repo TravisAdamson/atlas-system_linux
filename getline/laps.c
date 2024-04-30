@@ -21,7 +21,7 @@ void race_state(int *id, size_t size)
 	{
 		if (!check_ids(id[count], &current_cars))
 		{
-			newest_car(id[count], &current_cars);
+			newest_cars(id[count], &current_cars);
 			printf("Car %d joined the race\n", id[count]);
 		}
 	}
@@ -44,7 +44,7 @@ void free_cars(cars_t **current_cars)
 	{
 		tmp_cars = (*current_cars)->next;
 		free(*current_cars);
-		*cars = tmp_cars;
+		*current_cars = tmp_cars;
 	}
 	free(*current_cars);
 	*current_cars = NULL;
@@ -74,12 +74,12 @@ int check_ids(int id, cars_t **current_cars)
 }
 
 /**
- * new_car - Function to insert a new car into list in order
+ * newest_cars - Function to insert a new car into list in order
  * @id: ID of the new car
  * @current_cars: List of cars in race
 */
 
-void newest_car(int id, cars_t **current_cars)
+void newest_cars(int id, cars_t **current_cars)
 {
 	cars_t *newest_car = NULL, *tmp_cars = *current_cars;
 
