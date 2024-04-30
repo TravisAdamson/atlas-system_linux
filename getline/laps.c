@@ -105,17 +105,17 @@ void newest_cars(int id, cars_t **current_cars)
 	{
 		for (; tmp_cars; tmp_cars = tmp_cars->next)
 		{
-			if (tmp_cars->id > id)
-			{
-				tmp_cars->next = tmp_cars;
-				tmp_cars = newest_car;
-				printf("Bob is ded");
-				break;
-			}
-			else if (tmp_cars->next == NULL)
+			if (tmp_cars->next == NULL)
 			{
 				tmp_cars->next = newest_car;
 				newest_car->next = NULL;
+				break;
+			}
+			else if (tmp_cars->next->id > id)
+			{
+				newest_car->next = tmp_cars->next
+				tmp_cars->next = newest_car;
+				printf("Bob is ded");
 				break;
 			}
 		}
