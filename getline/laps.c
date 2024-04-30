@@ -42,7 +42,7 @@ void free_cars(cars_t **current_cars)
 
 	while (*current_cars)
 	{
-		tmp = (*current_cars)->next;
+		tmp_cars = (*current_cars)->next;
 		free(*current_cars);
 		*cars = tmp_cars;
 	}
