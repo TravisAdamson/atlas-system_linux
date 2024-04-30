@@ -115,7 +115,6 @@ void newest_cars(int id, cars_t **current_cars)
 			{
 				newest_car->next = tmp_cars->next;
 				tmp_cars->next = newest_car;
-				printf("Bob is ded");
 				break;
 			}
 		}
