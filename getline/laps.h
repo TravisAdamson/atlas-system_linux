@@ -22,7 +22,7 @@ typedef struct cars
 void race_state(int *id, size_t size);
 int check_ids(int id, cars_t **current_cars);
 void free_cars(cars_t **current_cars);
-void newest_car(int id, cars_t **current_cars);
+void newest_cars(int id, cars_t **current_cars);
 void print_state(cars_t *current_cars);
 
 #endif
