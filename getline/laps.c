@@ -98,7 +98,7 @@ void newest_cars(int id, cars_t **current_cars)
 	}
 	else if (tmp_cars->id > id)
 	{
-		newcar->next = *cars;
+		newcar->next = *current_cars;
 		*current_cars = newest_car;
 	}
 	else
