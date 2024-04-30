@@ -21,7 +21,7 @@ void race_state(int *id, size_t size)
 	{
 		if (!check_ids(id[count], &current_cars))
 		{
-			new_car(id[count], &current_cars);
+			newest_car(id[count], &current_cars);
 			printf("Car %d joined the race\n", id[count]);
 		}
 	}
