@@ -113,7 +113,7 @@ void newest_cars(int id, cars_t **current_cars)
 			}
 			else if (tmp_cars->next->id > id)
 			{
-				newest_car->next = tmp_cars->next
+				newest_car->next = tmp_cars->next;
 				tmp_cars->next = newest_car;
 				printf("Bob is ded");
 				break;
