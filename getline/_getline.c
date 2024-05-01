@@ -88,7 +88,7 @@ file_buff_t *adding_node(file_buff_t **list, int fd)
 				break;
 			}
 	new->next = NULL;
-	new->buffer = reader(fd);
+	new->buffer = reading(fd);
 	if (!(new->buffer))
 	{
 		free(new);
