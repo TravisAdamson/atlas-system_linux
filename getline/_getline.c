@@ -50,7 +50,7 @@ file_buff_t *node_locate(file_buff_t **list, int fd)
 	size_t found = 0;
 
 	for (; tmp; tmp = tmp->next)
-		if (tmp->file_desc == file_desc)
+		if (tmp->file_desc == fd)
 		{
 			found = 1;
 			return (tmp);
