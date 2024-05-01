@@ -44,7 +44,7 @@ char *_getline(const int fd)
  * Return: pointer to file in inventory referenced by fd
 */
 
-file_buf *node_locate(file_buff_t **list, int fd)
+file_buff_t *node_locate(file_buff_t **list, int fd)
 {
 	file_buff_t *tmp = *list;
 	size_t found = 0;
