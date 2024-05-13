@@ -18,7 +18,8 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 * All your header files should be include guarded
 * Valgrind should show 0 memory leak and 0 error
 * Unless specified otherwise, your program must have the exact same output as ls as well as the exact same error output - except for alignment.
-* Allowed Functions and System Calls
+
+## Allowed Functions and System Calls
 * opendir (man 3 opendir)
 * readdir (man 3 readdir)
 * closedir (man 3 closedir)
