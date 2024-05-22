@@ -11,69 +11,75 @@
 #include <grp.h>
 #include <pwd.h>
 #include <errno.h>
+#include <limits.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 
 /**
- * struct list_dir - List of the relevant directories
- * @name: name of the directory
- * @next: next directory in list
- * @prev: previous directory in list
+ * struct dir_info - The structure holding the details of the command
+ * @directory: The DIR representing this instance
+ * @path: Location to the directory
+ * @currrent_entry: Pointer to current struct dirent
+ * @stop: Flag to indicate the end of entry
+ * @flag_1: Flag indicating the -1 option
+ * @flag_a: Flag indicating the -a option
+ * @flag_A: Flag indicating the -A option
+ * @flag_l: flag indicating the -l option
 */
 
-typedef struct list_dir
+typedef struct dir_info
 {
-    char *name;
-    struct list_dir *next;
-    struct list_dir *prev;
-} list_dir_t;
+    DIR *directory;
+    const char *path;
+    struct dirent *current_entry;
+    int stop;
+    int flag_1;
+    int flag_a;
+    int flag_A;
+    int flag_l;
+} dir_info_t;
+
+typedef int (*dirent_instruct_t)(dir_info_t *comm_line);
+
+int dir_info_init(dir_info_t *comm_line, const char *path);
+
+struct dirent *dir_info_next(dir_info_t *comm_line);
+
+int dir_info_each(dir_info_t *comm_line, dirent_instruct_t instruct);
+
+void dir_info_clear(dir_info_t *comm_line);
 
 /**
- * struct list_file - list of the relevant files
- * @name: name of the file
- * @next: next file in the list
- * @prev: previous file in the list
+ * dir_long - Formating for the long listing option
+ * @mode: Permissions data
+ * @nlinks: The nlink object
+ * @user: The user ID
+ * @group: The group ID
+ * @size: The size of the entry
+ * @mod: Modified date
+ * @name: The name of the directory
 */
 
-typedef struct list_file
+typedef struct dir_long
 {
-    char *name;
-    struct list_file *next;
-    struct list_file *prev;
-} list_file_t;
-
-/**
- * struct comm_info - The structure holding the details of the command
- * @my_argc: Nmber of arguments after the executable
- * @dir_c: Number of directories to look at
- * @dir_l: list of the directories to be examined
- * @file_c: Number of files to be shown
- * @file_l: list of files
- * @flags: Optional flags to be included
-*/
-
-typedef struct comm_info
-{
-    int my_argc;
-    int dir_c;
-    list_dir_t *list_dir;
-    int file_c;
-    list_file_t *list_file;
-    int flags;
-} comm_info_t;
-
-typedef struct comm_ordered
-{
-    char *name;
-    int is_dir;
-    mode_t mode;
-    nlink_t links;
-    uid_t owner_id;
-    gid_t owner_gp;
+    char mode[16];
+    nlink_t nlinks;
+    const char *user;
+    const char *group;
     off_t size;
-    time_t mtime;
-    struct comm_ordered *next;
-    struct comm_ordered *prev;
-} comm_o;
+    const char *mod;
+    const char *name;
+} dir_long_t;
+
+const char *dirent_type_name(unsigned char d_type);
+
+const char *path_join(const char *dir_path, const char *dir_name);
+int mode_to_str(char *buf, mode_t mode);
+
+int dir_long_init(dir_long_t *long_data,
+                  const char *dir_name,
+                  struct stat *stat_buff);
+
+void dir_long_print(dir_long_t *long_data);
 
 #endif
