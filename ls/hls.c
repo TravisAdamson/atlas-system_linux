@@ -69,20 +69,19 @@ int main(const int argc, char **argv)
 {
     dir_info_t comm_line;
     const char *dir_path = NULL;
-    int error_flag = 0;
 
     dir_path = argv[1];
 
     if (argc > 1)
     {
         if (get_flags(argv, argc, &comm_line) == -1)
-            error_flag = 1;
+            return (EXIT_FAILURE);
     }
 
     if (dir_info_init(&comm_line, dir_path) == -1)
     {
         fprintf(stderr,
-                "Failure opening directory '$s'\n",
+                "Failure opening directory '%s'\n",
                 dir_path);
         return (EXIT_FAILURE);
     }

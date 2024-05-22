@@ -63,7 +63,7 @@ int dir_info_each(dir_info_t *comm_line, dirent_instruct_t instruct)
         {
             fprintf(stderr,
                     "Failer opening entry: '%s'\n",
-                    comm_line->current_entry);
+                    comm_line->current_entry->d_name);
         }
 
         ++count_entries;
