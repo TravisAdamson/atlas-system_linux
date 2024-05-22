@@ -5,12 +5,14 @@
 #include <unistd.h>
 #include "hls.h"
 
+#define PATH_MAX 4096
 #define PRINT_TRUE(entry, flag_a) \
         ((entry)->d_name[0] != '.' || (flag_a))
 
 static int get_flags(char **argv, const int argc, dir_info_t *comm_line, char *dir_path)
 {
     int i = 0;
+    char cwd[PATH_MAX];
 
     if (!argv || !comm_line)
         return (-1);
@@ -32,7 +34,17 @@ static int get_flags(char **argv, const int argc, dir_info_t *comm_line, char *d
             }
         }
         else
+        {
             dir_path = argv[i];
+        }
+    }
+
+    if (dir_path == NULL)
+    {
+        if (getcwd(cwd, sizeof(cwd)) != NULL)
+        {
+            dir_path = cwd;
+        }
     }
 
     return (0);
@@ -78,8 +90,10 @@ int main(const int argc, char **argv)
         if (get_flags(argv, argc, &comm_line, &dir_path) == -1)
             return (EXIT_FAILURE);
     }
-
-    dir_path = argv[1];
+    else
+    {
+        getcwd(dir_path, sizeof(dir_path));
+    }
 
     if (dir_info_init(&comm_line, dir_path) == -1)
     {
