@@ -87,7 +87,7 @@ int main(const int argc, char **argv)
 
     if (argc > 1)
     {
-        if (get_flags(argv, argc, &comm_line, &dir_path) == -1)
+        if (get_flags(argv, argc, &comm_line, dir_path) == -1)
             return (EXIT_FAILURE);
     }
     else
