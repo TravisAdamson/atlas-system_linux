@@ -28,14 +28,14 @@
 
 typedef struct dir_info
 {
-    DIR *directory;
-    const char *path;
-    struct dirent *current_entry;
-    int stop;
-    int flag_1;
-    int flag_a;
-    int flag_A;
-    int flag_l;
+	DIR *directory;
+	const char *path;
+	struct dirent *current_entry;
+	int stop;
+	int flag_1;
+	int flag_a;
+	int flag_A;
+	int flag_l;
 } dir_info_t;
 
 typedef int (*dirent_instruct_t)(dir_info_t *comm_line);
@@ -61,13 +61,13 @@ void dir_info_clear(dir_info_t *comm_line);
 
 typedef struct dir_long
 {
-    char mode[16];
-    nlink_t nlinks;
-    const char *user;
-    const char *group;
-    off_t size;
-    const char *mod;
-    const char *name;
+	char mode[16];
+	nlink_t nlinks;
+	const char *user;
+	const char *group;
+	off_t size;
+	const char *mod;
+	const char *name;
 } dir_long_t;
 
 const char *dirent_type_name(unsigned char d_type);
@@ -76,8 +76,8 @@ const char *path_join(const char *dir_path, const char *dir_name);
 int mode_to_str(char *buf, mode_t mode);
 
 int dir_long_init(dir_long_t *long_data,
-                  const char *dir_name,
-                  struct stat *stat_buff);
+				  const char *dir_name,
+				  struct stat *stat_buff);
 
 void dir_long_print(dir_long_t *long_data);
 
