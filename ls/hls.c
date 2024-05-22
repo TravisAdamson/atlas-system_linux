@@ -12,7 +12,6 @@
 static int get_flags(char **argv, const int argc, dir_info_t *comm_line, char *dir_path)
 {
     int i = 0;
-    char cwd[PATH_MAX];
 
     if (!argv || !comm_line)
         return (-1);
