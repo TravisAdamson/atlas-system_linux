@@ -9,6 +9,15 @@
 #define PRINT_TRUE(entry, flag_a) \
 		((entry)->d_name[0] != '.' || (flag_a))
 
+/**
+ * get_flags - set flags based on given option
+ * @argv: The arguments from the command line
+ * @argc: The number of arguments given
+ * @comm_line: struct holding dir_info data
+ * @dir_path: The path for the current directory
+ * Return: 0 for success, -1 for failure
+*/
+
 static int get_flags(char **argv,
 					 const int argc,
 					 dir_info_t *comm_line,
@@ -49,6 +58,12 @@ static int get_flags(char **argv,
 	return (0);
 }
 
+/**
+ * print_data - Print the resulting ls data
+ * @comm_line: struct holding dir_info data
+ * Return: 0 for success, -1 for failure
+*/
+
 static int print_data(dir_info_t *comm_line)
 {
 	struct stat stat_buff;
@@ -78,6 +93,13 @@ static int print_data(dir_info_t *comm_line)
 		return (0);
 	};
 }
+
+/**
+ * main - Process the hls command start to finish
+ * @argc: The number of given arguments
+ * @argv: The array holding the given arguments
+ * Return: EXIT_SUCCESS on success, EXIT_FAILURE on failure
+*/
 
 int main(const int argc, char **argv)
 {

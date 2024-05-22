@@ -6,6 +6,13 @@
 #include <string.h>
 #include "hls.h"
 
+/**
+ * dir_info_init - Initialize the dir_info struct
+ * @comm_line: struct holding dir_info data
+ * @path: the path to be listed
+ * Return: 0 for success, -1 for failure
+*/
+
 int dir_info_init(dir_info_t *comm_line, const char *path)
 {
 	DIR *dir = NULL;
@@ -30,6 +37,12 @@ int dir_info_init(dir_info_t *comm_line, const char *path)
 	return (0);
 }
 
+/**
+ * dir_info_next - Move through the given entries
+ * @comm_line: struct holding dir_info data
+ * Return: dirent struct for the next entry
+*/
+
 struct dirent *dir_info_next(dir_info_t *comm_line)
 {
 	struct dirent *next_entry = NULL;
@@ -52,6 +65,13 @@ struct dirent *dir_info_next(dir_info_t *comm_line)
 	return (next_entry);
 }
 
+/**
+ * dir_info_each - Process the instruction on each entry
+ * @comm_line: struct holding dir_info data
+ * @instruct: Function pointer to act on each entry
+ * Return: 0 for success, -1 for failure
+*/
+
 int dir_info_each(dir_info_t *comm_line, dirent_instruct_t instruct)
 {
 	int count_entries = 0;
@@ -71,6 +91,11 @@ int dir_info_each(dir_info_t *comm_line, dirent_instruct_t instruct)
 
 	return (count_entries);
 }
+
+/**
+ * dir_info_clear - Close the given directory
+ * @comm_line: struct holding dir_info data
+*/
 
 void dir_info_clear(dir_info_t *comm_line)
 {
