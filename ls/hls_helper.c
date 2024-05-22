@@ -95,10 +95,11 @@ int mode_to_str(char *buf, mode_t mode)
 }
 
 /**
+ * struct stat - The struct holding the stat data
  * dir_long_init - Initialize the dir_long_t struct for -l option
  * @long_data: struct to load the long listing values for printing
  * @entry_name: The name of the current entry
- * @stat: The struct with the stat information to use
+ * @stat_buff: The struct with the stat information to use
  * Return: 0 for success, -1 for failure
 */
 
