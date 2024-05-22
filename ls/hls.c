@@ -10,7 +10,7 @@
 
 static int get_flags(char **argv, const int argc, dir_info_t *comm_line)
 {
-    int i = 0, error_flag = 0;
+    int i = 0;
 
     if (!argv || !comm_line)
         return (-1);
@@ -57,12 +57,13 @@ static int print_data(dir_info_t *comm_line)
         
         dir_long_init(&long_data, entry_name, &stat_buff);
         dir_long_print(&long_data);
+        return (0);
     }
     else
     {
         printf("%s ", comm_line->current_entry->d_name);
-        return(0);
-    }
+        return (0);
+    };
 }
 
 int main(const int argc, char **argv)
