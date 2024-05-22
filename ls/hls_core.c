@@ -8,7 +8,7 @@
 
 int dir_info_init(dir_info_t *comm_line, const char *path)
 {
-    DIR *dir = NULL;
+	DIR *dir = NULL;
 
 	if (!comm_line || !path)
 		return (-1);

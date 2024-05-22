@@ -23,23 +23,24 @@ static char FTYPE_ALPHAMAP[16] = {
 
 const char *dirent_type_name(unsigned char d_type)
 {
-	switch (d_type) {
+	switch (d_type)
+	{
 	case DT_BLK:
-		return "block_device";
+		return ("block_device");
 	case DT_CHR:
-		return "character_device";
+		return ("character_device");
 	case DT_DIR:
-		return "directory";
+		return ("directory");
 	case DT_FIFO:
-		return "named_pipe";
+		return ("named_pipe");
 	case DT_LNK:
-		return "symbolic_link";
+		return ("symbolic_link");
 	case DT_REG:
-		return "file";
+		return ("file");
 	case DT_SOCK:
-		return "socket";
+		return ("socket");
 	default:
-		return "unknown";
+		return ("unknown");
 	}
 }
 
@@ -74,40 +75,40 @@ int mode_to_str(char *buf, mode_t mode)
 }
 
 int dir_long_init(dir_long_t *long_data,
-                  const char *entry_name,
-                  struct stat *stat_buff)
+				  const char *entry_name,
+				  struct stat *stat_buff)
 {
-    struct passwd *pwd = NULL;
-    struct group *group = NULL;
+	struct passwd *pwd = NULL;
+	struct group *group = NULL;
 
-    mode_to_str(long_data->mode, stat_buff->st_mode);
-    long_data->nlinks = stat_buff->st_nlink;
+	mode_to_str(long_data->mode, stat_buff->st_mode);
+	long_data->nlinks = stat_buff->st_nlink;
 
-    pwd = getpwuid(stat_buff->st_uid);
-    group = getgrgid(stat_buff->st_gid);
+	pwd = getpwuid(stat_buff->st_uid);
+	group = getgrgid(stat_buff->st_gid);
 
-    if (!pwd || !group)
-        return (-1);
-    
-    long_data->user = pwd->pw_name;
-    long_data->group = group->gr_name;
-    long_data->size = stat_buff->st_size;
-    long_data->mod = ctime(&(stat_buff->st_mtime));
-    long_data->name = entry_name;
+	if (!pwd || !group)
+		return (-1);
 
-    return (0);
+	long_data->user = pwd->pw_name;
+	long_data->group = group->gr_name;
+	long_data->size = stat_buff->st_size;
+	long_data->mod = ctime(&(stat_buff->st_mtime));
+	long_data->name = entry_name;
+
+	return (0);
 }
 
 void dir_long_print(dir_long_t *long_data)
 {
-    printf("%s %lu %s %s %-4lu %.*s %s\n",
-           long_data->mode,
-           long_data->nlinks,
-           long_data->user,
-           long_data->group,
-           long_data->size,
-           (int)strlen(long_data->mod) - 1,
-           long_data->mod,
-           long_data->name
-    );
+	printf("%s %lu %s %s %-4lu %.*s %s\n",
+		   long_data->mode,
+		   long_data->nlinks,
+		   long_data->user,
+		   long_data->group,
+		   long_data->size,
+		   (int)strlen(long_data->mod) - 1,
+		   long_data->mod,
+		   long_data->name
+	);
 }
