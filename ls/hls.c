@@ -83,7 +83,7 @@ static int print_data(dir_info_t *comm_line)
 int main(const int argc, char **argv)
 {
     dir_info_t comm_line;
-    const char *dir_path = NULL;
+    char *dir_path = NULL;
 
     if (argc > 1)
     {
