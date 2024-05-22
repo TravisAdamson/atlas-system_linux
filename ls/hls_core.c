@@ -78,5 +78,4 @@ void dir_info_clear(dir_info_t *comm_line)
 		return;
 
 	closedir(comm_line->directory);
-	memset(comm_line, 0, sizeof(*comm_line));
 }
