@@ -119,16 +119,18 @@ int main(const int argc, char **argv)
 	if (dir_info_init(&comm_line, dir_path) == -1)
 	{
 		fprintf(stderr,
-				"Failure opening directory '%s'\n",
-				dir_path);
+				"%s: cannot open directory %s: Permission denied\n",
+				dir_path, comm_line.current_entry->d_name
+		);
 		return (EXIT_FAILURE);
 	}
 
 	if (dir_info_each(&comm_line, print_data) == -1)
 	{
 		fprintf(stderr,
-				"Error parsing directory '%s'\n",
-				dir_path);
+				"%s: cannot open directory %s: Permission denied\n",
+				dir_path, comm_line.current_entry->d_name
+		);
 		return (EXIT_FAILURE);
 	}
 
