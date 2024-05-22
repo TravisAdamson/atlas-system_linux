@@ -71,13 +71,13 @@ int main(const int argc, char **argv)
     dir_info_t comm_line;
     const char *dir_path = NULL;
 
-    dir_path = argv[1];
-
     if (argc > 1)
     {
         if (get_flags(argv, argc, &comm_line) == -1)
             return (EXIT_FAILURE);
     }
+
+    dir_path = argv[1];
 
     if (dir_info_init(&comm_line, dir_path) == -1)
     {

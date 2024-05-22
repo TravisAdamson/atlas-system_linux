@@ -10,7 +10,9 @@
 #include <dirent.h>
 #include "hls.h"
 
-static char PATH_BUFF[4096];
+#define PATH_MAX 4096
+
+static char PATH_BUFF[PATH_MAX];
 static char PERMS_ALPHAMAP[3] = { 'r', 'w', 'x' };
 static char FTYPE_ALPHAMAP[16] = {
 	'?', 'p', 'c', '?',
@@ -43,7 +45,7 @@ const char *dirent_type_name(unsigned char d_type)
 
 const char *path_join(const char *dirpath, const char *entry_name)
 {
-	snprintf(PATH_BUFF, 4096, "%s/%s", dirpath, entry_name);
+	snprintf(PATH_BUFF, PATH_MAX, "%s/%s", dirpath, entry_name);
 	return (PATH_BUFF);
 }
 

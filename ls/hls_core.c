@@ -40,7 +40,9 @@ struct dirent *dir_info_next(dir_info_t *comm_line)
     next_entry = readdir(comm_line->directory);
 
     if (next_entry)
+    {
         comm_line->current_entry = next_entry;
+    }
     else
     {
         comm_line->stop = 1;
@@ -61,9 +63,7 @@ int dir_info_each(dir_info_t *comm_line, dirent_instruct_t instruct)
     {
         if (instruct(comm_line) == -1)
         {
-            fprintf(stderr,
-                    "Failer opening entry: '%s'\n",
-                    comm_line->current_entry->d_name);
+            ;
         }
 
         ++count_entries;

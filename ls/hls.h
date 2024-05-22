@@ -1,7 +1,6 @@
 #ifndef _HSL_H_
 #define _HSL_H_
 
-#define READ_SIZE 1024
 
 #include <stdio.h>
 #include <stdlib.h>
