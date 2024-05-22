@@ -41,10 +41,7 @@ static int get_flags(char **argv, const int argc, dir_info_t *comm_line, char *d
 
     if (dir_path == NULL)
     {
-        if (getcwd(cwd, sizeof(cwd)) != NULL)
-        {
-            dir_path = cwd;
-        }
+        dir_path = ".";
     }
 
     return (0);
@@ -92,7 +89,7 @@ int main(const int argc, char **argv)
     }
     else
     {
-        getcwd(dir_path, sizeof(dir_path));
+        dir_path = ".";
     }
 
     if (dir_info_init(&comm_line, dir_path) == -1)
