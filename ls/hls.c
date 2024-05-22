@@ -8,7 +8,7 @@
 #define PRINT_TRUE(entry, flag_a) \
         ((entry)->d_name[0] != '.' || (flag_a))
 
-static int get_flags(char **argv, const int argc, dir_info_t *comm_line)
+static int get_flags(char **argv, const int argc, dir_info_t *comm_line, char *dir_path)
 {
     int i = 0;
 
@@ -31,6 +31,8 @@ static int get_flags(char **argv, const int argc, dir_info_t *comm_line)
                     comm_line->flag_l = 1;
             }
         }
+        else
+            dir_path = argv[i];
     }
 
     return (0);
@@ -73,7 +75,7 @@ int main(const int argc, char **argv)
 
     if (argc > 1)
     {
-        if (get_flags(argv, argc, &comm_line) == -1)
+        if (get_flags(argv, argc, &comm_line, &dir_path) == -1)
             return (EXIT_FAILURE);
     }
 
