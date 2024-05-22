@@ -120,7 +120,7 @@ int main(const int argc, char **argv)
 	{
 		fprintf(stderr,
 				"%s: cannot open directory %s: Permission denied\n",
-				dir_path, comm_line.current_entry->d_name
+				argv[0], argv[1]
 		);
 		return (EXIT_FAILURE);
 	}
@@ -129,7 +129,7 @@ int main(const int argc, char **argv)
 	{
 		fprintf(stderr,
 				"%s: cannot open directory %s: Permission denied\n",
-				dir_path, comm_line.current_entry->d_name
+				argv[0], argv[1]
 		);
 		return (EXIT_FAILURE);
 	}
