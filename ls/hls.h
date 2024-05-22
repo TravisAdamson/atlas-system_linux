@@ -40,6 +40,8 @@ typedef struct dir_info
 
 typedef int (*dirent_instruct_t)(dir_info_t *comm_line);
 
+typedef struct stat stat_t;
+
 int dir_info_init(dir_info_t *comm_line, const char *path);
 
 struct dirent *dir_info_next(dir_info_t *comm_line);

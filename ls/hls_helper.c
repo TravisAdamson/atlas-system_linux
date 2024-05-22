@@ -95,7 +95,6 @@ int mode_to_str(char *buf, mode_t mode)
 }
 
 /**
- * struct stat - The struct holding the stat data
  * dir_long_init - Initialize the dir_long_t struct for -l option
  * @long_data: struct to load the long listing values for printing
  * @entry_name: The name of the current entry
@@ -105,7 +104,7 @@ int mode_to_str(char *buf, mode_t mode)
 
 int dir_long_init(dir_long_t *long_data,
 				  const char *entry_name,
-				  struct stat *stat_buff)
+				  stat_t *stat_buff)
 {
 	struct passwd *pwd = NULL;
 	struct group *group = NULL;
