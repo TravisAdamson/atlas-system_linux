@@ -15,14 +15,16 @@
  * @argv: The arguments from the command line
  * @argc: The number of arguments given
  * @comm_line: struct holding dir_info data
- * @dir_path: The path for the current directory
+ * @files: Store list of non options
+ * @nfiles: The number of files found
  * Return: 0 for success, -1 for failure
 */
 
 static int get_flags(char **argv,
 					 const int argc,
 					 dir_info_t *comm_line,
-					 char *dir_path)
+					 char *files,
+					 int nfiles)
 {
 	int i = 1;
 
@@ -47,18 +49,14 @@ static int get_flags(char **argv,
 		}
 		else
 		{
-			dir_path = argv[i];
+			files[nfiles++] = argv[i];
 		}
 	}
 
-	if (dir_path == NULL)
-	{
-		dir_path = ".";
-	}
+	if (nfiles == 0)
+		files[nfiles++] = ".";
 
-	comm_line->path = dir_path;
-
-	return (0);
+	return (nfiles);
 }
 
 /**
@@ -108,52 +106,26 @@ int main(const int argc, char **argv)
 {
 	dir_info_t comm_line;
 	char *dir_path = NULL;
+	char *files[16] = { NULL };
+	int nfiles = 0, i = 0;
 
-	if (argc == 2)
+	nfiles = get_flags(argv, argc, &comm_line, files, nfiles);
+
+	for (; i != nfiles; i++)
 	{
-		if (argv[1][0] == '-')
+		if (dir_info_init(&comm_line, files[i]) == -1)
 		{
-			if (get_flags(argv, argc, &comm_line, dir_path) == -1)
-			{
-				if (dir_path == NULL)
-					dir_path = ".";
-				print_error(argv[0], dir_path, errno); 
-				return (EXIT_FAILURE);
-			}
+			print_error(argv[0], files[i], errno);
+			return (EXIT_FAILURE);
 		}
-		else
+
+		if (dir_info_each(&comm_line, print_data) == -1)
 		{
-			dir_path = argv[1];
-		}
-	}
-	else if (argc > 2)
-	{
-		if (get_flags(argv, argc, &comm_line, dir_path) == -1)
-		{
-			if (dir_path == NULL)
-				dir_path = ".";
-			print_error(argv[0], dir_path, errno);
+			print_error(argv[0], files[i], errno);
 			return (EXIT_FAILURE);
 		}
 	}
-	else
-	{
-		dir_path = ".";
-	}
-
-	if (dir_info_init(&comm_line, dir_path) == -1)
-	{
-		print_error(argv[0], dir_path, errno);
-		return (EXIT_FAILURE);
-	}
-
-	if (dir_info_each(&comm_line, print_data) == -1)
-	{
-		print_error(argv[0], dir_path, errno);
-		return (EXIT_FAILURE);
-	}
 
 	dir_info_clear(&comm_line);
-
 	return (0);
 }
