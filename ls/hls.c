@@ -127,7 +127,7 @@ int main(const int argc, char **argv)
 			return (EXIT_FAILURE);
 		}
 		if (i + 1 != nfiles)
-			puts("\n");
+			putchar('\n');
 	}
 
 	dir_info_clear(&comm_line);
