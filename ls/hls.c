@@ -118,6 +118,8 @@ int main(const int argc, char **argv)
 			return (EXIT_FAILURE);
 		}
 
+		printf("%s:\n", files[nfiles]);
+
 		if (dir_info_each(&comm_line, print_data) == -1)
 		{
 			print_error(argv[0], files[i], errno);
