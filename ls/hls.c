@@ -127,7 +127,7 @@ int main(const int argc, char **argv)
 			return (EXIT_FAILURE);
 		}
 
-		printf("\n");
+		printf("\n\n");
 	}
 
 	dir_info_clear(&comm_line);
