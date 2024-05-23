@@ -56,6 +56,8 @@ static int get_flags(char **argv,
 		dir_path = ".";
 	}
 
+	printf("%s\n", dir_path);
+
 	return (0);
 }
 
