@@ -141,7 +141,7 @@ int main(const int argc, char **argv)
 		dir_path = ".";
 	}
 
-	if (dir_info_init(&comm_line, comm_line.path) == -1)
+	if (dir_info_init(&comm_line, dir_path) == -1)
 	{
 		print_error(argv[0], dir_path, errno);
 		return (EXIT_FAILURE);
