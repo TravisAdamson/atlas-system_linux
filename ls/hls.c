@@ -76,8 +76,6 @@ static int print_data(dir_info_t *comm_line)
 	if (!PRINT_TRUE(comm_line->current_entry, comm_line->flag_a))
 		return (0);
 
-	printf("%s:\n", comm_line->current_entry->d_name);
-	
 	if (comm_line->flag_l)
 	{
 		entry_name = comm_line->current_entry->d_name;
