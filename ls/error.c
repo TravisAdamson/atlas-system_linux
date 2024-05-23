@@ -7,7 +7,7 @@
  * @errno: The errno being returned from call
 */
 
-void print_error(const char* prog, const char* file, int error)
+void print_error(const char *prog, const char *file, int error)
 {
 	if (error == 2)
 		fprintf(
