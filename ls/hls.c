@@ -23,7 +23,7 @@
 static int get_flags(char **argv,
 					 const int argc,
 					 dir_info_t *comm_line,
-					 char *files,
+					 char **files,
 					 int nfiles)
 {
 	int i = 1;
@@ -108,7 +108,7 @@ int main(const int argc, char **argv)
 	char *files[16] = { NULL };
 	int nfiles = 0, i = 0;
 
-	nfiles = get_flags(argv, argc, &comm_line, &files, nfiles);
+	nfiles = get_flags(argv, argc, &comm_line, files, nfiles);
 
 	for (; i != nfiles; i++)
 	{

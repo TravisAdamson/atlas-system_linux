@@ -83,6 +83,6 @@ int dir_long_init(dir_long_t *long_data,
 
 void dir_long_print(dir_long_t *long_data);
 
-void print_error(const char *prog, const char *file, int error);
+void print_error(const char *prog, const char *file_name, int error);
 
 #endif
