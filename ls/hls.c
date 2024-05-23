@@ -23,12 +23,12 @@ static int get_flags(char **argv,
 					 dir_info_t *comm_line,
 					 char *dir_path)
 {
-	int i = 0;
+	int i = 1;
 
 	if (!argv || !comm_line)
 		return (-1);
 
-	for (; i != argc - 1; i++)
+	for (; i != argc; i++)
 	{
 		if (argv[i][0] == '-')
 		{
