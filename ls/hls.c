@@ -90,7 +90,7 @@ static int print_data(dir_info_t *comm_line)
 	}
 	else
 	{
-		printf("%s ", comm_line->current_entry->d_name);
+		printf("%s \n", comm_line->current_entry->d_name);
 		return (0);
 	};
 }
@@ -118,6 +118,8 @@ int main(const int argc, char **argv)
 			return (EXIT_FAILURE);
 		}
 
+		if (i > 0)
+			printf("\n");
 		if (nfiles > 1)
 			printf("%s:\n", files[i]);
 
@@ -126,8 +128,8 @@ int main(const int argc, char **argv)
 			print_error(argv[0], files[i], errno);
 			return (EXIT_FAILURE);
 		}
-		if (i + 1 != nfiles)
-			putchar('\n');
+
+		
 	}
 
 	dir_info_clear(&comm_line);
