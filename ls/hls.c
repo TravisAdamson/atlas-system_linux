@@ -128,7 +128,7 @@ int main(const int argc, char **argv)
 	if (dir_info_each(&comm_line, print_data) == -1)
 	{
 		fprintf(stderr,
-				"%s: cannot open directory %s: Permission denied\n",
+				"%s: cannot access %s: No such file or directory\n",
 				argv[0], argv[1]
 		);
 		return (EXIT_FAILURE);
