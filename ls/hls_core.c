@@ -24,7 +24,6 @@ int dir_info_init(dir_info_t *comm_line, const char *path)
 
 	if (!dir)
 	{
-		printf("This got here");
 		return (-1);
 	}
 
