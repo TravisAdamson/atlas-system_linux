@@ -74,12 +74,12 @@ typedef struct dir_long
 
 const char *dirent_type_name(unsigned char d_type);
 
-const char *path_join(const char *dir_path, const char *dir_name);
+const char *path_join(const char *dir_path, const char *entry_name);
 int mode_to_str(char *buf, mode_t mode);
 
 int dir_long_init(dir_long_t *long_data,
-				  const char *dir_name,
-				  struct stat *stat_buff);
+				  const char *entry_name,
+				  stat_t *stat_buff);
 
 void dir_long_print(dir_long_t *long_data);
 
