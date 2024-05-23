@@ -126,7 +126,8 @@ int main(const int argc, char **argv)
 			print_error(argv[0], files[i], errno);
 			return (EXIT_FAILURE);
 		}
-
+		if (i + 1 != nfiles)
+			printf("\n");
 	}
 
 	dir_info_clear(&comm_line);
