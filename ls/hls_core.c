@@ -23,7 +23,10 @@ int dir_info_init(dir_info_t *comm_line, const char *path)
 	dir = opendir(path);
 
 	if (!dir)
+	{
+		printf("This got here");
 		return (-1);
+	}
 
 	comm_line->directory = dir;
 	comm_line->path = path;
