@@ -3,6 +3,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <errno.h>
 #include "hls.h"
 
 #define PATH_MAX 4096
@@ -106,10 +107,32 @@ int main(const int argc, char **argv)
 	dir_info_t comm_line;
 	char *dir_path = NULL;
 
-	if (argc > 1)
+	if (argc == 2)
+	{
+		if (argv[1][0] == '-')
+		{
+			if (get_flags(argv, argc, &comm_line, dir_path) == -1)
+			{
+				if (dir_path == NULL)
+					dir_path = ".";
+				print_error(argv[0], dir_path, errno); 
+				return (EXIT_FAILURE);
+			}
+		}
+		else
+		{
+			dir_path = argv[1];
+		}
+	}
+	else if (argc > 2)
 	{
 		if (get_flags(argv, argc, &comm_line, dir_path) == -1)
+		{
+			if (dir_path == NULL)
+				dir_path = ".";
+			print_error(argv[0], dir_path, errno);
 			return (EXIT_FAILURE);
+		}
 	}
 	else
 	{
@@ -118,19 +141,13 @@ int main(const int argc, char **argv)
 
 	if (dir_info_init(&comm_line, dir_path) == -1)
 	{
-		fprintf(stderr,
-				"%s: cannot open directory %s: Permission denied\n",
-				argv[0], argv[1]
-		);
+		print_error(argv[0], dir_path, errno);
 		return (EXIT_FAILURE);
 	}
 
 	if (dir_info_each(&comm_line, print_data) == -1)
 	{
-		fprintf(stderr,
-				"%s: cannot access %s: No such file or directory\n",
-				argv[0], argv[1]
-		);
+		print_error(argv[0], dir_path, errno);
 		return (EXIT_FAILURE);
 	}
 
