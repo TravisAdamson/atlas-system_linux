@@ -105,11 +105,10 @@ static int print_data(dir_info_t *comm_line)
 int main(const int argc, char **argv)
 {
 	dir_info_t comm_line;
-	char *dir_path = NULL;
 	char *files[16] = { NULL };
 	int nfiles = 0, i = 0;
 
-	nfiles = get_flags(argv, argc, &comm_line, files, nfiles);
+	nfiles = get_flags(argv, argc, &comm_line, &files, nfiles);
 
 	for (; i != nfiles; i++)
 	{
