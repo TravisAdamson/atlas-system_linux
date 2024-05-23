@@ -118,7 +118,7 @@ int main(const int argc, char **argv)
 			return (EXIT_FAILURE);
 		}
 
-		if (i > 0)
+		if (i > 0 && nfiles > 1)
 			printf("\n");
 		if (nfiles > 1)
 			printf("%s:\n", files[i]);
