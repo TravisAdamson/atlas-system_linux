@@ -6,7 +6,7 @@ Python - /proc filesystem - task 0. Hack the VM
 another.
 """
 
-from sys import argv, exit
+from sys import argv
 
 
 def read_write_heap(pid, get_str, give_str):
