@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+"""
+Python - /proc filesystem - task 0. Hack the VM
+
+    Searches the heap of a process for a given string and replaces it with
+another.
+"""
 
 from sys import argv, exit
 
