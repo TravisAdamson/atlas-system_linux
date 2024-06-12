@@ -3,6 +3,15 @@
 from sys import argv, exit
 
 def read_write_heap(pid, get_str, give_str):
+    """
+    Search the heap from `pid` for `get_str` and replace
+    it with `give_str`.
+
+    Args:
+        pid (int): process id of currently ongoing process' heap to search
+        get_str (str): string to search for in heap
+        give_str (str): string to replace `read_str` with
+    """
 
     flag = False
     try:
