@@ -8,6 +8,7 @@ another.
 
 from sys import argv, exit
 
+
 def read_write_heap(pid, get_str, give_str):
     """
     Search the heap from `pid` for `get_str` and replace
