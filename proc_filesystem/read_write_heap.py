@@ -69,8 +69,12 @@ def read_write_heap(pid, get_str, give_str):
                          "\tinode = {}".format(current_heap[4]))))
 
     addr_locate = current_heap[0].split('-')
-    print("[*] Addresses start [{}] | end [{}]".format(addr_locate[0].lstrip('0'),
-                                                       addr_locate[1].lstrip('0')))
+    print(
+        "[*] Addresses start [{}] | end [{}]".format(
+            addr_locate[0].lstrip('0'), 
+            addr_locate[1].lstrip('0')
+        )
+    )
 
     perms = current_heap[1]
     if 'r' not in perms:
