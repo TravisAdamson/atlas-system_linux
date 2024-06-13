@@ -29,50 +29,50 @@ def read_write_heap(pid, get_str, give_str):
         flag = True
 
     if flag:
-        print("Missing or invalid pid!")
-        print("Usage: read_write_heap(pid, read_str, write_str)")
+        print("Bad or missing PID")
+        print("Usage: read_write_heap(pid, get_str, give_str)")
         exit(1)
 
     if type(get_str) != str or get_str == "":
-        print("Missing or invalid read string!")
-        print("Usage: read_write_heap(pid, read_str, write_str)")
+        print("Bad or missing string to find")
+        print("Usage: read_write_heap(pid, get_str, give_str)")
         exit(1)
 
     if type(give_str) != str:
-        print("Invalid write string!")
-        print("Usage: read_write_heap(pid, read_str, write_str)")
+        print("Missing string to insert")
+        print("Usage: read_write_heap(pid, get_str, give_str)")
         exit(1)
 
     try:
-        maps = open("/proc/{}/maps".format(pid), 'r')
+        map_file = open("/proc/{}/maps".format(pid), 'r')
     except OSError as error:
         print("Can't open file /proc/{}/maps: OSError: {}".format(pid, error))
         exit(1)
     print("[*] maps: /proc/{}/maps".format(pid))
     print("[*] mem: /proc/{}/mem".format(pid))
 
-    heap_data = None
-    for line in maps:
+    current_heap = None
+    for line in map_file:
         if "heap" in line:
-            heap_data = line.split()
-    maps.close()
+            current_heap = line.split()
+    map_file.close()
 
-    if heap_data is None:
+    if current_heap is None:
         print("No heap found!")
         exit(1)
     else:
-        print('\n'.join(("[*] Found: {}:".format(heap_data[-1]),
-                         "\tpathname = {}".format(heap_data[-1]),
-                         "\taddress range = {}".format(heap_data[0]),
-                         "\tpermissions = {}".format(heap_data[1]),
-                         "\toffset (in bytes) = {}".format(heap_data[2]),
-                         "\tinode = {}".format(heap_data[4]))))
+        print('\n'.join(("[*] Found: {}:".format(current_heap[-1]),
+                         "\tpathname = {}".format(current_heap[-1]),
+                         "\taddress range = {}".format(current_heap[0]),
+                         "\tpermissions = {}".format(current_heap[1]),
+                         "\toffset (in bytes) = {}".format(current_heap[2]),
+                         "\tinode = {}".format(current_heap[4]))))
 
-    addr = heap_data[0].split('-')
-    print("[*] Addresses start [{}] | end [{}]".format(addr[0].lstrip('0'),
-                                                       addr[1].lstrip('0')))
+    addr_locate = current_heap[0].split('-')
+    print("[*] Addresses start [{}] | end [{}]".format(addr_locate[0].lstrip('0'),
+                                                       addr_locate[1].lstrip('0')))
 
-    perms = heap_data[1]
+    perms = current_heap[1]
     if 'r' not in perms:
         print("Heap does not have read permission")
         exit(0)
@@ -86,8 +86,8 @@ def read_write_heap(pid, get_str, give_str):
         print("Can't open file /proc/{}/maps: OSError: {}".format(pid, error))
         exit(1)
 
-    heap_start = int(addr[0], 16)
-    heap_end = int(addr[1], 16)
+    heap_start = int(addr_locate[0], 16)
+    heap_end = int(addr_locate[1], 16)
     mem.seek(heap_start)
     heap = mem.read(heap_end - heap_start)
     str_offset = heap.find(bytes(get_str, "ASCII"))
