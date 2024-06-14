@@ -1,7 +1,7 @@
-# Learning Objectives
+## Learning Objectives
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
-## General
+# General
 
 * What is the ELF format
 * What kind of files are in the ELF format
@@ -11,9 +11,9 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 * What information are present in the program header table
 * How to parse an ELF file using C structures
 
-## Requirements
+# Requirements
 
-# General
+## General
 
 * Allowed editors: vi, vim, emacs
 * All your files will be compiled on Ubuntu 14.04 LTS
@@ -24,7 +24,7 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 * You are not allowed to have more than 5 functions per file
 * All your header files should be include guarded
 
-# Betty Compliance
+## Betty Compliance
 
 * All the C source files in your directory and subdirectories must be Betty-compliant
 * Allowed Functions and System Calls
@@ -32,13 +32,13 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 * You’re not allowed to use system(3)
 * You’re not allowed to use exec*(2 and 3)
 
-# Compilation
+## Compilation
 
 * You have to provide a Makefile in order to compile each task
 * Make sure each task compiles on Ubuntu 14.04 LTS, with gcc 4.8.4
 * You must compile each task using the flags -Wall -Werror -Wextra and -pedantic
 
-# Tests
+## Tests
 
 * Your program must be able to handle both 32-bit and 64-bit ELF files
 * Your program must be able to handle both little and big endian ELF files
