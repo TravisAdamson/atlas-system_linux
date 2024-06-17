@@ -91,7 +91,7 @@ void print_head_32(Elf32_Ehdr *e_hdr)
 void print_head_64(Elf64_Ehdr *e_hdr)
 {
 	int i = 0;
-	
+
 	printf("ELF Header:\n");
 	printf(" Magic:   ");
 	for (i = 0; i < EI_NIDENT; i++)
