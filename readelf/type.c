@@ -2,7 +2,7 @@
 
 void print_type_64(Elf64_Ehdr *e_hdr)
 {
-    switch (e_hdr->e_type)
+	switch (e_hdr->e_type)
 	{
 		case ET_REL:
 			printf("A relocatable file\n");
@@ -24,7 +24,7 @@ void print_type_64(Elf64_Ehdr *e_hdr)
 
 void print_type_32(Elf32_Ehdr *e_hdr)
 {
-    switch (e_hdr->e_type)
+	switch (e_hdr->e_type)
 	{
 		case ET_REL:
 			printf("A relocatable file\n");

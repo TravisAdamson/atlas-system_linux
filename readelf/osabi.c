@@ -2,7 +2,7 @@
 
 void print_osabi_64(Elf64_Ehdr *e_hdr)
 {
-    switch (e_hdr->e_ident[EI_OSABI])
+	switch (e_hdr->e_ident[EI_OSABI])
 	{
 		case ELFOSABI_SYSV:
 			printf("UNIX - System V\n");
@@ -42,7 +42,7 @@ void print_osabi_64(Elf64_Ehdr *e_hdr)
 
 void print_osabi_32(Elf32_Ehdr *e_hdr)
 {
-    switch (e_hdr->e_ident[EI_OSABI])
+	switch (e_hdr->e_ident[EI_OSABI])
 	{
 		case ELFOSABI_SYSV:
 			printf("UNIX - System V\n");

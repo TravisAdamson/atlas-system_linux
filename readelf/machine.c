@@ -41,7 +41,7 @@ void print_machine_64(Elf64_Ehdr *e_hdr)
 
 void print_machine_64_2(Elf64_Ehdr *e_hdr)
 {
-	switch(e_hdr->e_machine)
+	switch (e_hdr->e_machine)
 	{
 		case EM_PPC64:
 			printf("PowerPC 64-bit\n");
@@ -114,7 +114,7 @@ void print_machine_32(Elf32_Ehdr *e_hdr)
 
 void print_machine_32_2(Elf32_Ehdr *e_hdr)
 {
-	switch(e_hdr->e_machine)
+	switch (e_hdr->e_machine)
 	{
 		case EM_PPC64:
 			printf("PowerPC 64-bit\n");
