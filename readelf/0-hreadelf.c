@@ -24,17 +24,12 @@ int main(int argc, char **argv)
 	fd = open(f_name, O_RDONLY);
 	if (fd == -1)
 		perror("open"), exit(EXIT_FAILURE);
-
 	if (fstat(fd, &file_stat) == -1)
 		perror("fstat"), close(fd), exit(EXIT_FAILURE);
-
 	map_head = mmap(NULL, file_stat.st_size, PROT_READ, MAP_PRIVATE, fd, 0);
-
 	if (map_head == MAP_FAILED)
 		perror("mmap"), close(fd), exit(EXIT_FAILURE);
-
 	e_hdr = (Elf64_Ehdr *)map_head;
-
 	if (e_hdr->e_ident[EI_MAG0] != ELFMAG0 ||
 		e_hdr->e_ident[EI_MAG1] != ELFMAG1 ||
 		e_hdr->e_ident[EI_MAG2] != ELFMAG2 ||
@@ -44,8 +39,6 @@ int main(int argc, char **argv)
 		close(fd);
 		exit(EXIT_FAILURE);
 	}
-
-
 
 	munmap(map_head, file_stat.st_size);
 	close(fd);
