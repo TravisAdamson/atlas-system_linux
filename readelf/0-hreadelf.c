@@ -63,9 +63,11 @@ int main(int argc, char **argv)
 
 void print_head_32(Elf32_Ehdr *e_hdr)
 {
+	int i = 0;
+
 	printf("ELF Header:\n");
 	printf(" Magic:   ");
-	for (int i = 0; i < EI_NIDENT; i++)
+	for (i = 0; i < EI_NIDENT; i++)
 		printf("%02x ", e_hdr->e_ident[i]);
 	printf("\n");
     printf(" %-35s%u\n", "Class:", e_hdr->e_ident[EI_CLASS]);
@@ -95,9 +97,11 @@ void print_head_32(Elf32_Ehdr *e_hdr)
 
 void print_head_64(Elf64_Ehdr *e_hdr)
 {
+	int i = 0;
+	
     printf("ELF Header:\n");
     printf(" Magic:   ");
-    for (int i = 0; i < EI_NIDENT; i++)
+    for (i = 0; i < EI_NIDENT; i++)
         printf("%02x ", e_hdr->e_ident[i]);
     printf("\n");
     printf(" %-35s%u\n", "Class:", e_hdr->e_ident[EI_CLASS]);
