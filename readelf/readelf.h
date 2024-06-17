@@ -11,6 +11,7 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
-void print_head(Elf64_Ehdr *e_hdr);
+void print_head_32(Elf32_Ehdr *e_hdr);
+void print_head_64(Elf64_Ehdr *e_hdr);
 
 #endif
