@@ -11,4 +11,6 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
+void print_head(Elf64_Ehdr *e_hdr);
+
 #endif

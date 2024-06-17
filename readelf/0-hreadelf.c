@@ -49,7 +49,7 @@ int main(int argc, char **argv)
 
 /**
  * print_head - Print the elf header
- * @elf_head: mapped header
+ * @e_head: mapped header
 */
 
 void print_head(Elf64_Ehdr *e_hdr)
