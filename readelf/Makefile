@@ -19,4 +19,4 @@ fclean: clean oclean
 re: oclean all
 
 0-hreadelf: 0-hreadelf.c
-	${CC} ${CFLAGS} 0-hreadelf.c readelf.h -o 0-hreadelf
+	${CC} ${CFLAGS} 0-hreadelf.c osabi.c machine.c type.c readelf.h -o 0-hreadelf
