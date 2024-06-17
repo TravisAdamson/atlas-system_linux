@@ -45,6 +45,21 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
+
+
+	munmap(map_head, file_stat.st_size);
+	close(fd);
+
+	return (0);
+}
+
+/**
+ * print_head - Print the elf header
+ * @elf_head: mapped header
+*/
+
+void print_head(void)
+{
 	printf("ELF Header:\n");
 	printf("  Magic: %-25s\n", e_hdr->e_ident);
 	printf("  Class: %-25u\n", e_hdr->e_ident[EI_CLASS]);
@@ -65,9 +80,4 @@ int main(int argc, char **argv)
 	printf("  Size of section headers: %-25u\n", e_hdr->e_shentsize);
 	printf("  Number of section headers: %-25u\n", e_hdr->e_shnum);
 	printf("  Section header string table index: %-25u\n", e_hdr->e_shstrndx);
-
-	munmap(map_head, file_stat.st_size);
-	close(fd);
-
-	return (0);
 }
