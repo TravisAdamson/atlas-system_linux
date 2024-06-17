@@ -17,7 +17,7 @@ void print_osabi_64(Elf64_Ehdr *e_hdr)
 			printf("Linux ABI\n");
 			break;
 		case ELFOSABI_SOLARIS:
-			printf("Solaris ABI\n");
+			printf("UNIX - Solaris\n");
 			break;
 		case ELFOSABI_IRIX:
 			printf("IRIX ABI\n");
@@ -57,7 +57,7 @@ void print_osabi_32(Elf32_Ehdr *e_hdr)
 			printf("Linux ABI\n");
 			break;
 		case ELFOSABI_SOLARIS:
-			printf("Solaris ABI\n");
+			printf("UNIX - Solaris\n");
 			break;
 		case ELFOSABI_IRIX:
 			printf("IRIX ABI\n");

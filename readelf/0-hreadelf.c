@@ -65,9 +65,9 @@ void print_head_32(Elf32_Ehdr *e_hdr)
 	printf("\n");
 	printf(" %-35s%s\n", "Class:", "ELF32");
 	printf(" %-35s%s\n", "Data:",
-		  (e_hdr->e_ident[EI_DATA] == ELFDATA2LSB) ? LE: BE);
+		  (e_hdr->e_ident[EI_DATA] == ELFDATA2LSB) ? LE : BE);
 	printf(" %-35s%s\n", "Version:",
-		  (e_hdr->e_ident[EI_VERSION] == EV_CURRENT) ? "1 (current)": "None");
+		  (e_hdr->e_ident[EI_VERSION] == EV_CURRENT) ? "1 (current)" : "None");
 	printf(" %-35s", "OS/ABI:");
 	print_osabi_32(e_hdr);
 	printf(" %-35s%u\n", "ABI Ver:", e_hdr->e_ident[EI_ABIVERSION]);
@@ -109,9 +109,9 @@ void print_head_64(Elf64_Ehdr *e_hdr)
 	printf("\n");
 	printf(" %-35s%s\n", "Class:", "ELF64");
 	printf(" %-35s%s\n", "Data:",
-		  (e_hdr->e_ident[EI_DATA] == ELFDATA2LSB) ? LE: BE);
+		  (e_hdr->e_ident[EI_DATA] == ELFDATA2LSB) ? LE : BE);
 	printf(" %-35s%s\n", "Version:",
-		  (e_hdr->e_ident[EI_VERSION] == EV_CURRENT) ? "1 (current)": "None");
+		  (e_hdr->e_ident[EI_VERSION] == EV_CURRENT) ? "1 (current)" : "None");
 	printf(" %-35s", "OS/ABI:");
 	print_osabi_64(e_hdr);
 	printf(" %-35s%u\n", "ABI Ver:", e_hdr->e_ident[EI_ABIVERSION]);
