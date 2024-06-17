@@ -40,6 +40,7 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 
+	print_head(e_hdr);
 	munmap(map_head, file_stat.st_size);
 	close(fd);
 
@@ -51,7 +52,7 @@ int main(int argc, char **argv)
  * @elf_head: mapped header
 */
 
-void print_head(void)
+void print_head(Elf64_Ehdr *e_hdr)
 {
 	printf("ELF Header:\n");
 	printf("  Magic: %-25s\n", e_hdr->e_ident);
