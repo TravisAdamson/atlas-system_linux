@@ -21,7 +21,7 @@ void print_osabi_64(Elf64_Ehdr *e_hdr);
 void print_machine_64(Elf64_Ehdr *e_hdr);
 void print_machine_64_2(Elf64_Ehdr *e_hdr);
 void print_machine_32(Elf32_Ehdr *e_hdr);
-void print_machine_32_2(Elf32_Ehdr *e_hdr);
+void print_machine_32_2(unsigned int new_ident);
 void print_osabi_32(Elf32_Ehdr *e_hdr);
 void print_type_32(Elf32_Ehdr *e_hdr);
 void print_type_64(Elf64_Ehdr *e_hdr);

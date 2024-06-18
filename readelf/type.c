@@ -24,7 +24,13 @@ void print_type_64(Elf64_Ehdr *e_hdr)
 
 void print_type_32(Elf32_Ehdr *e_hdr)
 {
-	switch (e_hdr->e_type)
+	unsigned int new_type;
+	
+	if (e_hdr->e_ident[EI_DATA] == ELFDATA2MSB)
+		new_type = __bswap_16(e_hdr->e_type);
+	else
+		new_type = e_hdr->e_type;
+	switch (new_type)
 	{
 		case ET_REL:
 			printf("REL (Relocatable file)\n");

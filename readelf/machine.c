@@ -75,7 +75,13 @@ void print_machine_64_2(Elf64_Ehdr *e_hdr)
 
 void print_machine_32(Elf32_Ehdr *e_hdr)
 {
-	switch (e_hdr->e_machine)
+	unsigned int new_ident;
+	if (e_hdr->e_ident[EI_DATA] == ELFDATA2MSB)
+		new_ident = __bswap_16(e_hdr->e_machine);
+	else
+		new_ident = e_hdr->e_machine;
+
+	switch (new_ident)
 	{
 		case EM_M32:
 			printf("AT&T WE 32100\n");
@@ -108,13 +114,13 @@ void print_machine_32(Elf32_Ehdr *e_hdr)
 			printf("PowerPC\n");
 			break;
 		default:
-			print_machine_32_2(e_hdr);
+			print_machine_32_2(new_ident);
 	};
 }
 
-void print_machine_32_2(Elf32_Ehdr *e_hdr)
+void print_machine_32_2(unsigned int new_ident)
 {
-	switch (e_hdr->e_machine)
+	switch (new_ident)
 	{
 		case EM_PPC64:
 			printf("PowerPC 64-bit\n");
