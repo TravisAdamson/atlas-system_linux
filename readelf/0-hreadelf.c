@@ -90,7 +90,8 @@ void print_head_32(Elf32_Ehdr *e_hdr)
 	printf("  %-35s%u (bytes)\n",
 		   "Size of section headers:", e_hdr->e_shentsize);
 	printf("  %-35s%u\n", "Number of section headers:", e_hdr->e_shnum);
-	printf("  %-35s%u\n", "Section header string table index:", e_hdr->e_shstrndx);
+	printf("  %-35s%u\n",
+		   "Section header string table index:", e_hdr->e_shstrndx);
 }
 
 /**
@@ -134,5 +135,6 @@ void print_head_64(Elf64_Ehdr *e_hdr)
 	printf("  %-35s%u (bytes)\n",
 		   "Size of section headers:", e_hdr->e_shentsize);
 	printf("  %-35s%u\n", "Number of section headers:", e_hdr->e_shnum);
-	printf("  %-35s%u\n", "Section header string table index:", e_hdr->e_shstrndx);
+	printf("  %-35s%u\n",
+		   "Section header string table index:", e_hdr->e_shstrndx);
 }
