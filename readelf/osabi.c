@@ -74,6 +74,9 @@ void print_osabi_32(Elf32_Ehdr *e_hdr)
 		case ELFOSABI_STANDALONE:
 			printf("Stand-alone (embedded) ABI");
 			break;
+		case '6':
+			printf("<unknown: 53>\n");
+			break;
 		default:
 			printf("UNIX - System V\n");
 			break;
