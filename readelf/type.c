@@ -8,7 +8,7 @@ void print_type_64(Elf64_Ehdr *e_hdr)
 			printf("A relocatable file\n");
 			break;
 		case ET_EXEC:
-			printf("An executable file\n");
+			printf("EXEC (Executable file)\n");
 			break;
 		case ET_DYN:
 			printf("A shared object\n");
@@ -30,7 +30,7 @@ void print_type_32(Elf32_Ehdr *e_hdr)
 			printf("A relocatable file\n");
 			break;
 		case ET_EXEC:
-			printf("An executable file\n");
+			printf("EXEC (Executable file)\n");
 			break;
 		case ET_DYN:
 			printf("A shared object\n");
