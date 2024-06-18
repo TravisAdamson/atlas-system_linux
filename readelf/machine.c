@@ -11,7 +11,7 @@ void print_machine_64(Elf64_Ehdr *e_hdr)
 			printf("Sun Microsystems SPARC\n");
 			break;
 		case EM_386:
-			printf("Intel 80386");
+			printf("Intel 80386\n");
 			break;
 		case EM_68K:
 			printf("Motorola 68000\n");
@@ -50,13 +50,13 @@ void print_machine_64_2(Elf64_Ehdr *e_hdr)
 			printf("IBM S/390\n");
 			break;
 		case EM_ARM:
-			printf("Advanced RISC Machines");
+			printf("Advanced RISC Machines\n");
 			break;
 		case EM_SH:
 			printf("Renesas SuperH\n");
 			break;
 		case EM_SPARCV9:
-			printf("SPARC v9 64-bit");
+			printf("SPARC v9 64-bit\n");
 			break;
 		case EM_IA_64:
 			printf("Intel Itanium\n");
@@ -84,7 +84,7 @@ void print_machine_32(Elf32_Ehdr *e_hdr)
 			printf("Sun Microsystems SPARC\n");
 			break;
 		case EM_386:
-			printf("Intel 80386");
+			printf("Intel 80386\n");
 			break;
 		case EM_68K:
 			printf("Motorola 68000\n");
@@ -123,13 +123,13 @@ void print_machine_32_2(Elf32_Ehdr *e_hdr)
 			printf("IBM S/390\n");
 			break;
 		case EM_ARM:
-			printf("Advanced RISC Machines");
+			printf("Advanced RISC Machines\n");
 			break;
 		case EM_SH:
 			printf("Renesas SuperH\n");
 			break;
 		case EM_SPARCV9:
-			printf("SPARC v9 64-bit");
+			printf("SPARC v9 64-bit\n");
 			break;
 		case EM_IA_64:
 			printf("Intel Itanium\n");
