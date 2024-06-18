@@ -44,5 +44,15 @@ void print_nsys_head_32(Elf32_Ehdr *e_hdr)
 	else
 		new_nsys = e_hdr->e_shnum;
 	printf("%u\n", new_nsys);
+}
 
+void print_str_table_32(Elf32_Ehdr *e_hdr)
+{
+	unsigned int new_stri;
+
+	if (e_hdr->e_ident[EI_DATA] == ELFDATA2MSB)
+		new_stri = __bswap_16(e_hdr->e_shstrndx);
+	else
+		new_stri = e_hdr->e_shstrndx;
+	printf("%u\n", new_stri);
 }
