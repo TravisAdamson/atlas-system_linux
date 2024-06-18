@@ -88,12 +88,14 @@ void print_head_32(Elf32_Ehdr *e_hdr)
 	print_header_size_32(e_hdr);
 	printf("  %-35s", "Size of program headers:");
 	print_pheader_size_32(e_hdr);
-	printf("  %-35s%u\n", "Number of program headers:", e_hdr->e_phnum);
+	printf("  %-35s", "Number of program headers:");
+	print_nprog_head_32(e_hdr);
 	printf("  %-35s", "Size of section headers:");
 	print_sheader_size_32(e_hdr);
-	printf("  %-35s%u\n", "Number of section headers:", e_hdr->e_shnum);
-	printf("  %-35s%u\n",
-		   "Section header string table index:", e_hdr->e_shstrndx);
+	printf("  %-35s", "Number of section headers:");
+	print_nsys_head_32(e_hdr);
+	printf("  %-35s", "Section header string table index:");
+	print_str_table_32(e_hdr);
 }
 
 /**
