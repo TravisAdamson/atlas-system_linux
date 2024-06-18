@@ -78,7 +78,7 @@ void print_head_32(Elf32_Ehdr *e_hdr)
 	printf(" %-35s0x%x\n", "Version:", e_hdr->e_version);
 	printf(" %-35s0x%x\n", "Entry point address:", e_hdr->e_entry);
 	printf(" %-35s", "Start of program headers:");
-	print_offset_32(e_hdr);
+	print_poffset_32(e_hdr);
 	printf(" %-35s", "Start of section headers:");
 	print_offset_32(e_hdr);
 	printf(" %-35s0x%x\n", "Flags:", e_hdr->e_flags);
@@ -122,7 +122,7 @@ void print_head_64(Elf64_Ehdr *e_hdr)
 	printf(" %-35s0x%x\n", "Version:", e_hdr->e_version);
 	printf(" %-35s0x%lx\n", "Entry point address:", e_hdr->e_entry);
 	printf(" %-35s", "Start of program headers:");
-	print_offset_64(e_hdr);
+	print_poffset_64(e_hdr);
 	printf(" %-35s", "Start of section headers:");
 	print_offset_64(e_hdr);
 	printf(" %-35s0x%x\n", "Flags:", e_hdr->e_flags);
