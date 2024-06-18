@@ -23,3 +23,26 @@ void print_entry_32(Elf32_Ehdr *e_hdr)
 
 	printf("%x\n", new_entry);
 }
+
+void print_nprog_head_32(Elf32_Ehdr *e_hdr)
+{
+	unsigned int new_nprog;
+
+	if (e_hdr->e_ident[EI_DATA] == ELFDATA2MSB)
+		new_nprog = __bswap_16(e_hdr->e_phnum);
+	else
+		new_nprog = e_hdr->e_phnum;
+	printf("%u\n", new_nprog);
+}
+
+void print_nsys_head_32(Elf32_Ehdr *e_hdr)
+{
+	unsigned int new_nsys;
+
+	if (e_hdr->e_ident[EI_DATA] == ELFDATA2MSB)
+		new_nsys = __bswap_16(e_hdr->e_shnum);
+	else
+		new_nsys = e_hdr->e_shnum;
+	printf("%u\n", new_nsys);
+
+}

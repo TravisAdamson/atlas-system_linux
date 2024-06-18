@@ -34,5 +34,7 @@ void print_pheader_size_32(Elf32_Ehdr *e_hdr);
 void print_sheader_size_32(Elf32_Ehdr *e_hdr);
 void print_ver_32(Elf32_Ehdr *e_hdr);
 void print_entry_32(Elf32_Ehdr *e_hdr);
+void print_nprog_head_32(Elf32_Ehdr *e_hdr);
+void print_nsys_head_32(Elf32_Ehdr *e_hdr);
 
 #endif
