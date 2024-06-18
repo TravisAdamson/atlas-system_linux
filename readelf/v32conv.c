@@ -21,5 +21,5 @@ void print_entry_32(Elf32_Ehdr *e_hdr)
 	else
 		new_entry = e_hdr->e_entry;
 
-	printf("%x\n", new_entry);	
+	printf("%x\n", new_entry);
 }

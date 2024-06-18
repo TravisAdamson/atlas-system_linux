@@ -108,12 +108,6 @@ void print_machine_32(Elf32_Ehdr *e_hdr)
 		case EM_PARISC:
 			printf("HP/PA\n");
 			break;
-		case EM_SPARC32PLUS:
-			printf("SPARC with enhanced instruction set\n");
-			break;
-		case EM_PPC:
-			printf("PowerPC\n");
-			break;
 		default:
 			print_machine_32_2(new_ident);
 	};
@@ -146,6 +140,12 @@ void print_machine_32_2(unsigned int new_ident)
 			break;
 		case EM_VAX:
 			printf("DEC Vax\n");
+			break;
+		case EM_SPARC32PLUS:
+			printf("SPARC with enhanced instruction set\n");
+			break;
+		case EM_PPC:
+			printf("PowerPC\n");
 			break;
 		default:
 			printf("An unknown machine\n");
