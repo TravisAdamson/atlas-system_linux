@@ -59,38 +59,38 @@ void print_head_32(Elf32_Ehdr *e_hdr)
 	int i = 0;
 
 	printf("ELF Header:\n");
-	printf(" Magic:   ");
+	printf("  Magic:   ");
 	for (i = 0; i < EI_NIDENT; i++)
 		printf("%02x ", e_hdr->e_ident[i]);
 	printf("\n");
-	printf(" %-36s%s\n", "Class:", "ELF32");
-	printf(" %-36s%s\n", "Data:",
+	printf("  %-35s%s\n", "Class:", "ELF32");
+	printf("  %-35s%s\n", "Data:",
 		  (e_hdr->e_ident[EI_DATA] == ELFDATA2LSB) ? LE : BE);
-	printf(" %-36s%s\n", "Version:",
+	printf("  %-35s%s\n", "Version:",
 		  (e_hdr->e_ident[EI_VERSION] == EV_CURRENT) ? "1 (current)" : "None");
-	printf(" %-36s", "OS/ABI:");
+	printf("  %-35s", "OS/ABI:");
 	print_osabi_32(e_hdr);
-	printf(" %-36s%u\n", "ABI Version:", e_hdr->e_ident[EI_ABIVERSION]);
-	printf(" %-36s", "Type:");
+	printf("  %-35s%u\n", "ABI Version:", e_hdr->e_ident[EI_ABIVERSION]);
+	printf("  %-35s", "Type:");
 	print_type_32(e_hdr);
-	printf(" %-36s", "Machine:");
+	printf("  %-35s", "Machine:");
 	print_machine_32(e_hdr);
-	printf(" %-36s0x%x\n", "Version:", e_hdr->e_version);
-	printf(" %-36s0x%x\n", "Entry point address:", e_hdr->e_entry);
-	printf(" %-36s", "Start of program headers:");
+	printf("  %-35s0x%x\n", "Version:", e_hdr->e_version);
+	printf("  %-35s0x%x\n", "Entry point address:", e_hdr->e_entry);
+	printf("  %-35s", "Start of program headers:");
 	print_poffset_32(e_hdr);
-	printf(" %-36s", "Start of section headers:");
+	printf("  %-35s", "Start of section headers:");
 	print_offset_32(e_hdr);
-	printf(" %-36s0x%x\n", "Flags:", e_hdr->e_flags);
-	printf(" %-36s%u (bytes)\n",
+	printf("  %-35s0x%x\n", "Flags:", e_hdr->e_flags);
+	printf("  %-35s%u (bytes)\n",
 		   "Size of this header:", e_hdr->e_ehsize);
-	printf(" %-36s%u (bytes)\n",
+	printf("  %-35s%u (bytes)\n",
 		   "Size of program headers:", e_hdr->e_phentsize);
-	printf(" %-36s%u\n", "Number of program headers:", e_hdr->e_phnum);
-	printf(" %-36s%u (bytes)\n",
+	printf("  %-35s%u\n", "Number of program headers:", e_hdr->e_phnum);
+	printf("  %-35s%u (bytes)\n",
 		   "Size of section headers:", e_hdr->e_shentsize);
-	printf(" %-36s%u\n", "Number of section headers:", e_hdr->e_shnum);
-	printf(" %-36s%u\n", "Section header string table index:", e_hdr->e_shstrndx);
+	printf("  %-35s%u\n", "Number of section headers:", e_hdr->e_shnum);
+	printf("  %-35s%u\n", "Section header string table index:", e_hdr->e_shstrndx);
 }
 
 /**
@@ -103,36 +103,36 @@ void print_head_64(Elf64_Ehdr *e_hdr)
 	int i = 0;
 
 	printf("ELF Header:\n");
-	printf(" Magic:   ");
+	printf("  Magic:   ");
 	for (i = 0; i < EI_NIDENT; i++)
 		printf("%02x ", e_hdr->e_ident[i]);
 	printf("\n");
-	printf(" %-35s%s\n", "Class:", "ELF64");
-	printf(" %-35s%s\n", "Data:",
+	printf("  %-35s%s\n", "Class:", "ELF64");
+	printf("  %-35s%s\n", "Data:",
 		  (e_hdr->e_ident[EI_DATA] == ELFDATA2LSB) ? LE : BE);
-	printf(" %-35s%s\n", "Version:",
+	printf("  %-35s%s\n", "Version:",
 		  (e_hdr->e_ident[EI_VERSION] == EV_CURRENT) ? "1 (current)" : "None");
-	printf(" %-35s", "OS/ABI:");
+	printf("  %-35s", "OS/ABI:");
 	print_osabi_64(e_hdr);
-	printf(" %-35s%u\n", "ABI Ver:", e_hdr->e_ident[EI_ABIVERSION]);
-	printf(" %-35s", "Type:");
+	printf("  %-35s%u\n", "ABI Ver:", e_hdr->e_ident[EI_ABIVERSION]);
+	printf("  %-35s", "Type:");
 	print_type_64(e_hdr);
-	printf(" %-35s", "Machine:");
+	printf("  %-35s", "Machine:");
 	print_machine_64(e_hdr);
-	printf(" %-35s0x%x\n", "Version:", e_hdr->e_version);
-	printf(" %-35s0x%lx\n", "Entry point address:", e_hdr->e_entry);
-	printf(" %-35s", "Start of program headers:");
+	printf("  %-35s0x%x\n", "Version:", e_hdr->e_version);
+	printf("  %-35s0x%lx\n", "Entry point address:", e_hdr->e_entry);
+	printf("  %-35s", "Start of program headers:");
 	print_poffset_64(e_hdr);
-	printf(" %-35s", "Start of section headers:");
+	printf("  %-35s", "Start of section headers:");
 	print_offset_64(e_hdr);
-	printf(" %-35s0x%x\n", "Flags:", e_hdr->e_flags);
-	printf(" %-35s%u (bytes)\n",
+	printf("  %-35s0x%x\n", "Flags:", e_hdr->e_flags);
+	printf("  %-35s%u (bytes)\n",
 		   "Size of this header:", e_hdr->e_ehsize);
-	printf(" %-35s%u (bytes)\n",
+	printf("  %-35s%u (bytes)\n",
 		   "Size of program headers:", e_hdr->e_phentsize);
-	printf(" %-35s%u\n", "Number of program headers:", e_hdr->e_phnum);
-	printf(" %-35s%u (bytes)\n",
+	printf("  %-35s%u\n", "Number of program headers:", e_hdr->e_phnum);
+	printf("  %-35s%u (bytes)\n",
 		   "Size of section headers:", e_hdr->e_shentsize);
-	printf(" %-35s%u\n", "Number of section headers:", e_hdr->e_shnum);
-	printf(" %-35s%u\n", "Section header string table index:", e_hdr->e_shstrndx);
+	printf("  %-35s%u\n", "Number of section headers:", e_hdr->e_shnum);
+	printf("  %-35s%u\n", "Section header string table index:", e_hdr->e_shstrndx);
 }
