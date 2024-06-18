@@ -11,7 +11,7 @@ void print_osabi_64(Elf64_Ehdr *e_hdr)
 			printf("HP-UX ABI\n");
 			break;
 		case ELFOSABI_NETBSD:
-			printf("NetBSD ABI\n");
+			printf("UNIX - NetBSD\n");
 			break;
 		case ELFOSABI_LINUX:
 			printf("Linux ABI\n");
@@ -51,7 +51,7 @@ void print_osabi_32(Elf32_Ehdr *e_hdr)
 			printf("HP-UX ABI\n");
 			break;
 		case ELFOSABI_NETBSD:
-			printf("NetBSD ABI\n");
+			printf("UNIX - NetBSD\n");
 			break;
 		case ELFOSABI_LINUX:
 			printf("Linux ABI\n");
