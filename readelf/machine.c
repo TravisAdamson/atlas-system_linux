@@ -62,7 +62,7 @@ void print_machine_64_2(Elf64_Ehdr *e_hdr)
 			printf("Intel Itanium\n");
 			break;
 		case EM_X86_64:
-			printf("Advanced Micro Devices x86-64\n");
+			printf("Advanced Micro Devices X86-64\n");
 			break;
 		case EM_VAX:
 			printf("DEC Vax\n");
@@ -135,7 +135,7 @@ void print_machine_32_2(Elf32_Ehdr *e_hdr)
 			printf("Intel Itanium\n");
 			break;
 		case EM_X86_64:
-			printf("Advanced Micro Devices x86-64\n");
+			printf("Advanced Micro Devices X86-64\n");
 			break;
 		case EM_VAX:
 			printf("DEC Vax\n");
