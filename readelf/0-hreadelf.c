@@ -79,8 +79,8 @@ void print_head_32(Elf32_Ehdr *e_hdr)
 	printf(" %-35s0x%x\n", "Entry point address:", e_hdr->e_entry);
 	printf(" %-35s%x (bytes into file)\n",
 		   "Start of program headers:", e_hdr->e_phoff);
-	printf(" %-35s%x (bytes into file)\n",
-		   "Start of section headers:", e_hdr->e_shoff);
+	printf(" %-35s", "Start of section headers:");
+	print_offset_32(e_hdr);
 	printf(" %-35s0x%x\n", "Flags:", e_hdr->e_flags);
 	printf(" %-35s%u (bytes)\n",
 		   "Size of this header:", e_hdr->e_ehsize);
