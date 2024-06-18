@@ -11,8 +11,8 @@
 #include <fcntl.h>
 #include <sys/mman.h>
 
-#define LE "2's compliment, little endian"
-#define BE "2's compliment, big endian"
+#define LE "2's complement, little endian"
+#define BE "2's complement, big endian"
 
 void print_head_32(Elf32_Ehdr *e_hdr);
 void print_head_64(Elf64_Ehdr *e_hdr);
