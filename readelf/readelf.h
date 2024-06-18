@@ -29,5 +29,8 @@ void print_offset_32(Elf32_Ehdr *e_hdr);
 void print_offset_64(Elf64_Ehdr *e_hdr);
 void print_poffset_64(Elf64_Ehdr *e_hdr);
 void print_poffset_32(Elf32_Ehdr *e_hdr);
+void print_header_size_32(Elf32_Ehdr *e_hdr);
+void print_pheader_size_32(Elf32_Ehdr *e_hdr);
+void print_sheader_size_32(Elf32_Ehdr *e_hdr);
 
 #endif
