@@ -11,7 +11,7 @@ void print_type_64(Elf64_Ehdr *e_hdr)
 			printf("EXEC (Executable file)\n");
 			break;
 		case ET_DYN:
-			printf("A shared object\n");
+			printf("DYN (Shared object file)\n");
 			break;
 		case ET_CORE:
 			printf("A core file\n");
@@ -33,7 +33,7 @@ void print_type_32(Elf32_Ehdr *e_hdr)
 			printf("EXEC (Executable file)\n");
 			break;
 		case ET_DYN:
-			printf("A shared object\n");
+			printf("DYN (Shared object file)\n");
 			break;
 		case ET_CORE:
 			printf("A core file\n");
