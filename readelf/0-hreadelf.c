@@ -75,8 +75,10 @@ void print_head_32(Elf32_Ehdr *e_hdr)
 	print_type_32(e_hdr);
 	printf("  %-35s", "Machine:");
 	print_machine_32(e_hdr);
-	printf("  %-35s0x%x\n", "Version:", e_hdr->e_version);
-	printf("  %-35s0x%x\n", "Entry point address:", e_hdr->e_entry);
+	printf("  %-35s0x", "Version:");
+	print_ver_32(e_hdr);
+	printf("  %-35s0x", "Entry point address:");
+	print_entry_32(e_hdr);
 	printf("  %-35s", "Start of program headers:");
 	print_poffset_32(e_hdr);
 	printf("  %-35s", "Start of section headers:");

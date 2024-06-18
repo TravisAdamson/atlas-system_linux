@@ -8,7 +8,7 @@ void print_machine_64(Elf64_Ehdr *e_hdr)
 			printf("AT&T WE 32100\n");
 			break;
 		case EM_SPARC:
-			printf("Sun Microsystems SPARC\n");
+			printf("Sparc\n");
 			break;
 		case EM_386:
 			printf("Intel 80386\n");
@@ -76,6 +76,7 @@ void print_machine_64_2(Elf64_Ehdr *e_hdr)
 void print_machine_32(Elf32_Ehdr *e_hdr)
 {
 	unsigned int new_ident;
+
 	if (e_hdr->e_ident[EI_DATA] == ELFDATA2MSB)
 		new_ident = __bswap_16(e_hdr->e_machine);
 	else
@@ -87,7 +88,7 @@ void print_machine_32(Elf32_Ehdr *e_hdr)
 			printf("AT&T WE 32100\n");
 			break;
 		case EM_SPARC:
-			printf("Sun Microsystems SPARC\n");
+			printf("Sparc\n");
 			break;
 		case EM_386:
 			printf("Intel 80386\n");

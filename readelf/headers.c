@@ -3,6 +3,7 @@
 void print_header_size_32(Elf32_Ehdr *e_hdr)
 {
 	unsigned int size = 0;
+
 	if (e_hdr->e_ident[EI_DATA] == ELFDATA2MSB)
 		size = __bswap_16(e_hdr->e_ehsize);
 	else
@@ -13,6 +14,7 @@ void print_header_size_32(Elf32_Ehdr *e_hdr)
 void print_pheader_size_32(Elf32_Ehdr *e_hdr)
 {
 	unsigned int size = 0;
+
 	if (e_hdr->e_ident[EI_DATA] == ELFDATA2MSB)
 		size = __bswap_16(e_hdr->e_phentsize);
 	else
@@ -23,6 +25,7 @@ void print_pheader_size_32(Elf32_Ehdr *e_hdr)
 void print_sheader_size_32(Elf32_Ehdr *e_hdr)
 {
 	unsigned int size = 0;
+
 	if (e_hdr->e_ident[EI_DATA] == ELFDATA2MSB)
 		size = __bswap_16(e_hdr->e_shentsize);
 	else
