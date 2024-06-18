@@ -70,7 +70,7 @@ void print_head_32(Elf32_Ehdr *e_hdr)
 		  (e_hdr->e_ident[EI_VERSION] == EV_CURRENT) ? "1 (current)" : "None");
 	printf(" %-35s", "OS/ABI:");
 	print_osabi_32(e_hdr);
-	printf(" %-35s%u\n", "ABI Ver:", e_hdr->e_ident[EI_ABIVERSION]);
+	printf(" %-35s%u\n", "ABI Version:", e_hdr->e_ident[EI_ABIVERSION]);
 	printf(" %-35s", "Type:");
 	print_type_32(e_hdr);
 	printf(" %-35s", "Machine:");
