@@ -25,5 +25,6 @@ void process_elf32(Elf32_Ehdr *ehdr32, int is_big_endian, void *maps);
 void swap_endianess_64(Elf64_Shdr *shdr, int shnum);
 void swap_endianess_32(Elf32_Shdr *shdr, int shnum);
 void print_flag_key(void);
+const char *flags_to_string(uint64_t flags);
 
 #endif

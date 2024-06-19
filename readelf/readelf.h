@@ -38,4 +38,5 @@ void print_nprog_head_32(Elf32_Ehdr *e_hdr);
 void print_nsys_head_32(Elf32_Ehdr *e_hdr);
 void print_str_table_32(Elf32_Ehdr *e_hdr);
 
+
 #endif
