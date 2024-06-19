@@ -9,10 +9,13 @@
 
 void print_section_headers_32(Elf32_Ehdr *ehdr,
 							  Elf32_Shdr *shdr,
-							  const char *strtab) 
+							  const char *strtab)
 {
 	int i = 0;
 	char *name = NULL;
+
+	printf("There are %d section headers, starting at offset 0x%d:\n",
+		   ehdr->e_shnum, ehdr->e_shoff);
 	printf("[Nr] %-20s %-15s %-16s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
     	   "Name", "Type", "Address", "Off", "Size",
        	   "ES", "Flg", "Lk", "Inf", "Al");
@@ -48,6 +51,8 @@ void print_section_headers_64(Elf64_Ehdr *ehdr,
 	int i = 0;
 	char *name = NULL;
 
+	printf("There are %d section headers, starting at offset 0x%d:\n",
+		   ehdr->e_shnum, ehdr->e_shoff);
 	printf("[Nr] %-20s %-15s %-16s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
     	   "Name", "Type", "Address", "Off", "Size",
        	   "ES", "Flg", "Lk", "Inf", "Al");
@@ -77,7 +82,7 @@ void print_section_headers_64(Elf64_Ehdr *ehdr,
 */
 
 int main(int argc, char **argv)
-{	
+{
 	const char *filename = NULL;
 	int fd, is_64_bit, is_big_endian, i;
 	struct stat st;
@@ -89,19 +94,22 @@ int main(int argc, char **argv)
 	Elf32_Ehdr *ehdr32;
 	Elf32_Shdr *shdr32;
 
-	if (argc != 2) {
+	if (argc != 2)
+	{
 		fprintf(stderr, "Usage: %s <elf-file>\n", argv[0]);
 		return EXIT_FAILURE;
 	}
 
 	filename = argv[1];
 	fd = open(filename, O_RDONLY);
-	if (fd == -1) {
+	if (fd == -1)
+	{
 		perror("open");
 		return EXIT_FAILURE;
 	}
 
-	if (fstat(fd, &st) == -1) {
+	if (fstat(fd, &st) == -1)
+	{
 		perror("fstat");
 		close(fd);
 		return EXIT_FAILURE;
@@ -109,7 +117,8 @@ int main(int argc, char **argv)
 
 	filesize = st.st_size;
 	mapped = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, fd, 0);
-	if (mapped == MAP_FAILED) {
+	if (mapped == MAP_FAILED)
+	{
 		perror("mmap");
 		close(fd);
 		return EXIT_FAILURE;
@@ -122,7 +131,8 @@ int main(int argc, char **argv)
 	if (ehdr->e_ident[EI_MAG0] != ELFMAG0 ||
 		ehdr->e_ident[EI_MAG1] != ELFMAG1 ||
 		ehdr->e_ident[EI_MAG2] != ELFMAG2 ||
-		ehdr->e_ident[EI_MAG3] != ELFMAG3) {
+		ehdr->e_ident[EI_MAG3] != ELFMAG3)
+	{
 		fprintf(stderr, "Not a valid ELF file\n");
 		munmap(mapped, filesize);
 		return EXIT_FAILURE;
@@ -152,14 +162,17 @@ int main(int argc, char **argv)
 			}
 		}
 		print_section_headers_64(ehdr, shdr, strtab);
-	} else
+	}
+	else
 	{
 		ehdr32 = (Elf32_Ehdr *)ehdr;
 		shdr32 = (Elf32_Shdr *)((uint8_t *)mapped + ehdr32->e_shoff);
 		strtab = (const char *)((uint8_t *)mapped + shdr32[ehdr32->e_shstrndx].sh_offset);
 
-		if (is_big_endian) {
-			for (i = 0; i < ehdr32->e_shnum; i++) {
+		if (is_big_endian)
+		{
+			for (i = 0; i < ehdr32->e_shnum; i++)
+			{
 				shdr32[i].sh_name = bswap_32(shdr32[i].sh_name);
 				shdr32[i].sh_type = bswap_32(shdr32[i].sh_type);
 				shdr32[i].sh_addr = bswap_32(shdr32[i].sh_addr);
