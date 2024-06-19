@@ -86,9 +86,13 @@ void swap_endianess_64(Elf64_Phdr *phdr, int phnum)
 
 void print_program_headers_32(Elf32_Ehdr *ehdr32,
 							  Elf32_Phdr *phdr32,
+							  Elf32_Shdr *shdr32,
+							  const char *maps,
 							  int is_big_endian)
 {
-	int i;
+	int i, j;
+	Elf32_Shdr *section = NULL;
+	Elf32_Phdr *segment = NULL;
 
 	if (is_big_endian)
 		swap_endianess_32(phdr32, ehdr32->e_phnum);
@@ -109,14 +113,42 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 			(phdr32[i].p_flags & PF_W) ? 'W' : ' ',
 			(phdr32[i].p_flags & PF_X) ? 'E' : ' ',
 			phdr32[i].p_align);
+
+        if (phdr32[i].p_type == PT_INTERP)
+            printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr32[i].p_offset));
 	}
+
+	printf("\n Section to Segment mapping:\n");
+    printf("  Segment Sections...\n");
+
+    for (i = 0; i < ehdr32->e_shnum; i++)
+	{
+        section = &shdr32[i];
+        if (section->sh_type == SHT_NULL || section->sh_type == SHT_NOBITS)
+            continue;
+
+        printf("   %-2d    ", i);
+
+        for (j = 0; j < ehdr32->e_phnum; j++)
+		{
+            segment = &phdr32[j];
+            if (segment->p_type != PT_LOAD)
+                continue;
+
+            if (section->sh_addr >= segment->p_vaddr && section->sh_addr < (segment->p_vaddr + segment->p_memsz))
+                printf(".%-16s ", (char *)(maps + section->sh_name));
+        }
+        printf("\n");
+    }
 }
 
 void print_program_headers_64(Elf64_Ehdr *ehdr,
 							  Elf64_Phdr *phdr,
+							  Elf64_Shdr *shdr,
+							  const char *maps,
 							  int is_big_endian)
 {
-	int i;
+	int i, j;
 
 	if (is_big_endian)
 		swap_endianess_64(phdr, ehdr->e_phnum);
@@ -137,6 +169,32 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
 			(phdr[i].p_flags & PF_W) ? 'W' : ' ',
 			(phdr[i].p_flags & PF_X) ? 'E' : ' ',
 			phdr[i].p_align);
+
+        if (phdr[i].p_type == PT_INTERP)
+            printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr[i].p_offset));
+	}
+	
+	printf("\n Section to Segment mapping:\n");
+    printf("  Segment Sections...\n");
+
+    for (i = 0; i < ehdr->e_shnum; i++)
+	{
+        Elf64_Shdr *section = &shdr[i];
+        if (section->sh_type == SHT_NULL || section->sh_type == SHT_NOBITS)
+            continue;
+
+        printf("   %-2d    ", i);
+
+        for (j = 0; j < ehdr->e_phnum; j++)
+		{
+            Elf64_Phdr *segment = &phdr[j];
+            if (segment->p_type != PT_LOAD)
+                continue;
+
+			if (section->sh_addr >= segment->p_vaddr && section->sh_addr < (segment->p_vaddr + segment->p_memsz))
+            	printf(".%-16s ", (char *)(maps + section->sh_name));
+		}
+		printf("\n");
 	}
 }
 
@@ -151,6 +209,8 @@ int main(int argc, char **argv)
 	Elf32_Ehdr *ehdr32;
 	Elf64_Phdr *phdr;
 	Elf32_Phdr *phdr32;
+	Elf64_Shdr *shdr64;
+	Elf32_Shdr *shdr32;
 
 	if (argc != 2)
 	{
@@ -202,13 +262,15 @@ int main(int argc, char **argv)
 	if (is_64_bit)
 	{
 		phdr = (Elf64_Phdr *)((uint8_t *)maps + ehdr->e_phoff);
-		print_program_headers_64(ehdr, phdr, is_big_endian);
+		shdr64 = (Elf64_Shdr *)((uint8_t *)maps + ehdr->e_shoff);
+		print_program_headers_64(ehdr, phdr, shdr64, maps, is_big_endian);
 	}
 	else
 	{
 		ehdr32 = (Elf32_Ehdr *)ehdr;
 		phdr32 = (Elf32_Phdr *)((uint8_t *)maps + ehdr32->e_phoff);
-		print_program_headers_32(ehdr32, phdr32, is_big_endian);
+		shdr32 = (Elf32_Shdr *)((uint8_t *)maps + ehdr32->e_shoff);
+		print_program_headers_32(ehdr32, phdr32, shdr32, maps, is_big_endian);
 	}
 
 	munmap(maps, filesize);
