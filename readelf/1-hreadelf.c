@@ -87,7 +87,7 @@ int main(int argc, char **argv)
 	int fd, is_64_bit, is_big_endian, i;
 	struct stat st;
 	size_t filesize;
-	void *mapped;
+	void *maps;
 	Elf64_Ehdr *ehdr;
 	Elf64_Shdr *shdr;
 	const char *strtab;
@@ -116,8 +116,8 @@ int main(int argc, char **argv)
 	}
 
 	filesize = st.st_size;
-	mapped = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, fd, 0);
-	if (mapped == MAP_FAILED)
+	maps = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, fd, 0);
+	if (maps == MAP_FAILED)
 	{
 		perror("mmap");
 		close(fd);
@@ -126,7 +126,7 @@ int main(int argc, char **argv)
 
 	close(fd);
 
-	ehdr = (Elf64_Ehdr *)mapped;
+	ehdr = (Elf64_Ehdr *)maps;
 
 	if (ehdr->e_ident[EI_MAG0] != ELFMAG0 ||
 		ehdr->e_ident[EI_MAG1] != ELFMAG1 ||
@@ -134,7 +134,7 @@ int main(int argc, char **argv)
 		ehdr->e_ident[EI_MAG3] != ELFMAG3)
 	{
 		fprintf(stderr, "Not a valid ELF file\n");
-		munmap(mapped, filesize);
+		munmap(maps, filesize);
 		return (EXIT_FAILURE);
 	}
 
@@ -143,12 +143,13 @@ int main(int argc, char **argv)
 
 	if (is_64_bit)
 	{
-		shdr = (Elf64_Shdr *)((uint8_t *)mapped + ehdr->e_shoff);
-		strtab = (const char *)((uint8_t *)mapped + shdr[ehdr->e_shstrndx].sh_offset);
+		shdr = (Elf64_Shdr *)((uint8_t *)maps + ehdr->e_shoff);
+		strtab = (const char *)((uint8_t *)maps + shdr[ehdr->e_shstrndx].sh_offset);
 
 		if (is_big_endian)
 		{
-			for (i = 0; i < ehdr->e_shnum; i++) {
+			for (i = 0; i < ehdr->e_shnum; i++)
+			{
 				shdr[i].sh_name = bswap_32(shdr[i].sh_name);
 				shdr[i].sh_type = bswap_32(shdr[i].sh_type);
 				shdr[i].sh_addr = bswap_64(shdr[i].sh_addr);
@@ -166,8 +167,8 @@ int main(int argc, char **argv)
 	else
 	{
 		ehdr32 = (Elf32_Ehdr *)ehdr;
-		shdr32 = (Elf32_Shdr *)((uint8_t *)mapped + ehdr32->e_shoff);
-		strtab = (const char *)((uint8_t *)mapped + shdr32[ehdr32->e_shstrndx].sh_offset);
+		shdr32 = (Elf32_Shdr *)((uint8_t *)maps + ehdr32->e_shoff);
+		strtab = (const char *)((uint8_t *)maps + shdr32[ehdr32->e_shstrndx].sh_offset);
 
 		if (is_big_endian)
 		{
@@ -188,6 +189,6 @@ int main(int argc, char **argv)
 		print_section_headers_32(ehdr32, shdr32, strtab);
 	}
 
-	munmap(mapped, filesize);
+	munmap(maps, filesize);
 	return (EXIT_SUCCESS);
 }
