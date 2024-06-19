@@ -100,7 +100,7 @@ void print_section_headers_64(Elf64_Ehdr *ehdr,
 	printf("There are %d section headers, starting at offset 0x%lx:\n",
 		ehdr->e_shnum, ehdr->e_shoff);
 	printf("\nSection Headers:\n");
-	printf("  [Nr] %-17s %-15s %-8s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
+	printf("  [Nr] %-17s %-15s %-16s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
 		"Name", "Type", "Address", "Off", "Size",
 		"ES", "Flg", "Lk", "Inf", "Al");
 	for (i = 0; i < ehdr->e_shnum; i++)
