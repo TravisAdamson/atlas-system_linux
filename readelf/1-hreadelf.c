@@ -14,7 +14,7 @@ void print_section_headers_32(Elf32_Ehdr *ehdr,
 	int i = 0;
 	char *name = NULL;
 
-	printf("There are %d section headers, starting at offset 0x%d:\n",
+	printf("There are %d section headers, starting at offset 0x%u:\n",
 		   ehdr->e_shnum, ehdr->e_shoff);
 	printf("[Nr] %-20s %-15s %-16s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
     	   "Name", "Type", "Address", "Off", "Size",
@@ -51,7 +51,7 @@ void print_section_headers_64(Elf64_Ehdr *ehdr,
 	int i = 0;
 	char *name = NULL;
 
-	printf("There are %d section headers, starting at offset 0x%d:\n",
+	printf("There are %d section headers, starting at offset 0x%lu:\n",
 		   ehdr->e_shnum, ehdr->e_shoff);
 	printf("[Nr] %-20s %-15s %-16s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
     	   "Name", "Type", "Address", "Off", "Size",
