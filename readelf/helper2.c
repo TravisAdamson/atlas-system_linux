@@ -1,19 +1,23 @@
 #include "1hreadelf.h"
 
-void *open_and_map_file(const char *filename, size_t *filesize) {
+void *open_and_map_file(const char *filename, size_t *filesize)
+{
 	int fd;
 	void *maps;
 	struct stat st;
+
 	fd = open(filename, O_RDONLY);
-	if (fd == -1) {
+	if (fd == -1)
+	{
 		perror("open");
-		return NULL;
+		return (NULL);
 	}
 
-	if (fstat(fd, &st) == -1) {
+	if (fstat(fd, &st) == -1)
+	{
 		perror("fstat");
 		close(fd);
-		return NULL;
+		return (NULL);
 	}
 
 	*filesize = st.st_size;
@@ -22,11 +26,11 @@ void *open_and_map_file(const char *filename, size_t *filesize) {
 	{
 		perror("mmap");
 		close(fd);
-		return NULL;
+		return (NULL);
 	}
 
 	close(fd);
-	return maps;
+	return (maps);
 }
 
 void check_elf_magic(Elf64_Ehdr *ehdr)
@@ -39,6 +43,7 @@ void check_elf_magic(Elf64_Ehdr *ehdr)
 		exit(EXIT_FAILURE);
 	}
 }
+
 /**
  * print_section_headers_32 - Print the 32 bit section headers
  * @ehdr: 32 bit elf header

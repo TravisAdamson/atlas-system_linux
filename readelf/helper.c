@@ -56,7 +56,7 @@ void swap_endianess_64(Elf64_Shdr *shdr, int shnum)
 	}
 }
 
-void swap_endianess_32(Elf32_Shdr *shdr, int shnum) 
+void swap_endianess_32(Elf32_Shdr *shdr, int shnum)
 {
 	int i = 0;
 
