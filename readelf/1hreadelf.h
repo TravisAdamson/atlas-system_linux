@@ -11,8 +11,12 @@
 #include <elf.h>
 #include <byteswap.h>
 
-void print_section_headers_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *strtab);
-void print_section_headers_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const char *strtab);
+void print_section_headers_32(Elf32_Ehdr *ehdr,
+                              Elf32_Shdr *shdr,
+                              const char *strtab);
+void print_section_headers_64(Elf64_Ehdr *ehdr,
+                              Elf64_Shdr *shdr,
+                              const char *strtab);
 void *open_and_map_file(const char *filename, size_t *filesize);
 void check_elf_magic(Elf64_Ehdr *ehdr);
 void process_elf(void *maps, size_t filesize);
