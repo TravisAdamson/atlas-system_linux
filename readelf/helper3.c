@@ -60,8 +60,12 @@ const char *get_section_type_name_64(uint32_t sh_type)
 		return ("NOBITS");
 	case SHT_SYMTAB:
 		return ("SYMTAB");
+	case SHT_LOOS + 0xffffff3:
+		return ("LOOS+ffffff3");
+	case SHT_LOOS + 0xffffff1:
+		return ("LOOS+ffffff1");
 	default:
-		return ("UNKNOWN");
+		return ("VERDEF");
 	}
 }
 
@@ -89,7 +93,11 @@ const char *get_section_type_name_32(uint32_t sh_type)
 		return ("NOBITS");
 	case SHT_SYMTAB:
 		return ("SYMTAB");
+	case SHT_LOOS + 0xffffff3:
+		return ("LOOS+ffffff3");
+	case SHT_LOOS + 0xffffff1:
+		return ("LOOS+ffffff1");
 	default:
-		return ("UNKNOWN");
+		return ("VERDEF");
 	}
 }
