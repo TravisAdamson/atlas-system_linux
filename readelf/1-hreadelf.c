@@ -16,13 +16,13 @@ void print_section_headers_32(Elf32_Ehdr *ehdr,
 
 	printf("There are %d section headers, starting at offset 0x%u:\n",
 		   ehdr->e_shnum, ehdr->e_shoff);
-	printf("[Nr] %-20s %-15s %-16s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
-		   "Name", "Type", "Address", "Off", "Size",
+	printf("[Nr] %-19s %-15s %-16s %-6s %-2s %-3s %-2s %-3s %-2s\n",
+		   "Name", "Type", "Addr", "Off", "Size",
 		   "ES", "Flg", "Lk", "Inf", "Al");
 	for (i = 0; i < ehdr->e_shnum; i++)
 	{
 		name = (char *)(strtab + shdr[i].sh_name);
-		printf("[%2d] %-20s %-15u %08x %06x %06x %02x %3x %2u %3u %2u\n",
+		printf("[%2d] %-19s %-15u %08x %06x %06x %02x %3x %2u %3u %2u\n",
 			   i,
 			   name,
 			   shdr[i].sh_type,
@@ -53,13 +53,13 @@ void print_section_headers_64(Elf64_Ehdr *ehdr,
 
 	printf("There are %d section headers, starting at offset 0x%lu:\n",
 		   ehdr->e_shnum, ehdr->e_shoff);
-	printf("[Nr] %-20s %-15s %-16s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
-		   "Name", "Type", "Address", "Off", "Size",
+	printf("[Nr] %-19s %-15s %-16s %-6s %-2s %-3s %-2s %-3s %-2s\n",
+		   "Name", "Type", "Addr", "Off", "Size",
 		   "ES", "Flg", "Lk", "Inf", "Al");
 	for (i = 0; i < ehdr->e_shnum; i++)
 	{
 		name = (char *)(strtab + shdr[i].sh_name);
-		printf("[%2d] %-20s %-15u %016lx %06lx %06lx %02lx %3lx %2u %3u %2lu\n",
+		printf("[%2d] %-19s %-15u %016lx %06lx %06lx %02lx %3lx %2u %3u %2lu\n",
 			   i,
 			   name,
 			   shdr[i].sh_type,
