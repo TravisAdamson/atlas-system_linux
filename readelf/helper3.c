@@ -68,7 +68,7 @@ const char *get_section_type_name_64(uint32_t sh_type)
 	case SHT_LOOS + 0xffffff1:
 		return ("LOOS+ffffff1");
 	}
-	return (get_section_type_name_64_2(sh_type));	
+	return (get_section_type_name_64_2(sh_type));
 }
 
 const char *get_section_type_name_64_2(uint32_t sh_type)
@@ -145,6 +145,6 @@ const char *get_section_type_name_32_2(uint32_t sh_type)
 	case SHT_RELA:
 		return ("RELA");
 	default:
-		return ("UNKNOWN");
+		return ("VERDEF");
 	}
 }
