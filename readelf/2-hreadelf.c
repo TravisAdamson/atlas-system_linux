@@ -1,0 +1,162 @@
+#include "2hreadelf.h"
+
+void swap_endianess_32(Elf32_Phdr *phdr, int phnum)
+{
+	int i;
+
+	for (i = 0; i < phnum; i++)
+	{
+		phdr[i].p_type = __bswap_32(phdr[i].p_type);
+		phdr[i].p_offset = __bswap_32(phdr[i].p_offset);
+		phdr[i].p_vaddr = __bswap_32(phdr[i].p_vaddr);
+		phdr[i].p_paddr = __bswap_32(phdr[i].p_paddr);
+		phdr[i].p_filesz = __bswap_32(phdr[i].p_filesz);
+		phdr[i].p_memsz = __bswap_32(phdr[i].p_memsz);
+		phdr[i].p_flags = __bswap_32(phdr[i].p_flags);
+		phdr[i].p_align = __bswap_32(phdr[i].p_align);
+	}
+}
+
+void swap_endianess_64(Elf64_Phdr *phdr, int phnum)
+{
+	int i;
+
+	for (i = 0; i < phnum; i++)
+	{
+		phdr[i].p_type = __bswap_32(phdr[i].p_type);
+		phdr[i].p_offset = __bswap_64(phdr[i].p_offset);
+		phdr[i].p_vaddr = __bswap_64(phdr[i].p_vaddr);
+		phdr[i].p_paddr = __bswap_64(phdr[i].p_paddr);
+		phdr[i].p_filesz = __bswap_64(phdr[i].p_filesz);
+		phdr[i].p_memsz = __bswap_64(phdr[i].p_memsz);
+		phdr[i].p_flags = __bswap_32(phdr[i].p_flags);
+		phdr[i].p_align = __bswap_64(phdr[i].p_align);
+	}
+}
+
+void print_program_headers_32(Elf32_Ehdr *ehdr32, Elf32_Phdr *phdr32, int is_big_endian)
+{
+	int i;
+
+	if (is_big_endian)
+		swap_endianess_32(phdr32, ehdr32->e_phnum);
+
+	printf("Elf file type is %d\n", ehdr32->e_type);
+	printf("Entry point 0x%x\n", ehdr32->e_entry);
+	printf("There are %d program headers, starting at offset %d\n\n",
+		ehdr32->e_phnum, ehdr32->e_phoff);
+
+	printf("Program Headers:\n");
+	printf("  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align\n");
+	for (i = 0; i < ehdr32->e_phnum; i++)
+	{
+		printf("  %-14d 0x%06x 0x%08x 0x%08x 0x%06x 0x%06x %c%c%c 0x%x\n",
+			phdr32[i].p_type, phdr32[i].p_offset, phdr32[i].p_vaddr,
+			phdr32[i].p_paddr, phdr32[i].p_filesz, phdr32[i].p_memsz,
+			(phdr32[i].p_flags & PF_R) ? 'R' : ' ',
+			(phdr32[i].p_flags & PF_W) ? 'W' : ' ',
+			(phdr32[i].p_flags & PF_X) ? 'E' : ' ',
+			phdr32[i].p_align);
+	}
+}
+
+void print_program_headers_64(Elf64_Ehdr *ehdr, Elf64_Phdr *phdr, int is_big_endian)
+{
+	int i;
+
+	if (is_big_endian)
+		swap_endianess_64(phdr, ehdr->e_phnum);
+
+	printf("Elf file type is %d\n", ehdr->e_type);
+	printf("Entry point 0x%lx\n", ehdr->e_entry);
+	printf("There are %d program headers, starting at offset %ld\n\n",
+		ehdr->e_phnum, ehdr->e_phoff);
+
+	printf("Program Headers:\n");
+	printf("  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align\n");
+	for (i = 0; i < ehdr->e_phnum; i++)
+	{
+		printf("  %-14d 0x%06lx 0x%016lx 0x%016lx 0x%06lx 0x%06lx %c%c%c 0x%lx\n",
+			phdr[i].p_type, phdr[i].p_offset, phdr[i].p_vaddr,
+			phdr[i].p_paddr, phdr[i].p_filesz, phdr[i].p_memsz,
+			(phdr[i].p_flags & PF_R) ? 'R' : ' ',
+			(phdr[i].p_flags & PF_W) ? 'W' : ' ',
+			(phdr[i].p_flags & PF_X) ? 'E' : ' ',
+			phdr[i].p_align);
+	}
+}
+
+int main(int argc, char **argv)
+{
+	const char *filename;
+	int fd, is_64_bit, is_big_endian;
+	struct stat st;
+	size_t filesize;
+	void *maps;
+	Elf64_Ehdr *ehdr;
+	Elf32_Ehdr *ehdr32;
+	Elf64_Phdr *phdr;
+	Elf32_Phdr *phdr32;
+
+	if (argc != 2)
+	{
+		fprintf(stderr, "Usage: %s <elf-file>\n", argv[0]);
+		return EXIT_FAILURE;
+	}
+
+	filename = argv[1];
+	fd = open(filename, O_RDONLY);
+	if (fd == -1)
+	{
+		perror("open");
+		return EXIT_FAILURE;
+	}
+
+	if (fstat(fd, &st) == -1)
+	{
+		perror("fstat");
+		close(fd);
+		return EXIT_FAILURE;
+	}
+
+	filesize = st.st_size;
+	maps = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, fd, 0);
+	if (maps == MAP_FAILED)
+	{
+		perror("mmap");
+		close(fd);
+		return EXIT_FAILURE;
+	}
+
+	close(fd);
+
+	ehdr = (Elf64_Ehdr *)maps;
+
+	if (ehdr->e_ident[EI_MAG0] != ELFMAG0 ||
+		ehdr->e_ident[EI_MAG1] != ELFMAG1 ||
+		ehdr->e_ident[EI_MAG2] != ELFMAG2 ||
+		ehdr->e_ident[EI_MAG3] != ELFMAG3)
+	{
+		fprintf(stderr, "Not a valid ELF file\n");
+		munmap(maps, filesize);
+		return EXIT_FAILURE;
+	}
+
+	is_big_endian = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB);
+	is_64_bit = (ehdr->e_ident[EI_CLASS] == ELFCLASS64);
+
+	if (is_64_bit)
+	{
+		phdr = (Elf64_Phdr *)((uint8_t *)maps + ehdr->e_phoff);
+		print_program_headers_64(ehdr, phdr, is_big_endian);
+	}
+	else
+	{
+		ehdr32 = (Elf32_Ehdr *)ehdr;
+		phdr32 = (Elf32_Phdr *)((uint8_t *)maps + ehdr32->e_phoff);
+		print_program_headers_32(ehdr32, phdr32, is_big_endian);
+	}
+
+	munmap(maps, filesize);
+	return EXIT_SUCCESS;
+}
