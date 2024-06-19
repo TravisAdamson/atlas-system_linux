@@ -17,8 +17,8 @@ void print_section_headers_32(Elf32_Ehdr *ehdr,
 	printf("There are %d section headers, starting at offset 0x%u:\n",
 		   ehdr->e_shnum, ehdr->e_shoff);
 	printf("[Nr] %-20s %-15s %-16s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
-    	   "Name", "Type", "Address", "Off", "Size",
-       	   "ES", "Flg", "Lk", "Inf", "Al");
+		   "Name", "Type", "Address", "Off", "Size",
+		   "ES", "Flg", "Lk", "Inf", "Al");
 	for (i = 0; i < ehdr->e_shnum; i++)
 	{
 		name = (char *)(strtab + shdr[i].sh_name);
@@ -54,8 +54,8 @@ void print_section_headers_64(Elf64_Ehdr *ehdr,
 	printf("There are %d section headers, starting at offset 0x%lu:\n",
 		   ehdr->e_shnum, ehdr->e_shoff);
 	printf("[Nr] %-20s %-15s %-16s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
-    	   "Name", "Type", "Address", "Off", "Size",
-       	   "ES", "Flg", "Lk", "Inf", "Al");
+		   "Name", "Type", "Address", "Off", "Size",
+		   "ES", "Flg", "Lk", "Inf", "Al");
 	for (i = 0; i < ehdr->e_shnum; i++)
 	{
 		name = (char *)(strtab + shdr[i].sh_name);
@@ -97,7 +97,7 @@ int main(int argc, char **argv)
 	if (argc != 2)
 	{
 		fprintf(stderr, "Usage: %s <elf-file>\n", argv[0]);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	filename = argv[1];
@@ -105,14 +105,14 @@ int main(int argc, char **argv)
 	if (fd == -1)
 	{
 		perror("open");
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	if (fstat(fd, &st) == -1)
 	{
 		perror("fstat");
 		close(fd);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	filesize = st.st_size;
@@ -121,7 +121,7 @@ int main(int argc, char **argv)
 	{
 		perror("mmap");
 		close(fd);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	close(fd);
@@ -135,7 +135,7 @@ int main(int argc, char **argv)
 	{
 		fprintf(stderr, "Not a valid ELF file\n");
 		munmap(mapped, filesize);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	is_big_endian = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB);
@@ -189,5 +189,5 @@ int main(int argc, char **argv)
 	}
 
 	munmap(mapped, filesize);
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
