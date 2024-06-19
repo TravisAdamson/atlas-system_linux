@@ -23,3 +23,6 @@ re: oclean all
 
 1-hreadelf: 1-hreadelf.c
 	${CC} ${CFLAGS} 1-hreadelf.c 1hreadelf.h helper.c helper2.c helper3.c helper4.c -o 1-hreadelf
+
+2-hreadelf: 2-hreadelf.c
+	${CC} ${CFLAGS} 2-hreadelf.c 2hreadelf.h -o 2-hreadelf
