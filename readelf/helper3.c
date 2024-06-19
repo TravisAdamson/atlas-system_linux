@@ -70,6 +70,12 @@ const char *get_section_type_name_64(uint32_t sh_type)
 		return ("VERNEED");
 	case SHT_GNU_versym:
 		return ("VERSYM");
+	case SHT_GNU_HASH:
+		return ("GNU_HASH");
+	case SHT_INIT_ARRAY:
+		return ("INIT_ARRAY");
+	case SHT_FINI_ARRAY:
+		return ("FINI_ARRAY");
 	default:
 		return ("UNKNOWN");
 	}
@@ -109,6 +115,12 @@ const char *get_section_type_name_32(uint32_t sh_type)
 		return ("VERNEED");
 	case SHT_GNU_versym:
 		return ("VERSYM");
+	case SHT_GNU_HASH:
+		return ("GNU_HASH");
+	case SHT_INIT_ARRAY:
+		return ("INIT_ARRAY");
+	case SHT_FINI_ARRAY:
+		return ("FINI_ARRAY");
 	default:
 		return ("VERDEF");
 	}
