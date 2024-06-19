@@ -1,33 +1,53 @@
 #include "2hreadelf.h"
 
-const char* get_segment_type(uint32_t p_type)
+const char *get_segment_type(uint32_t p_type)
 {
-	switch (p_type) {
-		case PT_NULL:
-			return ("NULL");
-		case PT_LOAD:
-			return ("LOAD");
-		case PT_DYNAMIC:
-			return ("DYNAMIC");
-		case PT_INTERP:
-			return ("INTERP");
-		case PT_NOTE:
-			return ("NOTE");
-		case PT_SHLIB:
-			return ("SHLIB");
-		case PT_PHDR:
-			return ("PHDR");
-		case PT_TLS:
-			return ("TLS");
-		case PT_GNU_EH_FRAME:
-			return ("GNU_EH_FRAME");
-		case PT_GNU_STACK:
-			return ("GNU_STACK");
-		case PT_GNU_RELRO:
-			return ("GNU_RELRO");
-		default:
-			return ("UNKNOWN");
+	switch (p_type)
+	{
+	case PT_NULL:
+		return ("NULL");
+	case PT_LOAD:
+		return ("LOAD");
+	case PT_DYNAMIC:
+		return ("DYNAMIC");
+	case PT_INTERP:
+		return ("INTERP");
+	case PT_NOTE:
+		return ("NOTE");
+	case PT_SHLIB:
+		return ("SHLIB");
+	case PT_PHDR:
+		return ("PHDR");
+	case PT_TLS:
+		return ("TLS");
+	case PT_GNU_EH_FRAME:
+		return ("GNU_EH_FRAME");
+	case PT_GNU_STACK:
+		return ("GNU_STACK");
+	case PT_GNU_RELRO:
+		return ("GNU_RELRO");
+	default:
+		return ("UNKNOWN");
 	}
+}
+
+const char *get_file_type(uint16_t e_type)
+{
+    switch (e_type)
+	{
+	case ET_NONE:
+		return ("NONE (No file type)");
+	case ET_REL:
+		return ("REL (Relocatable file)");
+	case ET_EXEC:
+		return ("EXEC (Executable file)");
+	case ET_DYN:
+		return ("DYN (Shared object file)");
+	case ET_CORE:
+		return ("CORE (Core file)");
+	default:
+		return ("UNKNOWN");
+    }
 }
 
 void swap_endianess_32(Elf32_Phdr *phdr, int phnum)
@@ -73,7 +93,7 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	if (is_big_endian)
 		swap_endianess_32(phdr32, ehdr32->e_phnum);
 
-	printf("Elf file type is %d\n", ehdr32->e_type);
+	printf("Elf file type is %s\n", get_file_type(ehdr32->e_type));
 	printf("Entry point 0x%x\n", ehdr32->e_entry);
 	printf("There are %d program headers, starting at offset %d\n\n",
 		ehdr32->e_phnum, ehdr32->e_phoff);
@@ -101,7 +121,7 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
 	if (is_big_endian)
 		swap_endianess_64(phdr, ehdr->e_phnum);
 
-	printf("Elf file type is %d\n", ehdr->e_type);
+	printf("Elf file type is %s\n", get_file_type(ehdr->e_type));
 	printf("Entry point 0x%lx\n", ehdr->e_entry);
 	printf("There are %d program headers, starting at offset %ld\n\n",
 		ehdr->e_phnum, ehdr->e_phoff);
