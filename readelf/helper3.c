@@ -64,8 +64,14 @@ const char *get_section_type_name_64(uint32_t sh_type)
 		return ("LOOS+ffffff3");
 	case SHT_LOOS + 0xffffff1:
 		return ("LOOS+ffffff1");
-	default:
+	case SHT_GNU_verdef:
 		return ("VERDEF");
+	case SHT_GNU_verneed:
+		return ("VERNEED");
+	case SHT_GNU_versym:
+		return ("VERSYM");
+	default:
+		return ("UNKNOWN");
 	}
 }
 
@@ -97,6 +103,12 @@ const char *get_section_type_name_32(uint32_t sh_type)
 		return ("LOOS+ffffff3");
 	case SHT_LOOS + 0xffffff1:
 		return ("LOOS+ffffff1");
+	case SHT_GNU_verdef:
+		return ("VERDEF");
+	case SHT_GNU_verneed:
+		return ("VERNEED");
+	case SHT_GNU_versym:
+		return ("VERSYM");
 	default:
 		return ("VERDEF");
 	}
