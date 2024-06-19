@@ -18,7 +18,8 @@ void process_elf(void *maps, size_t filesize)
 void process_elf64(Elf64_Ehdr *ehdr, int is_big_endian, void *maps)
 {
 	Elf64_Shdr *shdr = (Elf64_Shdr *)((uint8_t *)maps + ehdr->e_shoff);
-	const char *strtab = (const char *)((uint8_t *)maps + shdr[ehdr->e_shstrndx].sh_offset);
+	const char *strtab = (const char *)((uint8_t *)maps +
+		shdr[ehdr->e_shstrndx].sh_offset);
 
 	if (is_big_endian)
 		swap_endianess_64(shdr, ehdr->e_shnum);
@@ -29,7 +30,8 @@ void process_elf64(Elf64_Ehdr *ehdr, int is_big_endian, void *maps)
 void process_elf32(Elf32_Ehdr *ehdr32, int is_big_endian, void *maps)
 {
 	Elf32_Shdr *shdr32 = (Elf32_Shdr *)((uint8_t *)maps + ehdr32->e_shoff);
-	const char *strtab = (const char *)((uint8_t *)maps + shdr32[ehdr32->e_shstrndx].sh_offset);
+	const char *strtab = (const char *)((uint8_t *)maps +
+		shdr32[ehdr32->e_shstrndx].sh_offset);
 
 	if (is_big_endian)
 		swap_endianess_32(shdr32, ehdr32->e_shnum);
