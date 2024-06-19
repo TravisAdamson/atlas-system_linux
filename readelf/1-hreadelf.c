@@ -9,8 +9,8 @@
 
 int main(int argc, char **argv)
 {
-	void *maps;
-	size_t filesize;
+    void *maps;
+    size_t filesize;
 
     if (argc != 2) {
         fprintf(stderr, "Usage: %s <elf-file>\n", argv[0]);
