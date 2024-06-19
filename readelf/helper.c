@@ -1,6 +1,7 @@
 #include "1hreadelf.h"
 
-void process_elf(void *maps, size_t filesize) {
+void process_elf(void *maps, size_t filesize)
+{
 	Elf64_Ehdr *ehdr = (Elf64_Ehdr *)maps;
 	int is_big_endian, is_64_bit;
 	(void)filesize;
@@ -14,7 +15,8 @@ void process_elf(void *maps, size_t filesize) {
 		process_elf32((Elf32_Ehdr *)ehdr, is_big_endian, maps);
 }
 
-void process_elf64(Elf64_Ehdr *ehdr, int is_big_endian, void *maps) {
+void process_elf64(Elf64_Ehdr *ehdr, int is_big_endian, void *maps)
+{
 	Elf64_Shdr *shdr = (Elf64_Shdr *)((uint8_t *)maps + ehdr->e_shoff);
 	const char *strtab = (const char *)((uint8_t *)maps + shdr[ehdr->e_shstrndx].sh_offset);
 
