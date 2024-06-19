@@ -38,56 +38,56 @@ const char *flags_to_string(uint64_t flags)
 
 const char *get_section_type_name_64(uint32_t sh_type)
 {
-    switch (sh_type) {
-        case SHT_NULL:
-			return "NULL";
-        case SHT_PROGBITS:
-			return "PROGBITS";
-        case SHT_NOTE:
-			return "NOTE";
-        case SHT_HASH:
-			return "HASH";
-        case SHT_DYNSYM:
-			return "DYNSYM";
-        case SHT_STRTAB:
-			return "STRTAB";
-        case SHT_REL:
-			return "REL";
-        case SHT_DYNAMIC:
-			return "DYNAMIC";
-        case SHT_NOBITS:
-			return "NOBITS";
-        case SHT_SYMTAB:
-			return "SYMTAB";
-        default:
-			return "UNKNOWN";
-    }
+	switch (sh_type) {
+		case SHT_NULL:
+			return ("NULL");
+		case SHT_PROGBITS:
+			return ("PROGBITS");
+		case SHT_NOTE:
+			return ("NOTE");
+		case SHT_HASH:
+			return ("HASH");
+		case SHT_DYNSYM:
+			return ("DYNSYM");
+		case SHT_STRTAB:
+			return ("STRTAB");
+		case SHT_REL:
+			return ("REL");
+		case SHT_DYNAMIC:
+			return ("DYNAMIC");
+		case SHT_NOBITS:
+			return ("NOBITS");
+		case SHT_SYMTAB:
+			return ("SYMTAB");
+		default:
+			return ("UNKNOWN");
+	}
 }
 
 const char *get_section_type_name_32(uint32_t sh_type)
 {
-    switch (sh_type) {
-        case SHT_NULL:
-			return "NULL";
-        case SHT_PROGBITS:
-			return "PROGBITS";
-        case SHT_NOTE:
-			return "NOTE";
-        case SHT_HASH:
-			return "HASH";
-        case SHT_DYNSYM:
-			return "DYNSYM";
-        case SHT_STRTAB:
-			return "STRTAB";
-        case SHT_REL:
-			return "REL";
-        case SHT_DYNAMIC:
-			return "DYNAMIC";
-        case SHT_NOBITS:
-			return "NOBITS";
-        case SHT_SYMTAB:
-			return "SYMTAB";
-        default:
-			return "UNKNOWN";
-    }
+	switch (sh_type) {
+		case SHT_NULL:
+			return ("NULL");
+		case SHT_PROGBITS:
+			return ("PROGBITS");
+		case SHT_NOTE:
+			return ("NOTE");
+		case SHT_HASH:
+			return ("HASH");
+		case SHT_DYNSYM:
+			return ("DYNSYM");
+		case SHT_STRTAB:
+			return ("STRTAB");
+		case SHT_REL:
+			return ("REL");
+		case SHT_DYNAMIC:
+			return ("DYNAMIC");
+		case SHT_NOBITS:
+			return ("NOBITS");
+		case SHT_SYMTAB:
+			return ("SYMTAB");
+		default:
+			return ("UNKNOWN");
+	}
 }
