@@ -1,5 +1,35 @@
 #include "2hreadelf.h"
 
+const char* get_segment_type(uint32_t p_type)
+{
+	switch (p_type) {
+		case PT_NULL:
+			return ("NULL");
+		case PT_LOAD:
+			return ("LOAD");
+		case PT_DYNAMIC:
+			return ("DYNAMIC");
+		case PT_INTERP:
+			return ("INTERP");
+		case PT_NOTE:
+			return ("NOTE");
+		case PT_SHLIB:
+			return ("SHLIB");
+		case PT_PHDR:
+			return ("PHDR");
+		case PT_TLS:
+			return ("TLS");
+		case PT_GNU_EH_FRAME:
+			return ("GNU_EH_FRAME");
+		case PT_GNU_STACK:
+			return ("GNU_STACK");
+		case PT_GNU_RELRO:
+			return ("GNU_RELRO");
+		default:
+			return ("UNKNOWN");
+	}
+}
+
 void swap_endianess_32(Elf32_Phdr *phdr, int phnum)
 {
 	int i;
@@ -34,7 +64,9 @@ void swap_endianess_64(Elf64_Phdr *phdr, int phnum)
 	}
 }
 
-void print_program_headers_32(Elf32_Ehdr *ehdr32, Elf32_Phdr *phdr32, int is_big_endian)
+void print_program_headers_32(Elf32_Ehdr *ehdr32,
+							  Elf32_Phdr *phdr32,
+							  int is_big_endian)
 {
 	int i;
 
@@ -50,8 +82,8 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32, Elf32_Phdr *phdr32, int is_big
 	printf("  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align\n");
 	for (i = 0; i < ehdr32->e_phnum; i++)
 	{
-		printf("  %-14d 0x%06x 0x%08x 0x%08x 0x%06x 0x%06x %c%c%c 0x%x\n",
-			phdr32[i].p_type, phdr32[i].p_offset, phdr32[i].p_vaddr,
+		printf("  %-14s 0x%06x 0x%08x 0x%08x 0x%06x 0x%06x %c%c%c 0x%x\n",
+			get_segment_type(phdr32[i].p_type), phdr32[i].p_offset, phdr32[i].p_vaddr,
 			phdr32[i].p_paddr, phdr32[i].p_filesz, phdr32[i].p_memsz,
 			(phdr32[i].p_flags & PF_R) ? 'R' : ' ',
 			(phdr32[i].p_flags & PF_W) ? 'W' : ' ',
@@ -60,7 +92,9 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32, Elf32_Phdr *phdr32, int is_big
 	}
 }
 
-void print_program_headers_64(Elf64_Ehdr *ehdr, Elf64_Phdr *phdr, int is_big_endian)
+void print_program_headers_64(Elf64_Ehdr *ehdr,
+							  Elf64_Phdr *phdr,
+							  int is_big_endian)
 {
 	int i;
 
@@ -76,8 +110,8 @@ void print_program_headers_64(Elf64_Ehdr *ehdr, Elf64_Phdr *phdr, int is_big_end
 	printf("  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align\n");
 	for (i = 0; i < ehdr->e_phnum; i++)
 	{
-		printf("  %-14d 0x%06lx 0x%016lx 0x%016lx 0x%06lx 0x%06lx %c%c%c 0x%lx\n",
-			phdr[i].p_type, phdr[i].p_offset, phdr[i].p_vaddr,
+		printf("  %-14s 0x%06lx 0x%016lx 0x%016lx 0x%06lx 0x%06lx %c%c%c 0x%lx\n",
+			get_segment_type(phdr[i].p_type), phdr[i].p_offset, phdr[i].p_vaddr,
 			phdr[i].p_paddr, phdr[i].p_filesz, phdr[i].p_memsz,
 			(phdr[i].p_flags & PF_R) ? 'R' : ' ',
 			(phdr[i].p_flags & PF_W) ? 'W' : ' ',
@@ -101,7 +135,7 @@ int main(int argc, char **argv)
 	if (argc != 2)
 	{
 		fprintf(stderr, "Usage: %s <elf-file>\n", argv[0]);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	filename = argv[1];
@@ -109,14 +143,14 @@ int main(int argc, char **argv)
 	if (fd == -1)
 	{
 		perror("open");
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	if (fstat(fd, &st) == -1)
 	{
 		perror("fstat");
 		close(fd);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	filesize = st.st_size;
@@ -125,7 +159,7 @@ int main(int argc, char **argv)
 	{
 		perror("mmap");
 		close(fd);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	close(fd);
@@ -139,7 +173,7 @@ int main(int argc, char **argv)
 	{
 		fprintf(stderr, "Not a valid ELF file\n");
 		munmap(maps, filesize);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 
 	is_big_endian = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB);
