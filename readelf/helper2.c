@@ -120,7 +120,7 @@ void print_section_headers_64(Elf64_Ehdr *ehdr,
 			shdr[i].sh_addralign);
 		printf("\n");
 	}
-	print_flag_key();
+	print_flag_key_64();
 }
 
 void print_flag_key(void)

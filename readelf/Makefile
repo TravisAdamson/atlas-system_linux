@@ -22,4 +22,4 @@ re: oclean all
 	${CC} ${CFLAGS} 0-hreadelf.c osabi.c machine.c type.c offset.c headers.c v32conv.c readelf.h -o 0-hreadelf
 
 1-hreadelf: 1-hreadelf.c
-	${CC} ${CFLAGS} 1-hreadelf.c 1hreadelf.h helper.c helper2.c helper3.c -o 1-hreadelf
+	${CC} ${CFLAGS} 1-hreadelf.c 1hreadelf.h helper.c helper2.c helper3.c helper4.c -o 1-hreadelf

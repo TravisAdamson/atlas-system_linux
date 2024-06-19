@@ -28,5 +28,6 @@ void print_flag_key(void);
 const char *flags_to_string(uint64_t flags);
 const char *get_section_type_name_64(uint32_t sh_type);
 const char *get_section_type_name_32(uint32_t sh_type);
+void print_flag_key_64(void);
 
 #endif
