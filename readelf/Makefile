@@ -20,3 +20,6 @@ re: oclean all
 
 0-hreadelf: 0-hreadelf.c
 	${CC} ${CFLAGS} 0-hreadelf.c osabi.c machine.c type.c offset.c headers.c v32conv.c readelf.h -o 0-hreadelf
+
+1-hreadelf: 1-hreadelf.c
+	${CC} ${CFLAGS} 1-hreadelf.c 1hreadelf.h -o 1-hreadelf
