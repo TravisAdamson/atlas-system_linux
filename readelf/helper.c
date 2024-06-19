@@ -30,12 +30,16 @@ void process_elf64(Elf64_Ehdr *ehdr, int is_big_endian, void *maps)
 void process_elf32(Elf32_Ehdr *ehdr32, int is_big_endian, void *maps)
 {
 	Elf32_Shdr *shdr32 = (Elf32_Shdr *)((uint8_t *)maps + ehdr32->e_shoff);
-	const char *strtab = (const char *)((uint8_t *)maps +
-		shdr32[ehdr32->e_shstrndx].sh_offset);
+	const char *strtab = NULL;
+	uint16_t e_shstrndx = ehdr32->e_shstrndx;
 
 	if (is_big_endian)
+	{
+		e_shstrndx = __bswap_16(ehdr32->e_shstrndx);
 		swap_endianess_32(shdr32, ehdr32->e_shnum);
-
+	}
+	strtab = (const char *)((uint8_t *)maps +
+		shdr32[e_shstrndx].sh_offset);
 	print_section_headers_32(ehdr32, shdr32, strtab);
 }
 
