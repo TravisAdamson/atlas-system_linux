@@ -79,6 +79,7 @@ void print_section_headers_32(Elf32_Ehdr *ehdr,
 			shdr[i].sh_info,
 			shdr[i].sh_addralign);
 	}
+	print_flag_key();
 }
 
 /**
@@ -117,4 +118,15 @@ void print_section_headers_64(Elf64_Ehdr *ehdr,
 			shdr[i].sh_addralign);
 		printf("\n");
 	}
+	print_flag_key();
+}
+
+void print_flag_key()
+{
+	printf("Key to Flags:\n");
+	printf("  W (write), A (alloc), X (execute), M (merge), S (strings)\n");
+	printf("  I (info), L (link order), G (group), ");
+	printf("T (TLS), E (exclude), x (unknown)\n");
+	printf("  O (extra OS processing required) ");
+	printf("o (OS specific), p (processor specific)\n");
 }
