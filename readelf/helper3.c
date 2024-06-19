@@ -24,7 +24,10 @@ const char *flags_to_string(uint64_t flags)
 	if (flags & SHF_TLS)
 		flag_str[pos++] = 'T';
 	if (flags & SHF_EXCLUDE)
+	{
 		flag_str[pos++] = 'E';
+		return (flag_str);
+	}
 	if (flags & SHF_MASKOS)
 		flag_str[pos++] = 'o';
 	if (flags & SHF_MASKPROC)
