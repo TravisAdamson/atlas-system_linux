@@ -26,5 +26,7 @@ void swap_endianess_64(Elf64_Shdr *shdr, int shnum);
 void swap_endianess_32(Elf32_Shdr *shdr, int shnum);
 void print_flag_key(void);
 const char *flags_to_string(uint64_t flags);
+const char *get_section_type_name_64(uint32_t sh_type);
+const char *get_section_type_name_32(uint32_t sh_type);
 
 #endif
