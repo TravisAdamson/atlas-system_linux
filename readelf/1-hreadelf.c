@@ -117,10 +117,8 @@ int main(int argc, char **argv)
 
 	close(fd);
 
-    // Read ELF header
 	ehdr = (Elf64_Ehdr *)mapped;
 
-    // Check for ELF magic number
 	if (ehdr->e_ident[EI_MAG0] != ELFMAG0 ||
 		ehdr->e_ident[EI_MAG1] != ELFMAG1 ||
 		ehdr->e_ident[EI_MAG2] != ELFMAG2 ||
@@ -130,7 +128,6 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 
-    // Determine endianness and class
 	is_big_endian = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB);
 	is_64_bit = (ehdr->e_ident[EI_CLASS] == ELFCLASS64);
 
@@ -141,7 +138,6 @@ int main(int argc, char **argv)
 
 		if (is_big_endian)
 		{
-			// Convert necessary fields from big-endian to host endianness
 			for (i = 0; i < ehdr->e_shnum; i++) {
 				shdr[i].sh_name = bswap_32(shdr[i].sh_name);
 				shdr[i].sh_type = bswap_32(shdr[i].sh_type);
@@ -163,7 +159,6 @@ int main(int argc, char **argv)
 		strtab = (const char *)((uint8_t *)mapped + shdr32[ehdr32->e_shstrndx].sh_offset);
 
 		if (is_big_endian) {
-			// Convert necessary fields from big-endian to host endianness
 			for (i = 0; i < ehdr32->e_shnum; i++) {
 				shdr32[i].sh_name = bswap_32(shdr32[i].sh_name);
 				shdr32[i].sh_type = bswap_32(shdr32[i].sh_type);
