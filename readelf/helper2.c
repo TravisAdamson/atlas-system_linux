@@ -121,7 +121,7 @@ void print_section_headers_64(Elf64_Ehdr *ehdr,
 	print_flag_key();
 }
 
-void print_flag_key()
+void print_flag_key(void)
 {
 	printf("Key to Flags:\n");
 	printf("  W (write), A (alloc), X (execute), M (merge), S (strings)\n");
