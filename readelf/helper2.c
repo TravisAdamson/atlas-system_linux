@@ -66,7 +66,7 @@ void print_section_headers_32(Elf32_Ehdr *ehdr,
 	for (i = 0; i < ehdr->e_shnum; i++)
 	{
 		name = (char *)(strtab + shdr[i].sh_name);
-		printf("[%2d] %-17s %-16u %08x %06x %06x %02x %3s %2u %3u %2u\n",
+		printf("  [%2d] %-17s %-16u %08x %06x %06x %02x %3s %2u %3u %2u\n",
 			i,
 			name,
 			shdr[i].sh_type,
@@ -104,7 +104,7 @@ void print_section_headers_64(Elf64_Ehdr *ehdr,
 	for (i = 0; i < ehdr->e_shnum; i++)
 	{
 		name = (char *)(strtab + shdr[i].sh_name);
-		printf("[%2d] %-17s %-16u %016lx %06lx %06lx %02lx %3s %2u %3u %2lu",
+		printf("  [%2d] %-17s %-16u %016lx %06lx %06lx %02lx %3s %2u %3u %2lu",
 			i,
 			name,
 			shdr[i].sh_type,
