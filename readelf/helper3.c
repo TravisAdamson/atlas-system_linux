@@ -26,7 +26,7 @@ const char *flags_to_string(uint64_t flags)
 	if (flags & SHF_EXCLUDE)
 	{
 		flag_str[pos++] = 'E';
-		return (flag_str[pos++]);
+		return ('E');
 	}
 	if (flags & SHF_MASKOS)
 		flag_str[pos++] = 'o';
