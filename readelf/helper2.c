@@ -59,14 +59,18 @@ void print_section_headers_32(Elf32_Ehdr *ehdr,
 	int i = 0;
 	char *name = NULL;
 
+	if (is_big_endian)
+	{
+		ehdr->e_shoff = bswap_32(ehdr->e_shoff);
+		ehdr->e_shnum = bswap_16(ehdr->e_shnum);
+	}
 	printf("There are %d section headers, starting at offset 0x%x:\n",
 		ehdr->e_shnum, ehdr->e_shoff);
 	printf("\nSection Headers:\n");
 	printf("  [Nr] %-17s %-15s %-8s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
 		"Name", "Type", "Addr", "Off", "Size",
 		"ES", "Flg", "Lk", "Inf", "Al");
-	if (is_big_endian)
-		ehdr->e_shnum = bswap_16(ehdr->e_shnum);
+
 	for (i = 0; i < ehdr->e_shnum; i++)
 	{
 		name = (char *)(strtab + shdr[i].sh_name);
