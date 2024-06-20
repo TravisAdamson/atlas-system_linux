@@ -13,7 +13,8 @@
 
 void print_section_headers_32(Elf32_Ehdr * ehdr,
 							  Elf32_Shdr * shdr,
-							  const char *strtab);
+							  const char *strtab,
+							  int is_big_endian);
 void print_section_headers_64(Elf64_Ehdr *ehdr,
 							  Elf64_Shdr *shdr,
 							  const char *strtab);

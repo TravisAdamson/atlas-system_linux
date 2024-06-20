@@ -35,12 +35,13 @@ void process_elf32(Elf32_Ehdr *ehdr32, int is_big_endian, void *maps)
 
 	if (is_big_endian)
 	{
-		e_shstrndx = __bswap_16(ehdr32->e_shstrndx);
-		swap_endianess_32(shdr32, ehdr32->e_shnum);
+		shdr32 = (Elf32_Shdr *)((uint8_t *)maps + bswap_32(ehdr32->e_shoff));
+		e_shstrndx = bswap_16(ehdr32->e_shstrndx);
+		swap_endianess_32(shdr32, bswap_16(ehdr32->e_shnum));
 	}
 	strtab = (const char *)((uint8_t *)maps +
 		shdr32[e_shstrndx].sh_offset);
-	print_section_headers_32(ehdr32, shdr32, strtab);
+	print_section_headers_32(ehdr32, shdr32, strtab, is_big_endian);
 }
 
 void swap_endianess_64(Elf64_Shdr *shdr, int shnum)
@@ -49,16 +50,16 @@ void swap_endianess_64(Elf64_Shdr *shdr, int shnum)
 
 	for (i = 0; i < shnum; i++)
 	{
-		shdr[i].sh_name = __bswap_32(shdr[i].sh_name);
-		shdr[i].sh_type = __bswap_32(shdr[i].sh_type);
-		shdr[i].sh_addr = __bswap_64(shdr[i].sh_addr);
-		shdr[i].sh_offset = __bswap_64(shdr[i].sh_offset);
-		shdr[i].sh_size = __bswap_64(shdr[i].sh_size);
-		shdr[i].sh_entsize = __bswap_64(shdr[i].sh_entsize);
-		shdr[i].sh_flags = __bswap_64(shdr[i].sh_flags);
-		shdr[i].sh_link = __bswap_32(shdr[i].sh_link);
-		shdr[i].sh_info = __bswap_32(shdr[i].sh_info);
-		shdr[i].sh_addralign = __bswap_64(shdr[i].sh_addralign);
+		shdr[i].sh_name = bswap_32(shdr[i].sh_name);
+		shdr[i].sh_type = bswap_32(shdr[i].sh_type);
+		shdr[i].sh_addr = bswap_64(shdr[i].sh_addr);
+		shdr[i].sh_offset = bswap_64(shdr[i].sh_offset);
+		shdr[i].sh_size = bswap_64(shdr[i].sh_size);
+		shdr[i].sh_entsize = bswap_64(shdr[i].sh_entsize);
+		shdr[i].sh_flags = bswap_64(shdr[i].sh_flags);
+		shdr[i].sh_link = bswap_32(shdr[i].sh_link);
+		shdr[i].sh_info = bswap_32(shdr[i].sh_info);
+		shdr[i].sh_addralign = bswap_64(shdr[i].sh_addralign);
 	}
 }
 
@@ -68,15 +69,15 @@ void swap_endianess_32(Elf32_Shdr *shdr, int shnum)
 
 	for (i = 0; i < shnum; i++)
 	{
-		shdr[i].sh_name = __bswap_32(shdr[i].sh_name);
-		shdr[i].sh_type = __bswap_32(shdr[i].sh_type);
-		shdr[i].sh_addr = __bswap_32(shdr[i].sh_addr);
-		shdr[i].sh_offset = __bswap_32(shdr[i].sh_offset);
-		shdr[i].sh_size = __bswap_32(shdr[i].sh_size);
-		shdr[i].sh_entsize = __bswap_32(shdr[i].sh_entsize);
-		shdr[i].sh_flags = __bswap_32(shdr[i].sh_flags);
-		shdr[i].sh_link = __bswap_32(shdr[i].sh_link);
-		shdr[i].sh_info = __bswap_32(shdr[i].sh_info);
-		shdr[i].sh_addralign = __bswap_32(shdr[i].sh_addralign);
+		shdr[i].sh_name = bswap_32(shdr[i].sh_name);
+		shdr[i].sh_type = bswap_32(shdr[i].sh_type);
+		shdr[i].sh_addr = bswap_32(shdr[i].sh_addr);
+		shdr[i].sh_offset = bswap_32(shdr[i].sh_offset);
+		shdr[i].sh_size = bswap_32(shdr[i].sh_size);
+		shdr[i].sh_entsize = bswap_32(shdr[i].sh_entsize);
+		shdr[i].sh_flags = bswap_32(shdr[i].sh_flags);
+		shdr[i].sh_link = bswap_32(shdr[i].sh_link);
+		shdr[i].sh_info = bswap_32(shdr[i].sh_info);
+		shdr[i].sh_addralign = bswap_32(shdr[i].sh_addralign);
 	}
 }

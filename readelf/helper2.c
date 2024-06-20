@@ -21,7 +21,7 @@ void *open_and_map_file(const char *filename, size_t *filesize)
 	}
 
 	*filesize = st.st_size;
-	maps = mmap(NULL, *filesize, PROT_READ, MAP_PRIVATE, fd, 0);
+	maps = mmap(NULL, *filesize, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
 	if (maps == MAP_FAILED)
 	{
 		perror("mmap");
@@ -53,7 +53,8 @@ void check_elf_magic(Elf64_Ehdr *ehdr)
 
 void print_section_headers_32(Elf32_Ehdr *ehdr,
 							Elf32_Shdr *shdr,
-							const char *strtab)
+							const char *strtab,
+							int is_big_endian)
 {
 	int i = 0;
 	char *name = NULL;
@@ -64,6 +65,8 @@ void print_section_headers_32(Elf32_Ehdr *ehdr,
 	printf("  [Nr] %-17s %-15s %-8s %-6s %-6s %-2s %-3s %-2s %-3s %-2s\n",
 		"Name", "Type", "Addr", "Off", "Size",
 		"ES", "Flg", "Lk", "Inf", "Al");
+	if (is_big_endian)
+		ehdr->e_shnum = bswap_16(ehdr->e_shnum);
 	for (i = 0; i < ehdr->e_shnum; i++)
 	{
 		name = (char *)(strtab + shdr[i].sh_name);
