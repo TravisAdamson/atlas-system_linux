@@ -1,8 +1,8 @@
-## Learning Objectives
+# Learning Objectives
 
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
-# General
+## General
 
 * The differences between Intel and AT&T syntaxes
 * The different x86 GPR
@@ -14,9 +14,9 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 * How to pass parameters to a function
 * How to retrieve parameters
 
-## Requirements
+# Requirements
 
-# General
+## General
 
 * Allowed editors: vi, vim, emacs
 * All your files will be compiled on Ubuntu 14.04 LTS
@@ -27,6 +27,6 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 * Don’t forget to push your header files
 * All your header files should be include guarded
 
-# Allowed Functions and System Calls
+## Allowed Functions and System Calls
 
 * Unless specified otherwise, you are NOT allowed to do any call or make any system call. It means you’re not allowed to use either the call nor the syscall instructions.
