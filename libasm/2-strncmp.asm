@@ -55,7 +55,7 @@ asm_strncmp:
 	jne .diff_true
 	mov rax, QWORD [rbp - 8]
 	cmp rax, QWORD [rbp - 40]
-	jb .testing_s1_v_s2
+	jb .test_loop
 .diff_true:
 	cmp DWORD [rbp - 12], 0
 	jle .no_diff
