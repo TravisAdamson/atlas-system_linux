@@ -16,15 +16,15 @@ asm_strlen:
 	mov rbp, rsp
 	mov QWORD [rbp - 24], rdi
 	mov QWORD [rbp - 8], 0
-	jmp .test_str_stuff
-.inc_str_len:
+	jmp .testing_str
+.length_of_str:
 	add QWORD [rbp - 8], 1
 	add QWORD [rbp - 24], 1
-.test_str_stuff:
+.testing_str:
 	mov rax, QWORD [rbp - 24]
 	movzx eax, BYTE [rax]
 	test al, al
-	jne .inc_str_len
+	jne .length_of_str
 	mov rax, QWORD [rbp - 8]
 	pop rbp
 	ret
