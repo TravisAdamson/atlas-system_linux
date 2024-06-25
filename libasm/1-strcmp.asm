@@ -28,27 +28,27 @@ asm_strcmp:
 	mov rax, QWORD [rbp - 8]
 	movzx eax, BYTE [rax]
 	test al, al
-	je .test_s1_gt_s2
+	je .test_s1_more_s2
 	mov rax, QWORD [rbp - 16]
 	movzx eax, BYTE [rax]
 	test al, al
-	je .test_s1_gt_s2
+	je .test_s1_more_s2
 	mov rax, QWORD [rbp - 8]
 	movzx edx, BYTE [rax]
 	mov rax, QWORD [rbp - 16]
 	movzx eax, BYTE [rax]
 	cmp dl, al
 	je .strings_to_cmp
-.test_s1_gt_s2:
+.test_s1_more_s2:
 	mov rax, QWORD [rbp - 8]
 	movzx edx, BYTE [rax]
 	mov rax, QWORD [rbp - 16]
 	movzx eax, BYTE [rax]
 	cmp dl, al
-	jle .test_s1_lt_s2
+	jle .test_s1_less_s2
 	mov eax, 1
 	jmp .return
-.test_s1_lt_s2:
+.test_s1_less_s2:
 	mov rax, QWORD [rbp - 8]
 	movzx edx, BYTE [rax]
 	mov rax, QWORD [rbp - 16]
