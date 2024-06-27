@@ -43,7 +43,7 @@ asm_memcpy:
 	mov rdx, QWORD [rbp - 16]
 	add rdx, rax
 	mov rax, QWORD [rbp - 8]
-	mov rcx, QWORD [rbp - 8]
+	mov rcx, QWORD [rbp - 24]
 	add rax, rcx
 	movzx eax, BYTE [rax]
 	mov BYTE [rdx], al
