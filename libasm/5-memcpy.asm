@@ -19,40 +19,25 @@ section .text
 	;; 	return (dest);
 	;; }
 asm_memcpy:
-	push rbp
-	mov rbp, rsp
-	mov QWORD [rbp - 40], rdi
-	mov QWORD [rbp - 48], rsi
-	mov QWORD [rbp - 56], rdx
-	mov rax, QWORD [rbp - 40]
-	mov QWORD [rbp - 16], rax
-	mov rax, QWORD [rbp - 48]
-	mov QWORD [rbp - 24], rax
-	cmp QWORD [rbp - 16], 0
-	je .destination
-	cmp QWORD [rbp - 24], 0
-	jne .setup_loop
-.destination:
-	mov rax, QWORD [rbp - 40]
-	jmp .return
-.setup_loop:
-	mov QWORD [rbp - 8], 0
-	jmp .loop_test
+    push rbp
+    mov rbp, rsp
+	mov rdi, rdi
+    mov rsi, rsi
+    mov rdx, rdx
+	test rdi, rdi
+    je .destination
+    test rsi, rsi
+    je .destination
+    test rdx, rdx
+    jz .destination
 .run_loop:
-	mov rax, QWORD [rbp - 8]
-	mov rdx, QWORD [rbp - 16]
-	add rdx, rax
-	mov rax, QWORD [rbp - 8]
-	mov rcx, QWORD [rbp - 24]
-	add rax, rcx
-	movzx eax, BYTE [rax]
-	mov BYTE [rdx], al
-	add QWORD [rbp - 8], 1
-.loop_test:
-	mov rax, QWORD [rbp - 8]
-	cmp rax, QWORD [rbp - 56]
-	jb .run_loop
-	mov rax, QWORD [rbp - 40]
-.return:
-	pop rbp
-	ret
+    mov al, [rsi]
+    mov [rdi], al
+    inc rsi
+    inc rdi
+    dec rdx
+    jnz .run_loop
+.destination:
+    mov rax, rdi
+    leave
+    ret
