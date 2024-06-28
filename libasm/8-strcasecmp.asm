@@ -6,7 +6,7 @@ section .text
 	;; load stack, get individual chars to cmp,
 	;; convert to lower case if needed
 	;; compare, if not equal, return 1, or -1 as needed,
-	;; if equal continue, if both reach null then return 0
+	;; if equal continue, if both reach  null then return 0
 asm_strcasecmp:
 	push rbp
 	mov rbp, rsp
