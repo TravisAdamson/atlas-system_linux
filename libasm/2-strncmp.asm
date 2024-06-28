@@ -21,9 +21,9 @@ asm_strncmp:
     mov dl, byte [rsi]
 
 	test al, 0
-	je .less_than
+	jz .less_than
 	test dl, 0
-	je .greater_than
+	jz .greater_than
     cmp al, dl
     jl .less_than   ; al < dl
     jg .greater_than ; al > dl
