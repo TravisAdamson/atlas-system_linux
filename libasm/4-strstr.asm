@@ -34,6 +34,8 @@ asm_strstr:
 	movzx R11D, BYTE [r9]
 	cmp r10b, r11b
 	je .run_inner_loop
+	cmp r11b, 0x00
+	jz .return_found
 	jmp .back_to_outter
 
 .run_inner_loop:
