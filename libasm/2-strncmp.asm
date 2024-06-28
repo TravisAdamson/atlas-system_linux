@@ -13,9 +13,9 @@ asm_strncmp:
     ; rdx = size_t n (number of characters to compare)
 
     xor eax, eax   ; Initialize eax (return value) to 0
-	cmp rdi, 0
+	cmp byte [rdi], 0
 	jne .asm_strncmp_loop
-	cmp rsi, 0
+	cmp byte [rsi], 0
 	jne .asm_strncmp_loop
 	jmp .same
 
