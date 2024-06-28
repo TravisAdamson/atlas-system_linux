@@ -62,6 +62,8 @@ asm_strncmp:
     ; S1 < S2
 	cmp edx, eax
 	je .same
+	cmp BYTE [rdi], 0
+	jz .s1_null
 	xor eax, eax
     mov eax, -1
     jmp .exit
@@ -70,6 +72,8 @@ asm_strncmp:
     ; S1 > S2
 	cmp edx, eax
 	je .same
+	cmp BYTE [rsi], 0
+	jz .s2_null
 	xor eax, eax
     mov eax, 1
     jmp .exit
