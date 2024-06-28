@@ -53,12 +53,14 @@ asm_strcasecmp:
 
 .less_than:
 	xor rax, rax
-	mov rax, -1
+	sub bl, cl
+	movsx rax, bl
 	jmp .exit
 
 .greater_than:
 	xor rax, rax
-	mov rax, 1
+	sub bl, cl
+	movzx rax, bl
 	jmp .exit
 
 .return_found:
