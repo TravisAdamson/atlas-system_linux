@@ -20,10 +20,10 @@ asm_strncmp:
     mov al, byte [rdi]
     mov dl, byte [rsi]
 
-	test al, 0
-	jz .less_than
-	test dl, 0
-	jz .greater_than
+	cmp al, 0
+	jz .s1_null
+	cmp dl, 0
+	jz .s2_null
     cmp al, dl
     jl .less_than   ; al < dl
     jg .greater_than ; al > dl
@@ -36,6 +36,20 @@ asm_strncmp:
     inc rdi
     inc rsi
     jmp .asm_strncmp_loop  ; Continue loop
+
+.s1_null:
+	cmp eax, edx
+	jge .same
+	xor eax, eax
+	mov eax, 1
+	jmp .exit
+
+.s2_null:
+	cmp eax, edx
+	jge .same
+	xor eax, eax
+	mov eax, -1
+	jmp .exit
 
 .less_than:
     ; S1 < S2
