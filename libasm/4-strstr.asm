@@ -16,6 +16,9 @@ asm_strstr:
 	cmp bl, 0x00
 	jz .outter_null_found
 
+	cmp al, 0x00
+	jz .return_0
+
 	cmp bl, al
 	je .inner_loop_setup
 
