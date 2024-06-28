@@ -44,7 +44,7 @@ asm_strncmp:
 .greater_than:
     ; S1 > S2
 	cmp edx, eax
-	je .same
+	jg .same
 	xor eax, eax
     mov eax, 1
     jmp .exit
