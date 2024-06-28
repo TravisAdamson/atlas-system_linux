@@ -36,9 +36,9 @@ asm_strncmp:
     ; Characters are equal, move to next
     inc rdi
     inc rsi
-	cmp BYTE [rdi], 0x00
+	test BYTE [rdi], 0x00
 	jz .s1_null
-	cmp BYTE [rsi], 0x00
+	test BYTE [rsi], 0x00
 	jz .s2_null
     jmp .asm_strncmp_loop  ; Continue loop
 
