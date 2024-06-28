@@ -3,65 +3,76 @@ BITS 64
 global asm_strstr
 section .text
 	;; char *asm_strstr(const char *haystack, const char *needle)
-	;; {
-	;; 	char *hs = (char *)haystack, *ndl = (char *)needle,
-	;; 		*temp = NULL;
-	;; 	if (!*ndl)
-	;; 		return (hs);
-	;;	for (; *hs; hs++)
-	;; 	{
-	;;		for (temp = ndl; *temp; temp++)
-	;; 		{
-	;; 			if (*temp != *(hs + (temp - ndl)))
-	;;				break;
-	;; 		}
-	;; 		if (!*temp)
-	;;              	return (hs);
-	;; 	}
-	;;	return (NULL);
-	;; }
+
 asm_strstr:
-    push rbp
-    mov rbp, rsp
-    sub rsp, 16
-    mov rdi, rdi
-    mov rsi, rsi
-    mov [rbp-8], rdi
-    mov [rbp-16], rsi
-    mov rax, [rbp-16]
-    movzx eax, byte [rax]
-    test al, al
-    je .return_haystack
-.haystack_loop:
-    mov rdi, [rbp-8]
-    mov rsi, [rbp-16]
-    mov rcx, rdi
-.needle_loop:
-    mov al, byte [rsi]
-    mov dl, byte [rdi]
-    test al, al
-    je .found
-    test dl, dl
-    je .not_found
-    cmp al, dl
-    jne .next_char
-    inc rsi
-    inc rdi
-    jmp .needle_loop
-.next_char:
-    mov rdi, [rbp-8]
-    inc rdi
-    mov [rbp-8], rdi
-    mov al, byte [rdi]
-    test al, al
-    jne .haystack_loop
-.not_found:
-    xor eax, eax
-    jmp .cleanup
-.found:
-    mov rax, rcx
-.return_haystack:
-    mov rax, [rbp-8]
-.cleanup:
-    leave
-    ret
+	push rbp
+	mov rbp, rsp
+
+.get_first_char:
+	movzx ebx, BYTE [rdi]
+	movzx eax, BYTE [rsi]
+
+.outter_loop:
+	cmp bl, 0x00
+	jz .outter_null_found
+
+	cmp bl, al
+	je .inner_loop_setup
+
+	inc rdi
+	movzx ebx, BYTE [rdi]
+	jmp .outter_loop
+
+.inner_loop_setup:
+	mov R8, rdi
+	mov R9, rsi
+	inc R8
+	inc R9
+	movzx R10D, BYTE [R8]
+	movzx R11D, BYTE [r9]
+	cmp r10b, r11b
+	je .run_inner_loop
+	jmp .back_to_outter
+
+.run_inner_loop:
+	cmp r10b, 0x00
+	jz .inner_null_found
+	cmp r11b, 0x00
+	jz .return_found
+
+	cmp r10b, r11b
+	jne .back_to_outter
+
+	inc R8
+	inc R9
+	movzx R10D, BYTE [R8]
+	movzx R11D, BYTE [R9]
+	jmp .run_inner_loop
+
+.back_to_outter:
+	inc rdi
+	movzx ebx, BYTE [rdi]
+	jmp .outter_loop
+
+.outter_null_found:
+	cmp al, 0x00
+	je .return_found
+	jmp .return_0
+
+.inner_null_found:
+	cmp r11b, 0x00
+	je .return_found
+	jmp .return_0
+
+.return_0:
+	xor rax, rax
+	jmp .exit
+
+.return_found:
+	xor rax, rax
+	mov rax, rdi
+	jmp .exit
+
+.exit:
+	pop rbp
+	ret
