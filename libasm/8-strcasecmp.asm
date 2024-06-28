@@ -20,11 +20,9 @@ asm_strcasecmp:
 
 .check_null:
 	cmp bl, 0x00
-	jnz .remove_char_1_case
-	cmp bl, cl
-	je .return_found
-	jl .less_than
-	jg .greater_than
+	je .check_other_null
+	cmp cl, 0x00
+	je .greater_than
 
 .remove_char_1_case:
 	cmp bl, 65
@@ -57,6 +55,11 @@ asm_strcasecmp:
 	xor rax, rax
 	mov rax, 1
 	jmp .exit
+
+.check_other_null:
+	cmp cl, 0x00
+	je .return_found
+	jmp .less_than
 
 .return_found:
 	xor rax, rax
