@@ -1,55 +1,63 @@
 BITS 64
 
-    global asm_strcasecmp  ; EXPORT function
-
-    section .text
-
-    ; int asm_strcasecmp(const char *s1, const char *s2);
-
+global asm_strcasecmp
+section .text
+	;; int asm_strcasecmp(const char *s1, const char *s2)
+	;; load stack, get individual chars to cmp,
+	;; convert to lower case if needed
+	;; compare, if not equal, return 1, or -1 as needed,
+	;; if equal continue, if both reach  null then return 0
 asm_strcasecmp:
-    push rbp
-    mov rbp, rsp  ; Setup stack
-    xor rax, rax ; ensures rax is 0 at start
-    push rbx
-    push rcx
+	push rbp
+	mov rbp, rsp
+	xor rax, rax
+	push rbx
+	push rcx
 
-asm_strcasecmp_next:
+.get_next_char:
 	movzx ebx, BYTE [rdi]
 	movzx ecx, BYTE [rsi]
-    cmp bl, 0x00
-    jnz asm_strcasecmp_bl_cnvt
-    cmp cl, 0x00
-    jnz asm_strcasecmp_cl_cnvt
-    jmp asm_strcasecmp_ne
 
-asm_strcasecmp_bl_cnvt:
-    cmp bl, 65 ; compares char to 'A'
-    jl asm_strcasecmp_cl_cnvt ; if less, is not a letter
-    cmp bl, 90 ;  compares char to 'Z'
-    jg asm_strcasecmp_cl_cnvt ; if greater is already lowercase, or not a letter
-    add bx, 32 ; changes letter to lowercase
-    jmp asm_strcasecmp_cl_cnvt
+.check_null:
+	cmp bl, 0x00
+	jnz .remove_char_1_case
+	cmp cl, 0x00
+	jnz .remove_char_2_case
+	jmp .not_equals
 
-asm_strcasecmp_cl_cnvt:
-    cmp cl, 65 ; compares char to 'A'
-    jl asm_strcasecmp_cmp ; if less, is not a letter
-    cmp cl, 90 ;  compares char to 'Z'
-    jg asm_strcasecmp_cmp ; if greater is already lowercase, or not a letter
-    add cx, 32 ; changes letter to lowercase
-    jmp asm_strcasecmp_cmp
+.remove_char_1_case:
+	cmp bl, 65
+	jl .remove_char_2_case
+	cmp bl, 90
+	jg .remove_char_2_case
+	add bx, 32
+	jmp .remove_char_2_case
 
-asm_strcasecmp_cmp:
-    cmp bl, cl ; checks if bytes are same
-    jnz asm_strcasecmp_ne ; jumps to end for positive diff
-    inc rdi
-    inc rsi ; incrementing strings
-    jmp asm_strcasecmp_next; Loop
+.remove_char_2_case:
+	cmp cl, 65
+	jl .char_1_v_char_2
+	cmp cl, 90
+	jg .char_1_v_char_2
+	add cx, 32
+	jmp .char_1_v_char_2
 
-asm_strcasecmp_ne:
-    sub rbx, rcx
-    mov rax, rbx
+.char_1_v_char_2:
+	cmp bl, cl
+	jnz .not_equals
+	inc rdi
+	inc rsi
+	jmp .get_next_char
 
-    pop rcx
-    pop rbx
-    pop rbp
-    ret ; exit
+.not_equals:
+	sub rbx, rcx
+	mov rax, rbx
+	jmp .exit
+
+.return_found:
+	xor rax, rax
+
+.exit:
+	pop rcx
+	pop rbx
+	pop rbp
+	ret
