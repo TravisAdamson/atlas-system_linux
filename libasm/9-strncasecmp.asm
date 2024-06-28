@@ -7,7 +7,7 @@ section .text
 	;; convert to lower case if needed
 	;; compare, if not equal, return 1, or -1 as needed,
 	;; if equal continue, if both reach  null then return 0
-asm_strcasecmp:
+asm_strncasecmp:
 	push rbp
 	mov rbp, rsp
 	xor rax, rax
