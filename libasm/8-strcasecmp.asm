@@ -14,6 +14,24 @@ asm_strcasecmp:
 	push rbx
 	push rcx
 
+	cmp BYTE [rdi], 0x00
+	je .null_equal
+	cmp BYTE [rsi], 0x00
+	je .null_not_equal
+	jmp .get_next_char
+
+.null_equal:
+	cmp BYTE [rsi], 0x00
+	je .return_found
+	xor rax, rax
+	mov rax, -1
+	jmp .exit
+
+.null_not_equal:
+	xor rax, rax
+	mov rax, 1
+	jmp .exit
+
 .get_next_char:
 	movzx ebx, BYTE [rdi]
 	movzx ecx, BYTE [rsi]
