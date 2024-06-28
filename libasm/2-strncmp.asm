@@ -37,9 +37,9 @@ asm_strncmp:
     inc rdi
     inc rsi
 	test BYTE [rdi], 0x00
-	jz .s1_null
+	je .s1_null
 	test BYTE [rsi], 0x00
-	jz .s2_null
+	je .s2_null
     jmp .asm_strncmp_loop  ; Continue loop
 
 .s1_null:
