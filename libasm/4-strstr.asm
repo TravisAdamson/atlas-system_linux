@@ -11,13 +11,12 @@ asm_strstr:
 .get_first_char:
 	movzx ebx, BYTE [rdi]
 	movzx eax, BYTE [rsi]
+	cmp al, 0x00
+	je .return_found
 
 .outter_loop:
 	cmp bl, 0x00
 	jz .outter_null_found
-
-	cmp al, 0x00
-	jz .return_0
 
 	cmp bl, al
 	je .inner_loop_setup
