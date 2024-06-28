@@ -60,6 +60,10 @@ asm_strncmp:
 
 .less_than:
     ; S1 < S2
+	cmp BYTE [rdi], 0
+	jz .s1_null
+	cmp BYTE [rsi], 0
+	jz .s2_null
 	cmp edx, eax
 	jle .same
 	xor eax, eax
@@ -68,6 +72,10 @@ asm_strncmp:
 
 .greater_than:
     ; S1 > S2
+	cmp BYTE [rdi], 0
+	jz .s1_null
+	cmp BYTE [rsi], 0
+	jz .s2_null
 	cmp edx, eax
 	je .same
 	xor eax, eax
