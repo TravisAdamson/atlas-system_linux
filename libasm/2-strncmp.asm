@@ -38,17 +38,19 @@ asm_strncmp:
     jmp .asm_strncmp_loop  ; Continue loop
 
 .s1_null:
+	cmp dl, 0
+	jz .same
 	cmp eax, edx
 	jge .same
 	xor eax, eax
-	mov eax, 1
+	mov eax, -1
 	jmp .exit
 
 .s2_null:
 	cmp eax, edx
 	jge .same
 	xor eax, eax
-	mov eax, -1
+	mov eax, 1
 	jmp .exit
 
 .less_than:
