@@ -25,8 +25,8 @@ asm_strncmp:
     jg .greater_than ; al > dl
 
 	inc eax
-	cmp edx, eax
-	jge .same
+	cmp eax, edx
+	je .same
 
     ; Characters are equal, move to next
     inc rdi
