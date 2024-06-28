@@ -11,8 +11,8 @@ asm_strcasecmp:
 	push rbp
 	mov rbp, rsp
 	xor rax, rax
-	push rcx
 	push rbx
+	push rcx
 
 .get_next_char:
 	movzx ebx, BYTE [rdi]
@@ -46,6 +46,11 @@ asm_strcasecmp:
 	inc rsi
 	jmp .get_next_char
 
+.check_other_null:
+	cmp cl, 0x00
+	je .return_found
+	jmp .less_than
+
 .less_than:
 	xor rax, rax
 	mov rax, -1
@@ -56,16 +61,11 @@ asm_strcasecmp:
 	mov rax, 1
 	jmp .exit
 
-.check_other_null:
-	cmp cl, 0x00
-	je .return_found
-	jmp .less_than
-
 .return_found:
 	xor rax, rax
 
 .exit:
-	pop rbp
-	pop rbx
 	pop rcx
+	pop rbx
+	pop rbp
 	ret
