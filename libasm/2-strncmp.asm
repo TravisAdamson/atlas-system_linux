@@ -36,7 +36,7 @@ asm_strncmp:
 .less_than:
     ; S1 < S2
 	cmp edx, eax
-	jg .same
+	jle .same
 	xor eax, eax
     mov eax, -1
     jmp .exit
@@ -44,7 +44,7 @@ asm_strncmp:
 .greater_than:
     ; S1 > S2
 	cmp edx, eax
-	jg .same
+	jle .same
 	xor eax, eax
     mov eax, 1
     jmp .exit
