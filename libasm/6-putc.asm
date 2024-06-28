@@ -4,7 +4,7 @@ global asm_putc
 section .text
 	;; size_t asm_putc(int c)
 
-.asm_putc:
+asm_putc:
 	push rbp
 	mov rbp, rsp
 	push rdi
