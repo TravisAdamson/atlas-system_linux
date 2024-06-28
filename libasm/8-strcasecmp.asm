@@ -21,7 +21,7 @@ asm_strcasecmp:
 .check_null:
 	cmp bl, 0x00
 	jnz .remove_char_1_case
-	cmp bl, al
+	cmp bl, cl
 	je .return_found
 	jl .less_than
 	jg .greater_than
@@ -34,15 +34,14 @@ asm_strcasecmp:
 	add bl, 32
 
 .remove_char_2_case:
-	cmp al, 65
+	cmp cl, 65
 	jl .char_1_v_char_2
-	cmp al, 90
+	cmp cl, 90
 	jg .char_1_v_char_2
-	add al, 32
-	jmp .char_1_v_char_2
+	add cl, 32
 
 .char_1_v_char_2:
-	cmp bl, al
+	cmp bl, cl
 	jl .less_than
 	jg .greater_than
 	inc rdi
