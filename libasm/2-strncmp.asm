@@ -20,6 +20,10 @@ asm_strncmp:
     mov al, byte [rdi]
     mov dl, byte [rsi]
 
+	test al, 0
+	je .less_than
+	test dl, 0
+	je .greater_than
     cmp al, dl
     jl .less_than   ; al < dl
     jg .greater_than ; al > dl
