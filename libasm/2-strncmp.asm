@@ -13,9 +13,9 @@ asm_strncmp:
     ; rdx = size_t n (number of characters to compare)
 
     xor eax, eax   ; Initialize eax (return value) to 0
-	cmp byte [rdi], 0
+	cmp byte [rdi], 0x00
 	jne .asm_strncmp_loop
-	cmp byte [rsi], 0
+	cmp byte [rsi], 0x00
 	jne .asm_strncmp_loop
 	jmp .same
 
@@ -36,14 +36,14 @@ asm_strncmp:
     ; Characters are equal, move to next
     inc rdi
     inc rsi
-	cmp BYTE [rdi], 0
+	cmp BYTE [rdi], 0x00
 	jz .s1_null
-	cmp BYTE [rsi], 0
+	cmp BYTE [rsi], 0x00
 	jz .s2_null
     jmp .asm_strncmp_loop  ; Continue loop
 
 .s1_null:
-	cmp dl, 0
+	cmp dl, 0x00
 	jz .same
 	cmp eax, edx
 	jge .same
@@ -62,7 +62,7 @@ asm_strncmp:
     ; S1 < S2
 	cmp edx, eax
 	je .same
-	cmp BYTE [rdi], 0
+	cmp BYTE [rdi], 0x00
 	jz .s1_null
 	xor eax, eax
     mov eax, -1
@@ -72,7 +72,7 @@ asm_strncmp:
     ; S1 > S2
 	cmp edx, eax
 	je .same
-	cmp BYTE [rsi], 0
+	cmp BYTE [rsi], 0x00
 	jz .s2_null
 	xor eax, eax
     mov eax, 1
