@@ -13,6 +13,11 @@ asm_strncmp:
     ; rdx = size_t n (number of characters to compare)
 
     xor eax, eax   ; Initialize eax (return value) to 0
+	cmp rdi, 0
+	jne .asm_strncmp_loop
+	cmp rsi, 0
+	jne .asm_strncmp_loop
+	jmp .same
 
     ; Loop through the strings
 .asm_strncmp_loop:
@@ -20,10 +25,6 @@ asm_strncmp:
     mov al, byte [rdi]
     mov dl, byte [rsi]
 
-	cmp al, 0
-	jz .s1_null
-	cmp dl, 0
-	jz .s2_null
     cmp al, dl
     jl .less_than   ; al < dl
     jg .greater_than ; al > dl
@@ -35,6 +36,10 @@ asm_strncmp:
     ; Characters are equal, move to next
     inc rdi
     inc rsi
+	cmp BYTE [rdi], 0
+	jz .s1_null
+	cmp BYTE [rsi], 0
+	jz .s2_null
     jmp .asm_strncmp_loop  ; Continue loop
 
 .s1_null:
