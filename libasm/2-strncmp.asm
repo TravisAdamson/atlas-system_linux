@@ -48,14 +48,14 @@ asm_strncmp:
 	cmp eax, edx
 	jg .same
 	xor eax, eax
-	mov eax, 1
+	mov eax, -1
 	jmp .exit
 
 .s2_null:
 	cmp eax, edx
 	jg .same
 	xor eax, eax
-	mov eax, -1
+	mov eax, 1
 	jmp .exit
 
 .less_than:
