@@ -46,14 +46,14 @@ asm_strncmp:
 	cmp dl, 0x00
 	jz .same
 	cmp eax, edx
-	jge .same
+	jg .same
 	xor eax, eax
 	mov eax, 1
 	jmp .exit
 
 .s2_null:
 	cmp eax, edx
-	jge .same
+	jg .same
 	xor eax, eax
 	mov eax, -1
 	jmp .exit
