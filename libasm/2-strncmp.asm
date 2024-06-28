@@ -6,83 +6,51 @@ section .text
 asm_strncmp:
     push rbp
     mov rbp, rsp
+	push rbx
 
     ; Arguments:
     ; rdi = first string (S1)
     ; rsi = second string (S2)
     ; rdx = size_t n (number of characters to compare)
-
-    xor eax, eax   ; Initialize eax (return value) to 0
-	test byte [rdi], 0x00
-	jne .asm_strncmp_loop
-	test byte [rsi], 0x00
-	jne .asm_strncmp_loop
-	jmp .same
-
     ; Loop through the strings
 .asm_strncmp_loop:
     ; Load byte from S1 and S2
-    mov al, byte [rdi]
-    mov dl, byte [rsi]
+    movzx ebx, byte [rdi]
+    movzx eax, byte [rsi]
 
-    cmp al, dl
-    jl .less_than   ; al < dl
-    jg .greater_than ; al > dl
+	cmp bl, 0x00
+	jz .null_found
 
-	inc eax
-	cmp eax, edx
-	jg .same
+    cmp bl, al
+    jl .less_than   ; bl < al
+    jg .greater_than ; al > bl
 
     ; Characters are equal, move to next
     inc rdi
     inc rsi
-	test BYTE [rdi], 0x00
-	je .s1_null
-	test BYTE [rsi], 0x00
-	je .s2_null
+	dec rdx
+	cmp rdx, 0
+	jz .null_found
+
     jmp .asm_strncmp_loop  ; Continue loop
 
-.s1_null:
-	cmp dl, 0x00
-	jz .same
-	cmp eax, edx
-	jg .same
-	xor eax, eax
-	mov eax, 1
-	jmp .exit
-
-.s2_null:
-	cmp eax, edx
-	jg .same
-	xor eax, eax
-	mov eax, -1
+.null_found:
+	cmp bl, al
+	jl .less_than
+	xor rax, rax
 	jmp .exit
 
 .less_than:
-    ; S1 < S2
-	cmp edx, eax
-	je .same
-	cmp BYTE [rdi], 0x00
-	jz .s1_null
-	xor eax, eax
-    mov eax, -1
+    ; S2 < S1
+    mov rax, -1
     jmp .exit
 
 .greater_than:
-    ; S1 > S2
-	cmp edx, eax
-	je .same
-	cmp BYTE [rsi], 0x00
-	jz .s2_null
-	xor eax, eax
-    mov eax, 1
+    ; S2 > S1
+    mov rax, 1
     jmp .exit
-
-.same:
-    ; Strings are equal up to n characters
-    xor eax, eax
-	mov eax, 0
 
 .exit:
     pop rbp
+	pop rbx
     ret
