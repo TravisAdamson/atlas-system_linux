@@ -17,4 +17,6 @@ void *asm_memcpy(void *dest, const void *src, size_t n);
 
 size_t asm_putc(int c);
 
+size_t asm_puts(const char *str);
+
 #endif
