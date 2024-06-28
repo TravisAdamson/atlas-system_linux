@@ -22,7 +22,7 @@ asm_puts:
 	mov rdx, rax
 	mov rax, 1
 
-.syscall_and_exit:
+.call_and_exit:
 	SYSCALL
 	pop rbp
 	pop rdx
