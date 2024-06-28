@@ -26,7 +26,7 @@ asm_strncmp:
 
 	inc eax
 	cmp eax, edx
-	je .same
+	jg .same
 
     ; Characters are equal, move to next
     inc rdi
