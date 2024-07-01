@@ -10,6 +10,8 @@ asm_strcspn:
 	xor rax, rax
 	mov rbx, rdi
 	mov rcx, rsi
+	cmp BYTE [rsi], 0x00
+	je .no_reject
 
 .setup_loops:
 	movzx r8d, BYTE [rbx]
@@ -33,6 +35,10 @@ asm_strcspn:
 	inc rbx
 	mov rcx, rsi
 	jmp .setup_loops
+
+.no_reject:
+	mov rax, rdi
+	jmp .end
 
 .end:
 	pop rbp
