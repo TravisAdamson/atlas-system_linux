@@ -255,7 +255,7 @@ int main(int argc, char **argv)
 	}
 
 	filesize = st.st_size;
-	maps = mmap(NULL, filesize, PROT_READ, MAP_PRIVATE, fd, 0);
+	maps = mmap(NULL, filesize, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
 	if (maps == MAP_FAILED)
 	{
 		perror("mmap");
