@@ -46,7 +46,7 @@ const char *get_file_type(uint16_t e_type)
 	case ET_CORE:
 		return ("CORE (Core file)");
 	default:
-		return ("UNKNOWN");
+		return ("LOOS+464e550");
     }
 }
 
