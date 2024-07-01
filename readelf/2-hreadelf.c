@@ -93,6 +93,7 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	int i, j;
 	char *segment_sections[ehdr32->e_phnum];
 	const char *shstrtab = maps + shdr32[ehdr32->e_shstrndx].sh_offset;
+	const char *section_name;
 
 	if (is_big_endian)
 		swap_endianess_32(phdr32, ehdr32->e_phnum);
@@ -140,6 +141,9 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
     }
 
     for (i = 0; i < ehdr32->e_shnum; i++) {
+		section_name = shstrtab + shdr32[i].sh_name;
+    	if (strcmp(section_name, ".tm_clone_table") == 0)
+        	continue;
         for (j = 0; j < ehdr32->e_phnum; j++) {
             if (shdr32[i].sh_addr >= phdr32[j].p_vaddr &&
                 shdr32[i].sh_addr < phdr32[j].p_vaddr + phdr32[j].p_memsz) {
