@@ -106,7 +106,7 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	printf("  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align\n");
 	for (i = 0; i < ehdr32->e_phnum; i++)
 	{
-		printf("  %-14s 0x%06x 0x%08x 0x%08x 0x%06x 0x%06x %c%c%c 0x%x\n",
+		printf("  %-14s 0x%06x 0x%08x 0x%08x 0x%05x 0x%05x %c%c%c 0x%x\n",
 			get_segment_type(phdr32[i].p_type), phdr32[i].p_offset, phdr32[i].p_vaddr,
 			phdr32[i].p_paddr, phdr32[i].p_filesz, phdr32[i].p_memsz,
 			(phdr32[i].p_flags & PF_R) ? 'R' : ' ',
