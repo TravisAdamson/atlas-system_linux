@@ -95,6 +95,11 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	const char *shstrtab;
 	const char *section_name;
 
+	if (!ehdr32->e_phnum){
+		printf("\nThere are noprogram headers in this file.\n");
+		return;
+	}
+
 	if (is_big_endian)
 		swap_endianess_32(phdr32, bswap_16(ehdr32->e_phnum));
 	shstrtab = maps + shdr32[ehdr32->e_shstrndx].sh_offset;
@@ -171,6 +176,11 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
 	int i, j;
 	char *segment_sections[ehdr->e_phnum];
 	const char *shstrtab = maps + shdr[ehdr->e_shstrndx].sh_offset;
+
+	if (!ehdr->e_phnum){
+		printf("\nThere are noprogram headers in this file.");
+		return;
+	}
 
 	if (is_big_endian)
 		swap_endianess_64(phdr, ehdr->e_phnum);
