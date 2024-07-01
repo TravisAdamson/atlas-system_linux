@@ -27,7 +27,7 @@ const char *get_segment_type(uint32_t p_type)
 	case PT_GNU_RELRO:
 		return ("GNU_RELRO");
 	default:
-		return ("UNKNOWN");
+		return ("LOOS+464e550");
 	}
 }
 
@@ -46,7 +46,7 @@ const char *get_file_type(uint16_t e_type)
 	case ET_CORE:
 		return ("CORE (Core file)");
 	default:
-		return ("LOOS+464e550");
+		return ("UNKNOWN");
     }
 }
 
