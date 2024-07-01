@@ -97,6 +97,7 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	if (is_big_endian)
 		swap_endianess_32(phdr32, ehdr32->e_phnum);
 
+	printf("\n");
 	printf("Elf file type is %s\n", get_file_type(ehdr32->e_type));
 	printf("Entry point 0x%x\n", ehdr32->e_entry);
 	printf("There are %d program headers, starting at offset %d\n\n",
@@ -140,7 +141,6 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
         printf("   %02d     %s\n", j, segment_sections[j]);
         free(segment_sections[j]);
     }
-	printf("\n");
 }
 
 void print_program_headers_64(Elf64_Ehdr *ehdr,
