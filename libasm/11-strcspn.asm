@@ -37,8 +37,12 @@ asm_strcspn:
 	jmp .setup_loops
 
 .no_reject:
-	mov rax, rdi
-	jmp .end
+	movzx r8d, BYTE [rbx]
+	cmp r8b, 0x00
+	je .end
+	inc rax
+	inc rbx
+	jmp .no_reject
 
 .end:
 	pop rbp
