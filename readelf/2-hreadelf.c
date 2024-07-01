@@ -210,6 +210,7 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
         }
     }
 
+	printf("\n");
     printf(" Section to Segment mapping:\n");
     printf("  Segment Sections...\n");
     for (j = 0; j < ehdr->e_phnum; j++) {
