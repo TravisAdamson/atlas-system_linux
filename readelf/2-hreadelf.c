@@ -107,16 +107,32 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	printf("  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align\n");
 	for (i = 0; i < ehdr32->e_phnum; i++)
 	{
-		printf("  %-14s 0x%06x 0x%08x 0x%08x 0x%05x 0x%05x %c%c%c 0x%x\n",
-			get_segment_type(phdr32[i].p_type), phdr32[i].p_offset, phdr32[i].p_vaddr,
-			phdr32[i].p_paddr, phdr32[i].p_filesz, phdr32[i].p_memsz,
-			(phdr32[i].p_flags & PF_R) ? 'R' : ' ',
-			(phdr32[i].p_flags & PF_W) ? 'W' : ' ',
-			(phdr32[i].p_flags & PF_X) ? 'E' : ' ',
-			phdr32[i].p_align);
+		if (phdr32[i].p_align > 0)
+		{
+			printf("  %-14s 0x%06x 0x%08x 0x%08x 0x%05x 0x%05x %c%c%c 0x%x\n",
+				get_segment_type(phdr32[i].p_type), phdr32[i].p_offset, phdr32[i].p_vaddr,
+				phdr32[i].p_paddr, phdr32[i].p_filesz, phdr32[i].p_memsz,
+				(phdr32[i].p_flags & PF_R) ? 'R' : ' ',
+				(phdr32[i].p_flags & PF_W) ? 'W' : ' ',
+				(phdr32[i].p_flags & PF_X) ? 'E' : ' ',
+				phdr32[i].p_align);
 
-        if (phdr32[i].p_type == PT_INTERP)
-            printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr32[i].p_offset));
+        	if (phdr32[i].p_type == PT_INTERP)
+            	printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr32[i].p_offset));
+		}
+		else
+		{
+			printf("  %-14s 0x%06x 0x%08x 0x%08x 0x%05x 0x%05x %c%c%c 0\n",
+				get_segment_type(phdr32[i].p_type), phdr32[i].p_offset, phdr32[i].p_vaddr,
+				phdr32[i].p_paddr, phdr32[i].p_filesz, phdr32[i].p_memsz,
+				(phdr32[i].p_flags & PF_R) ? 'R' : ' ',
+				(phdr32[i].p_flags & PF_W) ? 'W' : ' ',
+				(phdr32[i].p_flags & PF_X) ? 'E' : ' ',
+				phdr32[i].p_align);
+
+        	if (phdr32[i].p_type == PT_INTERP)
+            	printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr32[i].p_offset));
+		}
 	}
 
     for (int i = 0; i < ehdr32->e_phnum; i++) {
