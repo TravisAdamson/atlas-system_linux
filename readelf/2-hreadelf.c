@@ -140,7 +140,6 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
         printf("   %02d     %s\n", j, segment_sections[j]);
         free(segment_sections[j]);
     }
-    printf("\n");
 }
 
 void print_program_headers_64(Elf64_Ehdr *ehdr,
