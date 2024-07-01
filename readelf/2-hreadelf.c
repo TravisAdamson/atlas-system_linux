@@ -128,8 +128,7 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
             if (shdr32[i].sh_addr >= phdr32[j].p_vaddr &&
                 shdr32[i].sh_addr < phdr32[j].p_vaddr + phdr32[j].p_memsz) {
                 strcat(segment_sections[j], shstrtab + shdr32[i].sh_name);
-				if (j + 1 < ehdr32->e_phnum)
-                	strcat(segment_sections[j], " ");
+                strcat(segment_sections[j], " ");
             }
         }
     }
