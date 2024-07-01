@@ -127,8 +127,7 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 				phdr32[i].p_paddr, phdr32[i].p_filesz, phdr32[i].p_memsz,
 				(phdr32[i].p_flags & PF_R) ? 'R' : ' ',
 				(phdr32[i].p_flags & PF_W) ? 'W' : ' ',
-				(phdr32[i].p_flags & PF_X) ? 'E' : ' ',
-				phdr32[i].p_align);
+				(phdr32[i].p_flags & PF_X) ? 'E' : ' ');
 
         	if (phdr32[i].p_type == PT_INTERP)
             	printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr32[i].p_offset));
