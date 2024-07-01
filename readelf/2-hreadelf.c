@@ -56,14 +56,14 @@ void swap_endianess_32(Elf32_Phdr *phdr, int phnum)
 
 	for (i = 0; i < phnum; i++)
 	{
-		phdr[i].p_type = __bswap_32(phdr[i].p_type);
-		phdr[i].p_offset = __bswap_32(phdr[i].p_offset);
-		phdr[i].p_vaddr = __bswap_32(phdr[i].p_vaddr);
-		phdr[i].p_paddr = __bswap_32(phdr[i].p_paddr);
-		phdr[i].p_filesz = __bswap_32(phdr[i].p_filesz);
-		phdr[i].p_memsz = __bswap_32(phdr[i].p_memsz);
-		phdr[i].p_flags = __bswap_32(phdr[i].p_flags);
-		phdr[i].p_align = __bswap_32(phdr[i].p_align);
+		phdr[i].p_type = bswap_32(phdr[i].p_type);
+		phdr[i].p_offset = bswap_32(phdr[i].p_offset);
+		phdr[i].p_vaddr = bswap_32(phdr[i].p_vaddr);
+		phdr[i].p_paddr = bswap_32(phdr[i].p_paddr);
+		phdr[i].p_filesz = bswap_32(phdr[i].p_filesz);
+		phdr[i].p_memsz = bswap_32(phdr[i].p_memsz);
+		phdr[i].p_flags = bswap_32(phdr[i].p_flags);
+		phdr[i].p_align = bswap_32(phdr[i].p_align);
 	}
 }
 
@@ -92,12 +92,12 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 {
 	int i, j;
 	char *segment_sections[ehdr32->e_phnum];
-	const char *shstrtab = maps + shdr32[ehdr32->e_shstrndx].sh_offset;
+	const char *shstrtab;
 	const char *section_name;
 
 	if (is_big_endian)
-		swap_endianess_32(phdr32, ehdr32->e_phnum);
-
+		swap_endianess_32(phdr32, bswap_16(ehdr32->e_phnum));
+	shstrtab = maps + shdr32[ehdr32->e_shstrndx].sh_offset;
 	printf("\n");
 	printf("Elf file type is %s\n", get_file_type(ehdr32->e_type));
 	printf("Entry point 0x%x\n", ehdr32->e_entry);
@@ -175,6 +175,7 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
 	if (is_big_endian)
 		swap_endianess_64(phdr, ehdr->e_phnum);
 
+	printf("\n");
 	printf("Elf file type is %s\n", get_file_type(ehdr->e_type));
 	printf("Entry point 0x%lx\n", ehdr->e_entry);
 	printf("There are %d program headers, starting at offset %ld\n\n",
@@ -217,7 +218,6 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
         printf("   %02d     %s\n", j, segment_sections[j]);
         free(segment_sections[j]);
     }
-	printf("\n");
 }
 
 int main(int argc, char **argv)
