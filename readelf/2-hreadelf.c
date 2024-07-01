@@ -96,7 +96,7 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	const char *section_name;
 
 	if (!ehdr32->e_phnum){
-		printf("\nThere are noprogram headers in this file.\n");
+		printf("\nThere are no program headers in this file.\n");
 		return;
 	}
 
