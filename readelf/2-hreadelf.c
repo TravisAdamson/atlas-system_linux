@@ -176,6 +176,7 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
 	int i, j;
 	char *segment_sections[ehdr->e_phnum];
 	const char *shstrtab = maps + shdr[ehdr->e_shstrndx].sh_offset;
+	const char *section_name;
 
 	if (!ehdr->e_phnum){
 		printf("\nThere are no program headers in this file.\n");
@@ -212,11 +213,21 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
     }
 
     for (i = 0; i < ehdr->e_shnum; i++) {
-        for (j = 0; j < ehdr->e_phnum; j++) {
+		section_name = shstrtab + shdr[i].sh_name;
+    	if (strcmp(section_name, ".gnu_debuglink") == 0)
+		{
+        	continue;
+		}
+		if (strcmp(section_name, ".shstrtab") == 0)
+		{
+			continue;
+		}
+		for (j = 0; j < ehdr->e_phnum; j++) {
             if (shdr[i].sh_addr >= phdr[j].p_vaddr &&
                 shdr[i].sh_addr < phdr[j].p_vaddr + phdr[j].p_memsz) {
                 strcat(segment_sections[j], shstrtab + shdr[i].sh_name);
-                strcat(segment_sections[j], " ");
+				if (i > 0 )
+                	strcat(segment_sections[j], " ");
             }
         }
     }
