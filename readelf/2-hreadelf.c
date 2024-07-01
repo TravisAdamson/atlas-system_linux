@@ -178,7 +178,7 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
 	const char *shstrtab = maps + shdr[ehdr->e_shstrndx].sh_offset;
 
 	if (!ehdr->e_phnum){
-		printf("\nThere are noprogram headers in this file.");
+		printf("\nThere are no program headers in this file.\n");
 		return;
 	}
 
