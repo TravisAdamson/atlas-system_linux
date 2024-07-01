@@ -9,5 +9,6 @@
 #include <sys/stat.h>
 #include <elf.h>
 #include <byteswap.h>
+#include <string.h>
 
 #endif
