@@ -50,5 +50,7 @@ void map_sections_to_segments_32(char **segment_sections, Elf32_Phdr *phdr32,
 							int e_phnum, Elf32_Shdr *shdr32,
 							const char *shstrtab, Elf32_Ehdr *ehdr32);
 void print_segment_mapping_32(char **segment_sections, int e_phnum);
+void setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
+					const char *maps);
 
 #endif

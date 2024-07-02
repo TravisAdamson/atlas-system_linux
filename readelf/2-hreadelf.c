@@ -7,11 +7,6 @@ int main(int argc, char **argv)
 	struct stat st;
 	void *maps;
 	Elf64_Ehdr *ehdr;
-	Elf32_Ehdr *ehdr32;
-	Elf64_Phdr *phdr;
-	Elf32_Phdr *phdr32;
-	Elf64_Shdr *shdr64;
-	Elf32_Shdr *shdr32;
 
 	if (argc != 2)
 	{
@@ -38,6 +33,19 @@ int main(int argc, char **argv)
 	}
 	is_big_endian = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB);
 	is_64_bit = (ehdr->e_ident[EI_CLASS] == ELFCLASS64);
+	setup_printing(is_big_endian, is_64_bit, ehdr, maps);
+	munmap(maps, st.st_size);
+	return (EXIT_SUCCESS);
+}
+
+void setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr, const char *maps)
+{
+	Elf32_Ehdr *ehdr32;
+	Elf64_Phdr *phdr;
+	Elf32_Phdr *phdr32;
+	Elf64_Shdr *shdr64;
+	Elf32_Shdr *shdr32;
+
 	if (is_64_bit)
 	{
 		phdr = (Elf64_Phdr *)((uint8_t *)maps + ehdr->e_phoff);
@@ -51,6 +59,4 @@ int main(int argc, char **argv)
 		shdr32 = (Elf32_Shdr *)((uint8_t *)maps + (is_big_endian ? bswap_32(ehdr32->e_shoff) : ehdr32->e_shoff));
 		print_program_headers_32(ehdr32, phdr32, shdr32, maps, is_big_endian);
 	}
-	munmap(maps, st.st_size);
-	return (EXIT_SUCCESS);
 }
