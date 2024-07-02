@@ -11,7 +11,11 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
 
     initialize_segment_sections(segment_sections, ehdr->e_phnum);
 
-    check_and_print_no_headers(ehdr);
+	if (!ehdr->e_phnum)
+	{
+		printf("\nThere are no program headers in this file.\n");
+		return;
+	}
 
     if (is_big_endian)
 	{
@@ -29,14 +33,6 @@ void initialize_segment_sections(char *segment_sections[], int num_sections)
 	for (i = 0; i < num_sections; i++) {
 		segment_sections[i] = malloc(4096);
 		segment_sections[i][0] = '\0';
-	}
-}
-
-void check_and_print_no_headers(Elf64_Ehdr *ehdr)
-{
-	if (!ehdr->e_phnum) {
-		printf("\nThere are no program headers in this file.\n");
-		return;
 	}
 }
 
