@@ -33,7 +33,7 @@ const char *get_segment_type(uint32_t p_type)
 
 const char *get_file_type(uint16_t e_type)
 {
-    switch (e_type)
+	switch (e_type)
 	{
 	case ET_NONE:
 		return ("NONE (No file type)");
@@ -47,13 +47,13 @@ const char *get_file_type(uint16_t e_type)
 		return ("CORE (Core file)");
 	default:
 		return ("UNKNOWN");
-    }
+	}
 }
 
 void swap_endianess_32(Elf32_Ehdr *ehdr,
-					   Elf32_Phdr *phdr,
-					   Elf32_Shdr *shdr,
-					   int phnum)
+					Elf32_Phdr *phdr,
+					Elf32_Shdr *shdr,
+					int phnum)
 {
 	int i;
 	int snum = bswap_16(ehdr->e_shnum);
@@ -118,10 +118,10 @@ void swap_endianess_64(Elf64_Phdr *phdr, int phnum)
 }
 
 void print_program_headers_32(Elf32_Ehdr *ehdr32,
-							  Elf32_Phdr *phdr32,
-							  Elf32_Shdr *shdr32,
-							  const char *maps,
-							  int is_big_endian)
+							Elf32_Phdr *phdr32,
+							Elf32_Shdr *shdr32,
+							const char *maps,
+							int is_big_endian)
 {
 	int i, j;
 	char *segment_sections[ehdr32->e_phnum];
@@ -156,8 +156,8 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 				(phdr32[i].p_flags & PF_X) ? 'E' : ' ',
 				phdr32[i].p_align);
 
-        	if (phdr32[i].p_type == PT_INTERP)
-            	printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr32[i].p_offset));
+			if (phdr32[i].p_type == PT_INTERP)
+				printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr32[i].p_offset));
 		}
 		else
 		{
@@ -168,21 +168,21 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 				(phdr32[i].p_flags & PF_W) ? 'W' : ' ',
 				(phdr32[i].p_flags & PF_X) ? 'E' : ' ');
 
-        	if (phdr32[i].p_type == PT_INTERP)
-            	printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr32[i].p_offset));
+			if (phdr32[i].p_type == PT_INTERP)
+				printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr32[i].p_offset));
 		}
 	}
 
-    for (int i = 0; i < ehdr32->e_phnum; i++) {
-        segment_sections[i] = malloc(4096);
-        segment_sections[i][0] = '\0';
-    }
+	for (int i = 0; i < ehdr32->e_phnum; i++) {
+		segment_sections[i] = malloc(4096);
+		segment_sections[i][0] = '\0';
+	}
 
-    for (i = 0; i < ehdr32->e_shnum; i++) {
+	for (i = 0; i < ehdr32->e_shnum; i++) {
 		section_name = shstrtab + shdr32[i].sh_name;
-    	if (strcmp(section_name, ".tm_clone_table") == 0)
+		if (strcmp(section_name, ".tm_clone_table") == 0)
 		{
-        	continue;
+			continue;
 		}
 		if (strcmp(section_name, ".gnu_debuglink") == 0)
 		{
@@ -193,29 +193,29 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 			continue;
 		}
 		for (j = 0; j < ehdr32->e_phnum; j++) {
-            if (shdr32[i].sh_addr >= phdr32[j].p_vaddr &&
-                shdr32[i].sh_addr < phdr32[j].p_vaddr + phdr32[j].p_memsz) {
-                strcat(segment_sections[j], shstrtab + shdr32[i].sh_name);
+			if (shdr32[i].sh_addr >= phdr32[j].p_vaddr &&
+				shdr32[i].sh_addr < phdr32[j].p_vaddr + phdr32[j].p_memsz) {
+				strcat(segment_sections[j], shstrtab + shdr32[i].sh_name);
 				if (i > 0)
-                	strcat(segment_sections[j], " ");
-            }
-        }
-    }
+					strcat(segment_sections[j], " ");
+			}
+		}
+	}
 
 	printf("\n");
-    printf(" Section to Segment mapping:\n");
-    printf("  Segment Sections...\n");
-    for (j = 0; j < ehdr32->e_phnum; j++) {
-        printf("   %02d     %s\n", j, segment_sections[j]);
-        free(segment_sections[j]);
-    }
+	printf(" Section to Segment mapping:\n");
+	printf("  Segment Sections...\n");
+	for (j = 0; j < ehdr32->e_phnum; j++) {
+		printf("   %02d     %s\n", j, segment_sections[j]);
+		free(segment_sections[j]);
+	}
 }
 
 void print_program_headers_64(Elf64_Ehdr *ehdr,
-							  Elf64_Phdr *phdr,
-							  Elf64_Shdr *shdr,
-							  const char *maps,
-							  int is_big_endian)
+							Elf64_Phdr *phdr,
+							Elf64_Shdr *shdr,
+							const char *maps,
+							int is_big_endian)
 {
 	int i, j;
 	char *segment_sections[ehdr->e_phnum];
@@ -248,41 +248,41 @@ void print_program_headers_64(Elf64_Ehdr *ehdr,
 			(phdr[i].p_flags & PF_X) ? 'E' : ' ',
 			phdr[i].p_align);
 
-        if (phdr[i].p_type == PT_INTERP)
-            printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr[i].p_offset));
+		if (phdr[i].p_type == PT_INTERP)
+			printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr[i].p_offset));
 	}
-    for (i = 0; i < ehdr->e_phnum; i++) {
-        segment_sections[i] = malloc(4096);
-        segment_sections[i][0] = '\0';
-    }
+	for (i = 0; i < ehdr->e_phnum; i++) {
+		segment_sections[i] = malloc(4096);
+		segment_sections[i][0] = '\0';
+	}
 
-    for (i = 0; i < ehdr->e_shnum; i++) {
+	for (i = 0; i < ehdr->e_shnum; i++) {
 		section_name = shstrtab + shdr[i].sh_name;
-    	if (strcmp(section_name, ".gnu_debuglink") == 0)
+		if (strcmp(section_name, ".gnu_debuglink") == 0)
 		{
-        	continue;
+			continue;
 		}
 		if (strcmp(section_name, ".shstrtab") == 0)
 		{
 			continue;
 		}
 		for (j = 0; j < ehdr->e_phnum; j++) {
-            if (shdr[i].sh_addr >= phdr[j].p_vaddr &&
-                shdr[i].sh_addr < phdr[j].p_vaddr + phdr[j].p_memsz) {
-                strcat(segment_sections[j], shstrtab + shdr[i].sh_name);
+			if (shdr[i].sh_addr >= phdr[j].p_vaddr &&
+				shdr[i].sh_addr < phdr[j].p_vaddr + phdr[j].p_memsz) {
+				strcat(segment_sections[j], shstrtab + shdr[i].sh_name);
 				if (i > 0 )
-                	strcat(segment_sections[j], " ");
-            }
-        }
-    }
+					strcat(segment_sections[j], " ");
+			}
+		}
+	}
 
 	printf("\n");
-    printf(" Section to Segment mapping:\n");
-    printf("  Segment Sections...\n");
-    for (j = 0; j < ehdr->e_phnum; j++) {
-        printf("   %02d     %s\n", j, segment_sections[j]);
-        free(segment_sections[j]);
-    }
+	printf(" Section to Segment mapping:\n");
+	printf("  Segment Sections...\n");
+	for (j = 0; j < ehdr->e_phnum; j++) {
+		printf("   %02d     %s\n", j, segment_sections[j]);
+		free(segment_sections[j]);
+	}
 }
 
 int main(int argc, char **argv)
