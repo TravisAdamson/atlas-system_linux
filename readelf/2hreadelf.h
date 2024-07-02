@@ -11,9 +11,9 @@
 #include <byteswap.h>
 #include <string.h>
 
-void print_program_headers_64(Elf64_Ehdr *ehdr,
-							Elf64_Phdr *phdr,
-							Elf64_Shdr *shdr,
+void print_program_headers_64(Elf64_Ehdr * ehdr,
+							Elf64_Phdr * phdr,
+							Elf64_Shdr * shdr,
 							const char *maps,
 							int is_big_endian);
 

@@ -92,5 +92,5 @@ int main(int argc, char **argv)
 	}
 
 	munmap(maps, filesize);
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
