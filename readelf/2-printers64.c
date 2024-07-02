@@ -30,7 +30,8 @@ void initialize_segment_sections(char *segment_sections[], int num_sections)
 {
 	int i;
 
-	for (i = 0; i < num_sections; i++) {
+	for (i = 0; i < num_sections; i++)
+	{
 		segment_sections[i] = malloc(4096);
 		segment_sections[i][0] = '\0';
 	}
