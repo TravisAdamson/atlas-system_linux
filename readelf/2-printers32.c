@@ -11,7 +11,8 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	const char *shstrtab;
 	const char *section_name;
 
-	if (!ehdr32->e_phnum) {
+	if (!ehdr32->e_phnum)
+	{
 		printf("\nThere are no program headers in this file.\n");
 		return;
 	}
@@ -30,7 +31,8 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 		"Type", "Offset", "VirtAddr", "PhysAddr",
 		"FileSiz", "MemSiz", "Flg", "Align");
 
-	for (i = 0; i < ehdr32->e_phnum; i++) {
+	for (i = 0; i < ehdr32->e_phnum; i++)
+	{
 		segment_sections[i] = malloc(4096);
 		segment_sections[i][0] = '\0';
 
@@ -41,28 +43,35 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 			(phdr32[i].p_flags & PF_W) ? 'W' : ' ',
 			(phdr32[i].p_flags & PF_X) ? 'E' : ' ');
 
-		if (phdr32[i].p_align > 0) {
+		if (phdr32[i].p_align > 0)
+		{
 			printf(" 0x%x\n", phdr32[i].p_align);
-		} else {
+		} else
+		{
 			printf(" 0\n");
 		}
 
-		if (phdr32[i].p_type == PT_INTERP) {
+		if (phdr32[i].p_type == PT_INTERP)
+		{
 			printf("      [Requesting program interpreter: %s]\n",
 				(char *)(maps + phdr32[i].p_offset));
 		}
 	}
 
-	for (i = 0; i < ehdr32->e_shnum; i++) {
+	for (i = 0; i < ehdr32->e_shnum; i++)
+	{
 		section_name = shstrtab + shdr32[i].sh_name;
 		if (strcmp(section_name, ".tm_clone_table") == 0 ||
 			strcmp(section_name, ".gnu_debuglink") == 0 ||
-			strcmp(section_name, ".shstrtab") == 0) {
+			strcmp(section_name, ".shstrtab") == 0)
+		{
 			continue;
 		}
-		for (j = 0; j < ehdr32->e_phnum; j++) {
+		for (j = 0; j < ehdr32->e_phnum; j++)
+		{
 			if (shdr32[i].sh_addr >= phdr32[j].p_vaddr &&
-				shdr32[i].sh_addr < phdr32[j].p_vaddr + phdr32[j].p_memsz) {
+				shdr32[i].sh_addr < phdr32[j].p_vaddr + phdr32[j].p_memsz)
+			{
 				strcat(segment_sections[j], section_name);
 				if (i > 0)
 					strcat(segment_sections[j], " ");
@@ -74,7 +83,8 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	printf(" Section to Segment mapping:\n");
 	printf("  Segment Sections...\n");
 
-	for (j = 0; j < ehdr32->e_phnum; j++) {
+	for (j = 0; j < ehdr32->e_phnum; j++)
+	{
 		printf("   %02d     %s\n", j, segment_sections[j]);
 		free(segment_sections[j]);
 	}
