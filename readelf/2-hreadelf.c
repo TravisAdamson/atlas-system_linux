@@ -181,8 +181,18 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
     for (i = 0; i < ehdr32->e_shnum; i++) {
 		section_name = shstrtab + shdr32[i].sh_name;
     	if (strcmp(section_name, ".tm_clone_table") == 0)
+		{
         	continue;
-        for (j = 0; j < ehdr32->e_phnum; j++) {
+		}
+		if (strcmp(section_name, ".gnu_debuglink") == 0)
+		{
+			continue;
+		}
+		if (strcmp(section_name, ".shstrtab") == 0)
+		{
+			continue;
+		}
+		for (j = 0; j < ehdr32->e_phnum; j++) {
             if (shdr32[i].sh_addr >= phdr32[j].p_vaddr &&
                 shdr32[i].sh_addr < phdr32[j].p_vaddr + phdr32[j].p_memsz) {
                 strcat(segment_sections[j], shstrtab + shdr32[i].sh_name);
