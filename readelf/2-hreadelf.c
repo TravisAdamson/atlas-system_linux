@@ -38,7 +38,8 @@ int main(int argc, char **argv)
 	return (EXIT_SUCCESS);
 }
 
-void setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr, const char *maps)
+void setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
+					const char *maps)
 {
 	Elf32_Ehdr *ehdr32;
 	Elf64_Phdr *phdr;
@@ -55,8 +56,10 @@ void setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr, const ch
 	else
 	{
 		ehdr32 = (Elf32_Ehdr *)ehdr;
-		phdr32 = (Elf32_Phdr *)((uint8_t *)maps + (is_big_endian ? bswap_32(ehdr32->e_phoff) : ehdr32->e_phoff));
-		shdr32 = (Elf32_Shdr *)((uint8_t *)maps + (is_big_endian ? bswap_32(ehdr32->e_shoff) : ehdr32->e_shoff));
+		phdr32 = (Elf32_Phdr *)((uint8_t *)maps +
+			(is_big_endian ? bswap_32(ehdr32->e_phoff) : ehdr32->e_phoff));
+		shdr32 = (Elf32_Shdr *)((uint8_t *)maps +
+			(is_big_endian ? bswap_32(ehdr32->e_shoff) : ehdr32->e_shoff));
 		print_program_headers_32(ehdr32, phdr32, shdr32, maps, is_big_endian);
 	}
 }
