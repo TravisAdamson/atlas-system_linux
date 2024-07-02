@@ -25,4 +25,4 @@ re: oclean all
 	${CC} ${CFLAGS} 1-hreadelf.c 1hreadelf.h helper.c helper2.c helper3.c helper4.c -o 1-hreadelf
 
 2-hreadelf: 2-hreadelf.c
-	${CC} ${CFLAGS} 2-hreadelf.c 2-getters.c 2-converts.c 2-printers.c 2hreadelf.h -o 2-hreadelf
+	${CC} ${CFLAGS} 2-hreadelf.c 2-getters.c 2-converts.c 2-printers.c 2hreadelf.h 2-printers64.c 2-printers32.c -o 2-hreadelf
