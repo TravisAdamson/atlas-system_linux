@@ -11,7 +11,8 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	const char *shstrtab;
 	const char *section_name;
 
-	if (!ehdr32->e_phnum){
+	if (!ehdr32->e_phnum)
+	{
 		printf("\nThere are no program headers in this file.\n");
 		return;
 	}
@@ -26,7 +27,9 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 		ehdr32->e_phnum, ehdr32->e_phoff);
 
 	printf("Program Headers:\n");
-	printf("  Type           Offset   VirtAddr   PhysAddr   FileSiz MemSiz  Flg Align\n");
+	printf("  %-14s %-8s %-10s %-10s %-7s %-7s %-3s %-8s\n",
+       "Type", "Offset", "VirtAddr", "PhysAddr",
+	   "FileSiz", "MemSiz", "Flg", "Align");
 	for (i = 0; i < ehdr32->e_phnum; i++)
 	{
 		if (phdr32[i].p_align > 0)
