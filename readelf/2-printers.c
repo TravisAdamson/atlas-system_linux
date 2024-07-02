@@ -13,7 +13,9 @@ void print_top_section_64(Elf64_Ehdr *ehdr,
 		ehdr->e_phnum, ehdr->e_phoff);
 
 	printf("Program Headers:\n");
-	printf("  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align\n");
+	printf("  %-14s %-8s %-10s %-10s %-7s %-7s %-3s %-5s\n",
+		"Type", "Offset", "VirtAddr", "PhysAddr",
+		"FileSiz", "MemSiz", "Flg", "Align");
 	for (i = 0; i < ehdr->e_phnum; i++)
 	{
 		printf("  %-14s 0x%06lx 0x%016lx 0x%016lx 0x%06lx 0x%06lx %c%c%c 0x%lx\n",
@@ -25,6 +27,7 @@ void print_top_section_64(Elf64_Ehdr *ehdr,
 			phdr[i].p_align);
 
 		if (phdr[i].p_type == PT_INTERP)
-			printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr[i].p_offset));
+			printf("      [Requesting program interpreter: %s]\n",
+				(char *)(maps + phdr[i].p_offset));
 	}
 }
