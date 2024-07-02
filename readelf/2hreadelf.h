@@ -18,10 +18,10 @@ void print_program_headers_64(Elf64_Ehdr * ehdr,
 							int is_big_endian);
 
 void print_program_headers_32(Elf32_Ehdr *ehdr32,
-							  Elf32_Phdr *phdr32,
-							  Elf32_Shdr *shdr32,
-							  const char *maps,
-							  int is_big_endian);
+							Elf32_Phdr *phdr32,
+							Elf32_Shdr *shdr32,
+							const char *maps,
+							int is_big_endian);
 
 void swap_endianess_64(Elf64_Phdr *phdr, int phnum);
 
@@ -33,5 +33,13 @@ void swap_endianess_32(Elf32_Ehdr *ehdr,
 const char *get_file_type(uint16_t e_type);
 
 const char *get_segment_type(uint32_t p_type);
+void initialize_segment_sections(char *segment_sections[], int num_sections);
+void check_and_print_no_headers(Elf64_Ehdr *ehdr);
+void print_segment_mapping_64(Elf64_Ehdr *ehdr, char *segment_sections[]);
+void map_sections_to_segments_64(Elf64_Ehdr *ehdr, Elf64_Phdr *phdr, Elf64_Shdr *shdr,
+							const char *shstrtab, char *segment_sections[]);
+void print_top_section_64(Elf64_Ehdr *ehdr,
+							Elf64_Phdr *phdr,
+							const char *maps);
 
 #endif
