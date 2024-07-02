@@ -6,6 +6,7 @@ int main(int argc, char **argv)
 	int fd, is_64_bit, is_big_endian;
 	struct stat st;
 	void *maps;
+	size_t filesize;
 	Elf64_Ehdr *ehdr;
 	Elf32_Ehdr *ehdr32;
 	Elf64_Phdr *phdr;
@@ -16,16 +17,17 @@ int main(int argc, char **argv)
 	if (argc != 2)
 	{
 		fprintf(stderr, "Usage: %s <elf-file>\n", argv[0]);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 	filename = argv[1];
-	if ((fd = open(filename, O_RDONLY)) == -1 ||
-		fstat(fd, &st) == -1 ||
-		(maps = mmap(NULL, st.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0)) == MAP_FAILED)
+	fd = open(filename, O_RDONLY);
+	filesize = fstat(fd, &st);
+	maps = mmap(NULL, st.st_size, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
+	if (fd == -1 || filesize == -1 || maps == MAP_FAILED)
 	{
 		perror("Failed to map ELF file");
 		close(fd);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 	close(fd);
 	ehdr = (Elf64_Ehdr *)maps;
@@ -33,7 +35,7 @@ int main(int argc, char **argv)
 	{
 		fprintf(stderr, "Not a valid ELF file\n");
 		munmap(maps, st.st_size);
-		return EXIT_FAILURE;
+		return (EXIT_FAILURE);
 	}
 	is_big_endian = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB);
 	is_64_bit = (ehdr->e_ident[EI_CLASS] == ELFCLASS64);
