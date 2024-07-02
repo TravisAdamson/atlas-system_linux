@@ -13,7 +13,7 @@ void print_top_section_64(Elf64_Ehdr *ehdr,
 		ehdr->e_phnum, ehdr->e_phoff);
 
 	printf("Program Headers:\n");
-	printf("  %-14s %-8s %-10s %-10s %-7s %-7s %-3s %-5s\n",
+	printf("  %-14s %-8s %-18s %-18s %-8s %-8s %-3s %-5s\n",
 		"Type", "Offset", "VirtAddr", "PhysAddr",
 		"FileSiz", "MemSiz", "Flg", "Align");
 	for (i = 0; i < ehdr->e_phnum; i++)
