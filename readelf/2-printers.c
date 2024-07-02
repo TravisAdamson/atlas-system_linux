@@ -28,8 +28,8 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 
 	printf("Program Headers:\n");
 	printf("  %-14s %-8s %-10s %-10s %-7s %-7s %-3s %-5s\n",
-       "Type", "Offset", "VirtAddr", "PhysAddr",
-	   "FileSiz", "MemSiz", "Flg", "Align");
+		"Type", "Offset", "VirtAddr", "PhysAddr",
+		"FileSiz", "MemSiz", "Flg", "Align");
 	for (i = 0; i < ehdr32->e_phnum; i++)
 	{
 		if (phdr32[i].p_align > 0)
@@ -43,7 +43,8 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 				phdr32[i].p_align);
 
 			if (phdr32[i].p_type == PT_INTERP)
-				printf("      [Requesting program interpreter: %s]\n", (char *)(maps + phdr32[i].p_offset));
+				printf("      [Requesting program interpreter: %s]\n",
+					(char *)(maps + phdr32[i].p_offset));
 		}
 		else
 		{
@@ -59,7 +60,8 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 		}
 	}
 
-	for (int i = 0; i < ehdr32->e_phnum; i++) {
+	for (int i = 0; i < ehdr32->e_phnum; i++)
+	{
 		segment_sections[i] = malloc(4096);
 		segment_sections[i][0] = '\0';
 	}

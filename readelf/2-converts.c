@@ -19,7 +19,6 @@ void swap_endianess_32(Elf32_Ehdr *ehdr,
 		phdr[i].p_flags = bswap_32(phdr[i].p_flags);
 		phdr[i].p_align = bswap_32(phdr[i].p_align);
 	}
-
 	for (i = 0; i < snum; i++)
 	{
 		shdr[i].sh_name = bswap_32(shdr[i].sh_name);
@@ -33,7 +32,6 @@ void swap_endianess_32(Elf32_Ehdr *ehdr,
 		shdr[i].sh_addralign = bswap_32(shdr[i].sh_addralign);
 		shdr[i].sh_entsize = bswap_32(shdr[i].sh_entsize);
 	}
-
 	ehdr->e_type = bswap_16(ehdr->e_type);
 	ehdr->e_machine = bswap_16(ehdr->e_machine);
 	ehdr->e_version = bswap_32(ehdr->e_version);
@@ -47,7 +45,6 @@ void swap_endianess_32(Elf32_Ehdr *ehdr,
 	ehdr->e_shentsize = bswap_16(ehdr->e_shentsize);
 	ehdr->e_shnum = bswap_16(ehdr->e_shnum);
 	ehdr->e_shstrndx = bswap_16(ehdr->e_shstrndx);
-
 }
 
 void swap_endianess_64(Elf64_Phdr *phdr, int phnum)
