@@ -50,9 +50,13 @@ const char *get_file_type(uint16_t e_type)
     }
 }
 
-void swap_endianess_32(Elf32_Phdr *phdr, int phnum)
+void swap_endianess_32(Elf32_Ehdr *ehdr,
+					   Elf32_Phdr *phdr,
+					   Elf32_Shdr *shdr,
+					   int phnum)
 {
 	int i;
+	int snum = bswap_16(ehdr->e_shnum);
 
 	for (i = 0; i < phnum; i++)
 	{
@@ -65,6 +69,35 @@ void swap_endianess_32(Elf32_Phdr *phdr, int phnum)
 		phdr[i].p_flags = bswap_32(phdr[i].p_flags);
 		phdr[i].p_align = bswap_32(phdr[i].p_align);
 	}
+
+	for (i = 0; i < snum; i++)
+	{
+		shdr[i].sh_name = bswap_32(shdr[i].sh_name);
+		shdr[i].sh_type = bswap_32(shdr[i].sh_type);
+		shdr[i].sh_flags = bswap_32(shdr[i].sh_flags);
+		shdr[i].sh_addr = bswap_32(shdr[i].sh_addr);
+		shdr[i].sh_offset = bswap_32(shdr[i].sh_offset);
+		shdr[i].sh_size = bswap_32(shdr[i].sh_size);
+		shdr[i].sh_link = bswap_32(shdr[i].sh_link);
+		shdr[i].sh_info = bswap_32(shdr[i].sh_info);
+		shdr[i].sh_addralign = bswap_32(shdr[i].sh_addralign);
+		shdr[i].sh_entsize = bswap_32(shdr[i].sh_entsize);
+	}
+
+	ehdr->e_type = bswap_16(ehdr->e_type);
+	ehdr->e_machine = bswap_16(ehdr->e_machine);
+	ehdr->e_version = bswap_32(ehdr->e_version);
+	ehdr->e_entry = bswap_32(ehdr->e_entry);
+	ehdr->e_phoff = bswap_32(ehdr->e_phoff);
+	ehdr->e_shoff = bswap_32(ehdr->e_shoff);
+	ehdr->e_flags = bswap_32(ehdr->e_flags);
+	ehdr->e_ehsize = bswap_16(ehdr->e_ehsize);
+	ehdr->e_phentsize = bswap_16(ehdr->e_phentsize);
+	ehdr->e_phnum = bswap_16(ehdr->e_phnum);
+	ehdr->e_shentsize = bswap_16(ehdr->e_shentsize);
+	ehdr->e_shnum = bswap_16(ehdr->e_shnum);
+	ehdr->e_shstrndx = bswap_16(ehdr->e_shstrndx);
+
 }
 
 void swap_endianess_64(Elf64_Phdr *phdr, int phnum)
@@ -101,7 +134,7 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	}
 
 	if (is_big_endian)
-		swap_endianess_32(phdr32, bswap_16(ehdr32->e_phnum));
+		swap_endianess_32(ehdr32, phdr32, shdr32, bswap_16(ehdr32->e_phnum));
 	shstrtab = maps + shdr32[ehdr32->e_shstrndx].sh_offset;
 	printf("\n");
 	printf("Elf file type is %s\n", get_file_type(ehdr32->e_type));
@@ -310,9 +343,18 @@ int main(int argc, char **argv)
 	}
 	else
 	{
-		ehdr32 = (Elf32_Ehdr *)maps;
-		phdr32 = (Elf32_Phdr *)((uint8_t *)maps + ehdr32->e_phoff);
-		shdr32 = (Elf32_Shdr *)((uint8_t *)maps + ehdr32->e_shoff);
+		if (is_big_endian)
+		{
+			ehdr32 = (Elf32_Ehdr *)maps;
+			phdr32 = (Elf32_Phdr *)((uint8_t *)maps + bswap_32(ehdr32->e_phoff));
+			shdr32 = (Elf32_Shdr *)((uint8_t *)maps + bswap_32(ehdr32->e_shoff));
+		}
+		else
+		{
+			ehdr32 = (Elf32_Ehdr *)maps;
+			phdr32 = (Elf32_Phdr *)((uint8_t *)maps + ehdr32->e_phoff);
+			shdr32 = (Elf32_Shdr *)((uint8_t *)maps + ehdr32->e_shoff);
+		}
 		print_program_headers_32(ehdr32, phdr32, shdr32, maps, is_big_endian);
 	}
 
