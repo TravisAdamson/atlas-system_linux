@@ -42,14 +42,19 @@ void map_sections_to_segments_64(Elf64_Ehdr *ehdr, Elf64_Phdr *phdr, Elf64_Shdr 
 	int i, j;
 	const char *section_name;
 
-	for (i = 0; i < ehdr->e_shnum; i++) {
+	for (i = 0; i < ehdr->e_shnum; i++)
+	{
 		section_name = shstrtab + shdr[i].sh_name;
-		if (strcmp(section_name, ".gnu_debuglink") == 0 || strcmp(section_name, ".shstrtab") == 0) {
+		if (strcmp(section_name, ".gnu_debuglink") == 0 ||
+			strcmp(section_name, ".shstrtab") == 0)
+		{
 			continue;
 		}
-		for (j = 0; j < ehdr->e_phnum; j++) {
+		for (j = 0; j < ehdr->e_phnum; j++)
+		{
 			if (shdr[i].sh_addr >= phdr[j].p_vaddr &&
-				shdr[i].sh_addr < phdr[j].p_vaddr + phdr[j].p_memsz) {
+				shdr[i].sh_addr < phdr[j].p_vaddr + phdr[j].p_memsz)
+			{
 				strcat(segment_sections[j], shstrtab + shdr[i].sh_name);
 				if (i > 0)
 					strcat(segment_sections[j], " ");
@@ -67,7 +72,8 @@ void print_segment_mapping_64(Elf64_Ehdr *ehdr, char *segment_sections[])
 	printf("\n");
 	printf(" Section to Segment mapping:\n");
 	printf("  Segment Sections...\n");
-	for (j = 0; j < ehdr->e_phnum; j++) {
+	for (j = 0; j < ehdr->e_phnum; j++)
+	{
 		printf("   %02d     %s\n", j, segment_sections[j]);
 		free(segment_sections[j]);
 	}
