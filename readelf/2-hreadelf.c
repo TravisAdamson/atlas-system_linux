@@ -3,10 +3,9 @@
 int main(int argc, char **argv)
 {
 	const char *filename;
-	int fd, is_64_bit, is_big_endian;
+	int fd, is_64_bit, is_big_endian, filesize;
 	struct stat st;
 	void *maps;
-	size_t filesize;
 	Elf64_Ehdr *ehdr;
 	Elf32_Ehdr *ehdr32;
 	Elf64_Phdr *phdr;
