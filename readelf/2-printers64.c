@@ -37,8 +37,9 @@ void initialize_segment_sections(char *segment_sections[], int num_sections)
 	}
 }
 
-void map_sections_to_segments_64(Elf64_Ehdr *ehdr, Elf64_Phdr *phdr, Elf64_Shdr *shdr,
-							const char *shstrtab, char *segment_sections[])
+void map_sections_to_segments_64(Elf64_Ehdr *ehdr, Elf64_Phdr *phdr,
+							Elf64_Shdr *shdr, const char *shstrtab,
+							char *segment_sections[])
 {
 	int i, j;
 	const char *section_name;

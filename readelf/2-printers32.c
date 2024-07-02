@@ -8,7 +8,8 @@ void print_program_headers_info_32(Elf32_Ehdr *ehdr32)
 		ehdr32->e_phnum, ehdr32->e_phoff);
 }
 
-void print_program_headers_32_2(Elf32_Phdr *phdr32, int e_phnum, const char *maps)
+void print_program_headers_32_2(Elf32_Phdr *phdr32, int e_phnum,
+								const char *maps)
 {
 	int i;
 
@@ -42,8 +43,9 @@ void print_program_headers_32_2(Elf32_Phdr *phdr32, int e_phnum, const char *map
 	}
 }
 
-void map_sections_to_segments_32(char **segment_sections, Elf32_Phdr *phdr32, int e_phnum,
-							Elf32_Shdr *shdr32, const char *shstrtab, Elf32_Ehdr *ehdr32)
+void map_sections_to_segments_32(char **segment_sections, Elf32_Phdr *phdr32,
+							int e_phnum, Elf32_Shdr *shdr32,
+							const char *shstrtab, Elf32_Ehdr *ehdr32)
 {
 	int i, j;
 	const char *section_name;
@@ -97,7 +99,8 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 	char *segment_sections[ehdr32->e_phnum];
 	const char *shstrtab;
 
-	if (!ehdr32->e_phnum) {
+	if (!ehdr32->e_phnum)
+	{
 		printf("\nThere are no program headers in this file.\n");
 		return;
 	}
@@ -108,12 +111,14 @@ void print_program_headers_32(Elf32_Ehdr *ehdr32,
 
 	print_program_headers_info_32(ehdr32);
 
-	for (i = 0; i < ehdr32->e_phnum; i++) {
+	for (i = 0; i < ehdr32->e_phnum; i++)
+	{
 		segment_sections[i] = malloc(4096);
 		segment_sections[i][0] = '\0';
 	}
 
 	print_program_headers_32_2(phdr32, ehdr32->e_phnum, maps);
 
-	map_sections_to_segments_32(segment_sections, phdr32, ehdr32->e_phnum, shdr32, shstrtab, ehdr32);
+	map_sections_to_segments_32(segment_sections, phdr32,
+							ehdr32->e_phnum, shdr32, shstrtab, ehdr32);
 }
