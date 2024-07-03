@@ -15,8 +15,8 @@ asm_strcasecmp:
 	push rcx
 
 .get_next_char:
-	movzx ebx, BYTE [rdi]
-	movzx ecx, BYTE [rsi]
+	mov bl, BYTE [rdi]
+	mov cl, BYTE [rsi]
 
 .check_null:
 	cmp bl, 0x00
