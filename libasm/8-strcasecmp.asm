@@ -15,8 +15,8 @@ asm_strcasecmp:
 	push rcx
 
 .get_next_char:
-	mov bl, BYTE [rdi]
-	mov cl, BYTE [rsi]
+	movzx rbx, BYTE [rdi]
+	movzx rcx, BYTE [rsi]
 
 .check_null:
 	cmp bl, 0x00
@@ -44,14 +44,14 @@ asm_strcasecmp:
 	jmp .char_1_v_char_2
 
 .char_1_v_char_2:
-	cmp bl, cl
+	cmp bx, cx
 	jnz .not_equals
 	inc rdi
 	inc rsi
 	jmp .get_next_char
 
 .not_equals:
-	sub bl, cl
+	sub rbx, rcx
 	mov rax, rbx
 	jmp .exit
 
