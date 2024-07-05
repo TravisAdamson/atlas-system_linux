@@ -21,5 +21,5 @@ int handle_signal(void)
 	if (signal(SIGINT, sigint_processor) == SIG_ERR)
 		return (-1);
 	else
-		return(0);
+		return (0);
 }
