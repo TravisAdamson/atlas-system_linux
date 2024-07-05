@@ -1,8 +1,8 @@
-## Learning Objectives
+# Learning Objectives
 
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
-# General
+## General
 
 * What is a signal
 * Why do they exist
@@ -12,9 +12,9 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 * How to send signals
 * What signals can’t be caught
 
-## Requirements
+# Requirements
 
-# General
+## General
 
 * Allowed editors: vi, vim, emacs
 * All your files will be compiled on Ubuntu 14.04 LTS
@@ -27,6 +27,6 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 * Don’t forget to push your header file
 * All your header files should be include guarded
 
-# Allowed functions and system calls
+## Allowed functions and system calls
 
 * Unless specified otherwise in a task, you are allowed to use the C standard library
