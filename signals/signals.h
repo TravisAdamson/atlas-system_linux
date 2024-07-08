@@ -17,5 +17,6 @@ void find_pid(int sig, siginfo_t *sig_handler, void *context);
 
 int set_handler(void);
 void sig_catch(int sig);
+int pid_exist(pid_t pid);
 
 #endif
