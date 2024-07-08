@@ -1,5 +1,5 @@
 #!/bin/sh
-# Send SIGQUIT signal to given PID
+# Send SIGQUIT signal  to given PID
 if [ "$#" -ne 1 ]; then
 	echo "Usage: $0 <pid>"
 	exit 1
