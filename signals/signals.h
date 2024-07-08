@@ -14,6 +14,8 @@ void sigint_handler(int sig);
 void (*current_handler_sigaction(void))(int);
 int trace_signal_sender(void);
 void find_pid(int sig, siginfo_t *sig_handler, void *context);
-int main(int argc, char **argv);
+
+int set_handler(void);
+void sig_catch(int sig);
 
 #endif
