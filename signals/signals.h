@@ -9,5 +9,7 @@
 
 int handle_signal(void);
 void (*current_handler_signal(void))(int);
+int handle_sigaction(void);
+void sigint_handler(int sig);
 
 #endif
