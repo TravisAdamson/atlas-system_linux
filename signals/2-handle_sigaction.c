@@ -1,7 +1,7 @@
 #include "signals.h"
 
 /**
- * sigint_handler - handles SIGINT
+ * sigint_handler - handels SIGINT
  * @sig: signal received
 */
 
@@ -12,7 +12,7 @@ void sigint_handler(int sig)
 }
 
 /**
- * handle_sigaction - sets a handler for SIGINT
+ * handle_sigaction - sets handler for SIGINT
  * Return: 0 on success, or -1
 */
 
