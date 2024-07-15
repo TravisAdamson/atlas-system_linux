@@ -6,15 +6,31 @@ char get_type_32(Elf32_Sym s_table)
 
 	switch (ELF32_ST_TYPE(s_table.st_info))
 	{
-		case STT_NOTYPE:	type = ' '; break;
-		case STT_OBJECT:	type = 'D'; break;
-		case STT_FUNC:		type = 'T'; break;
-		case STT_SECTION:	type = 'T'; break;
-		case STT_FILE:		type = ' '; break;
-		default:			type = 'U'; break;
+		case STT_NOTYPE:
+			type = 'T';
+			break;
+		case STT_OBJECT:
+			type = 'D';
+			break;
+		case STT_FUNC:
+			type = 'T';
+			break;
+		case STT_SECTION:
+			type = 'T';
+			break;
+		case STT_FILE:
+			type = ' ';
+			break;
+		default:
+			type = 'U';
 	}
 
-	if (ELF32_ST_BIND(s_table.st_info) == STB_WEAK)
+    if (ELF32_ST_BIND(s_table.st_info) == STB_LOCAL)
+	{
+        if (type == 'T') type = 't';
+        else if (type == 'D') type = 'd';
+	}
+	else if (ELF32_ST_BIND(s_table.st_info) == STB_WEAK)
 	{
 		if (type == 'T') type = 'W';
 		if (type == 'D') type = 'B';

@@ -19,7 +19,7 @@
  *
  * Return: Pointer to first section header
  */
-#define SECTION_HEADERS(ehdr) ((Elf64_Shdr *)OFFSET((ehdr), (ehdr)->e_shoff))
+#define SECTION_HEADERS(ehdr) ((Elf32_Shdr *)OFFSET((ehdr), (ehdr)->e_shoff))
 
 /**
  * SECTION_COUNT - Returns the number of section headers
@@ -27,7 +27,7 @@
  *
  * Return: Number of section headers
  */
-#define SECTION_COUNT(ehdr) ((uint64_t)(ehdr)->e_shnum)
+#define SECTION_COUNT(ehdr) ((uint16_t)(ehdr)->e_shnum)
 
 /**
  * SYMBOL_COUNT - Returns number of symbol-table entries
@@ -35,7 +35,7 @@
  *
  * Return: Number of symbol-table entries
  */
-#define SYMBOL_COUNT(sh) ((uint64_t)(sh)->sh_size / sizeof(Elf64_Sym))
+#define SYMBOL_COUNT(sh) ((uint32_t)(sh)->sh_size / sizeof(Elf32_Sym))
 
 /**
  * SECTION - Fetches pointer to section given a section header
@@ -53,7 +53,7 @@
  *
  * Return: Pointer to first symbol-table entry (`Elf64_Sym`)
  */
-#define SYMBOL_TABLE(ehdr, sh) ((Elf64_Sym *)SECTION(ehdr, sh))
+#define SYMBOL_TABLE(ehdr, sh) ((Elf32_Sym *)SECTION(ehdr, sh))
 
 /**
  * STRING_TABLE - Fetches pointer to string table
