@@ -42,19 +42,20 @@ void setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
 					const char *maps)
 {
 	Elf32_Ehdr *ehdr32;
-	Elf64_Shdr *shdr64;
+	Elf64_Shdr *shdr;
 	Elf32_Shdr *shdr32;
 
 	if (is_64_bit)
 	{
-		shdr64 = (Elf64_Shdr *)((uint8_t *)maps + ehdr->e_shoff);
-		print_program_headers_64(ehdr, phdr, shdr64, maps, is_big_endian);
+		shdr = (Elf64_Shdr *)((uint8_t *)maps + ehdr->e_shoff);
+		(void)shdr;
+/*		print_tables_64(ehdr, shdr, maps, is_big_endian); */
 	}
 	else
 	{
 		ehdr32 = (Elf32_Ehdr *)ehdr;
 		shdr32 = (Elf32_Shdr *)((uint8_t *)maps +
 			(is_big_endian ? bswap_32(ehdr32->e_shoff) : ehdr32->e_shoff));
-		print_program_headers_32(ehdr32, phdr32, shdr32, maps, is_big_endian);
+		print_32(ehdr32, shdr32, maps, is_big_endian);
 	}
 }
