@@ -30,7 +30,8 @@ char get_type_32(Elf32_Sym s_table)
         if (type == 'T') type = 't';
         else if (type == 'D') type = 'd';
 	}
-	else if (ELF32_ST_BIND(s_table.st_info) == STB_WEAK)
+	else if (ELF32_ST_BIND(s_table.st_info) == STB_GLOBAL ||
+			 ELF32_ST_BIND(s_table.st_info) == STB_WEAK)
 	{
 		if (type == 'T') type = 'W';
 		if (type == 'D') type = 'B';
