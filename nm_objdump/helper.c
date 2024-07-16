@@ -24,21 +24,26 @@ char get_type_32(Elf32_Sym s_table)
 		default:
 			type = 'U';
 	}
-
 	if (ELF32_ST_BIND(s_table.st_info) == STB_LOCAL)
 	{
-		if (type == 'T') type = 't';
-		else if (type == 'D') type = 'd';
+		if (type == 'T')
+			type = 't';
+		else if (type == 'D')
+			type = 'd';
 	}
 	else if (ELF32_ST_BIND(s_table.st_info) == STB_WEAK)
 	{
-		if (type == 'T') type = 'W';
-		if (type == 'D') type = 'B';
+		if (type == 'T')
+			type = 'W';
+		if (type == 'D')
+			type = 'B';
 	}
-	if (s_table.st_shndx == SHN_UNDEF) type = 'U';
-	else if (s_table.st_shndx == SHN_ABS) type = 'A';
-	else if (s_table.st_shndx == SHN_COMMON) type = 'C';
-
+	if (s_table.st_shndx == SHN_UNDEF)
+		type = 'U';
+	else if (s_table.st_shndx == SHN_ABS)
+		type = 'A';
+	else if (s_table.st_shndx == SHN_COMMON)
+		type = 'C';
 	return (type);
 }
 
