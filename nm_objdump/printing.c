@@ -37,7 +37,7 @@ void print_tables_32(int num_symbols, Elf32_Sym *s_table,
 	for (i = 0; i < num_symbols; i++)
 	{
 		type = get_type_32(s_table[i]);
-		if (type == 'D' && shdr[s_table->st_shndx].sh_type == SHT_NOBITS)
+		if (type == 'D' && shdr[s_table[i].st_shndx].sh_type == SHT_NOBITS)
 			printf("%08x %c %s\n",
 			s_table[i].st_value, 'B', strtab + s_table[i].st_name);
 		else if (type == 'a' || !s_table[i].st_name)
