@@ -58,7 +58,7 @@ void print_tables_32(int num_symbols, Elf32_Sym *s_table,
 
 int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const char *maps)
 {
-	Elf64_Shdr *sym_shdr;
+	Elf64_Shdr *sym_shdr = NULL;
 	Elf64_Sym *s_table;
 	int i, num_symbols;
 	char *strtab;
