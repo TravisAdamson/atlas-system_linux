@@ -12,7 +12,7 @@
 #include <byteswap.h>
 #include <string.h>
 
-void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
+void print_32(Elf32_Ehdr * ehdr, Elf32_Shdr * shdr, const char *maps,
 					 int is_big_endian);
 
 void print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const char *maps,

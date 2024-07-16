@@ -6,17 +6,13 @@ char get_type_32(Elf32_Sym s_table)
 
 	switch (ELF32_ST_TYPE(s_table.st_info))
 	{
+		case STT_FUNC:
+		case STT_SECTION:
 		case STT_NOTYPE:
 			type = 'T';
 			break;
 		case STT_OBJECT:
 			type = 'D';
-			break;
-		case STT_FUNC:
-			type = 'T';
-			break;
-		case STT_SECTION:
-			type = 'T';
 			break;
 		case STT_FILE:
 			type = ' ';
