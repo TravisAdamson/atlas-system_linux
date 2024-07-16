@@ -23,11 +23,12 @@ void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
 	strtab = STRING_TABLE(ehdr, shdr, sym_shdr);
 	s_table = SYMBOL_TABLE(ehdr, sym_shdr);
 	num_symbols = SYMBOL_COUNT(sym_shdr);
-	print_tables_32(num_symbols, s_table, is_big_endian, strtab);
+	print_tables_32(num_symbols, s_table, is_big_endian, strtab, shdr);
 }
 
 void print_tables_32(int num_symbols, Elf32_Sym *s_table,
-					 int is_big_endian, char *strtab)
+					 int is_big_endian, char *strtab,
+					 Elf32_Shdr *shdr)
 {
 	int i;
 	char type;
@@ -36,7 +37,10 @@ void print_tables_32(int num_symbols, Elf32_Sym *s_table,
 	for (i = 0; i < num_symbols; i++)
 	{
 		type = get_type_32(s_table[i]);
-		if (type == 'a' || !s_table[i].st_name)
+		if (type == 'D' && shdr[s_table->st_shndx].sh_type == SHT_NOBITS)
+			printf("%08x %c %s\n",
+			s_table[i].st_value, 'B', strtab + s_table[i].st_name);
+		else if (type == 'a' || !s_table[i].st_name)
 			continue;
 		else if (strcmp("main.c", strtab + s_table[i].st_name) == 0)
 			continue;
