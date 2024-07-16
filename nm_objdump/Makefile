@@ -10,6 +10,11 @@ objdump = $(patsubst %.c, %.o, $(wildcard objdump*.c))
 hnm: $(SRC)
 	$(CC) $(CFLAGS) $(0) -o hnm $^
 
+hobjdump:
+	@echo '#!/bin/bash' > $@
+	@echo '( exec -a "./hobjdump" objdump -sf $$1 )' >> $@
+	chmod u+x -v $@
+
 clean:
 	rm -f hnm
 	rm -f *.o
