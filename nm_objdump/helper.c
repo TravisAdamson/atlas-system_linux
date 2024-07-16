@@ -25,10 +25,10 @@ char get_type_32(Elf32_Sym s_table)
 			type = 'U';
 	}
 
-    if (ELF32_ST_BIND(s_table.st_info) == STB_LOCAL)
+	if (ELF32_ST_BIND(s_table.st_info) == STB_LOCAL)
 	{
-        if (type == 'T') type = 't';
-        else if (type == 'D') type = 'd';
+		if (type == 'T') type = 't';
+		else if (type == 'D') type = 'd';
 	}
 	else if (ELF32_ST_BIND(s_table.st_info) == STB_WEAK)
 	{
