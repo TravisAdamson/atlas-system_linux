@@ -69,3 +69,50 @@ void swap_endianess(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, int shnum)
 	ehdr->e_shstrndx = bswap_16(ehdr->e_shstrndx);
 	ehdr->e_shoff = bswap_32(ehdr->e_shoff);
 }
+
+char get_type_64(Elf64_Sym s_table)
+{
+	char type;
+
+	if (s_table.st_shndx == SHT_NOBITS)
+		type = 'B';
+	switch (ELF64_ST_TYPE(s_table.st_info))
+	{
+		case STT_FUNC:
+		case STT_SECTION:
+		case STT_NOTYPE:
+			type = 'T';
+			break;
+		case STT_OBJECT:
+			type = 'D';
+			break;
+		case STT_FILE:
+			type = ' ';
+			break;
+		default:
+			type = 'U';
+	}
+	if (ELF64_ST_BIND(s_table.st_info) == STB_LOCAL)
+	{
+		if (type == 'T')
+			type = 't';
+		else if (type == 'D')
+			type = 'd';
+		else if (type == 'B')
+			type = 'b';
+	}
+	else if (ELF64_ST_BIND(s_table.st_info) == STB_WEAK)
+	{
+		if (type == 'T')
+			type = 'W';
+		if (type == 'D')
+			type = 'B';
+	}
+	if (s_table.st_shndx == SHN_UNDEF)
+		type = 'U';
+	else if (s_table.st_shndx == SHN_ABS)
+		type = 'A';
+	else if (s_table.st_shndx == SHN_COMMON)
+		type = 'C';
+	return (type);
+}
