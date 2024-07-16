@@ -50,7 +50,6 @@ int setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
 	if (is_64_bit)
 	{
 		shdr = (Elf64_Shdr *)((uint8_t *)maps + ehdr->e_shoff);
-		(void)shdr;
 		return (print_64(ehdr, shdr, maps));
 	}
 	else
