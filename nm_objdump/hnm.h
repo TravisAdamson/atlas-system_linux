@@ -24,9 +24,11 @@ void setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
 char get_type_32(Elf32_Sym s_table);
 
 void print_tables_32(int num_symbols, Elf32_Sym *s_table,
-					 int is_big_endian, char *strtab);
+					 int is_big_endian, char *strtab,
+					 Elf32_Shdr *shdr);
 
 void swap_endianess_32(Elf32_Shdr *shdr, int shnum);
 
 void swap_endianess(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, int shnum);
+
 #endif
