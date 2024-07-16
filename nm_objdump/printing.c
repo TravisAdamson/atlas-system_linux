@@ -37,7 +37,7 @@ void print_tables_32(int num_symbols, Elf32_Sym *s_table,
 
 	for (i = 0; i < num_symbols; i++)
 	{
-		type = get_type_32(s_table[i]);
+		type = get_type_32(s_table[i], shdr);
 		if (type == 'D' && shdr[s_table[i].st_shndx].sh_type == SHT_NOBITS)
 			printf("%08x %c %s\n",
 			s_table[i].st_value, 'B', strtab + s_table[i].st_name);
@@ -89,7 +89,7 @@ void print_tables_64(int num_symbols, Elf64_Sym *s_table,
 
 	for (i = 0; i < num_symbols; i++)
 	{
-		type = get_type_64(s_table[i]);
+		type = get_type_64(s_table[i], shdr);
 		if (type == 'D' && shdr[s_table[i].st_shndx].sh_type == SHT_NOBITS)
 			printf("%016lx %c %s\n",
 			s_table[i].st_value, 'B', strtab + s_table[i].st_name);

@@ -1,49 +1,40 @@
 #include "hnm.h"
 
-char get_type_32(Elf32_Sym s_table)
+char get_type_32(Elf32_Sym s_table, Elf32_Shdr *shdr)
 {
 	char type;
 
-	if (s_table.st_shndx == SHT_NOBITS)
-		type = 'B';
-	switch (ELF32_ST_TYPE(s_table.st_info))
-	{
-		case STT_FUNC:
-		case STT_SECTION:
-		case STT_NOTYPE:
-			type = 'T';
-			break;
-		case STT_OBJECT:
-			type = 'D';
-			break;
-		case STT_FILE:
-			type = ' ';
-			break;
-		default:
-			type = 'U';
-	}
-	if (ELF32_ST_BIND(s_table.st_info) == STB_LOCAL)
-	{
-		if (type == 'T')
-			type = 't';
-		else if (type == 'D')
-			type = 'd';
-		else if (type == 'B')
-			type = 'b';
-	}
+	if (ELF32_ST_BIND(s_table.st_info) == STB_GNU_UNIQUE)
+		type = 'u';
+	else if (ELF32_ST_BIND(s_table.st_info) == STB_WEAK &&
+			 ELF32_ST_TYPE(s_table.st_info) == STT_OBJECT)
+		type = s_table.st_shndx == SHN_UNDEF ? 'v' : 'V';
 	else if (ELF32_ST_BIND(s_table.st_info) == STB_WEAK)
-	{
-		if (type == 'T')
-			type = 'W';
-		if (type == 'D')
-			type = 'B';
-	}
-	if (s_table.st_shndx == SHN_UNDEF)
+		type = s_table.st_shndx == SHN_UNDEF ? 'w' : 'W';
+	else if (s_table.st_shndx == SHN_UNDEF)
 		type = 'U';
 	else if (s_table.st_shndx == SHN_ABS)
 		type = 'A';
 	else if (s_table.st_shndx == SHN_COMMON)
 		type = 'C';
+	else if (shdr[s_table.st_shndx].sh_type == SHT_NOBITS &&
+			 shdr[s_table.st_shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
+		type = 'B';
+	else if (shdr[s_table.st_shndx].sh_type == SHT_PROGBITS &&
+			 shdr[s_table.st_shndx].sh_flags == SHF_ALLOC)
+		type = 'R';
+	else if (shdr[s_table.st_shndx].sh_type == SHT_PROGBITS &&
+			 shdr[s_table.st_shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
+		type = 'D';
+	else if (shdr[s_table.st_shndx].sh_type == SHT_PROGBITS &&
+			 shdr[s_table.st_shndx].sh_flags == (SHF_ALLOC | SHF_EXECINSTR))
+		type = 'T';
+	else if (shdr[s_table.st_shndx].sh_type == SHT_DYNAMIC)
+		type = 'D';
+	else
+		type = 'T';
+	if (ELF32_ST_BIND(s_table.st_info) == STB_LOCAL && type != '?')
+		type += 32;
 	return (type);
 }
 
@@ -70,49 +61,40 @@ void swap_endianess(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, int shnum)
 	ehdr->e_shoff = bswap_32(ehdr->e_shoff);
 }
 
-char get_type_64(Elf64_Sym s_table)
+char get_type_64(Elf64_Sym s_table, Elf64_Shdr *shdr)
 {
 	char type;
 
-	if (s_table.st_shndx == SHT_NOBITS)
-		type = 'B';
-	switch (ELF64_ST_TYPE(s_table.st_info))
-	{
-		case STT_FUNC:
-		case STT_SECTION:
-		case STT_NOTYPE:
-			type = 'T';
-			break;
-		case STT_OBJECT:
-			type = 'D';
-			break;
-		case STT_FILE:
-			type = ' ';
-			break;
-		default:
-			type = 'U';
-	}
-	if (ELF64_ST_BIND(s_table.st_info) == STB_LOCAL)
-	{
-		if (type == 'T')
-			type = 't';
-		else if (type == 'D')
-			type = 'd';
-		else if (type == 'B')
-			type = 'b';
-	}
+	if (ELF64_ST_BIND(s_table.st_info) == STB_GNU_UNIQUE)
+		type = 'u';
+	else if (ELF64_ST_BIND(s_table.st_info) == STB_WEAK &&
+			 ELF64_ST_TYPE(s_table.st_info) == STT_OBJECT)
+		type = s_table.st_shndx == SHN_UNDEF ? 'v' : 'V';
 	else if (ELF64_ST_BIND(s_table.st_info) == STB_WEAK)
-	{
-		if (type == 'T')
-			type = 'W';
-		if (type == 'D')
-			type = 'B';
-	}
-	if (s_table.st_shndx == SHN_UNDEF)
+		type = s_table.st_shndx == SHN_UNDEF ? 'w' : 'W';
+	else if (s_table.st_shndx == SHN_UNDEF)
 		type = 'U';
 	else if (s_table.st_shndx == SHN_ABS)
 		type = 'A';
 	else if (s_table.st_shndx == SHN_COMMON)
 		type = 'C';
+	else if (shdr[s_table.st_shndx].sh_type == SHT_NOBITS &&
+			 shdr[s_table.st_shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
+		type = 'B';
+	else if (shdr[s_table.st_shndx].sh_type == SHT_PROGBITS &&
+			 shdr[s_table.st_shndx].sh_flags == SHF_ALLOC)
+		type = 'R';
+	else if (shdr[s_table.st_shndx].sh_type == SHT_PROGBITS &&
+			 shdr[s_table.st_shndx].sh_flags == (SHF_ALLOC | SHF_WRITE))
+		type = 'D';
+	else if (shdr[s_table.st_shndx].sh_type == SHT_PROGBITS &&
+			 shdr[s_table.st_shndx].sh_flags == (SHF_ALLOC | SHF_EXECINSTR))
+		type = 'T';
+	else if (shdr[s_table.st_shndx].sh_type == SHT_DYNAMIC)
+		type = 'D';
+	else
+		type = 'T';
+	if (ELF64_ST_BIND(s_table.st_info) == STB_LOCAL && type != '?')
+		type += 32;
 	return (type);
 }

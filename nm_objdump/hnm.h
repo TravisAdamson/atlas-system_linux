@@ -20,9 +20,16 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const char *maps);
 int setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
 					const char *maps);
 
-char get_type_32(Elf32_Sym s_table);
+char get_type_32(Elf32_Sym s_table, Elf32_Shdr *shdr);
 
-char get_type_64(Elf64_Sym s_table);
+char get_type_64(Elf64_Sym s_table, Elf64_Shdr *shdr);
+
+char get_base_32(Elf32_Sym s_table);
+
+char get_base_64(Elf64_Sym s_table);
+
+char get_by_bind_32(Elf32_Sym s_table, Elf32_Shdr *shdr);
+char get_by_sec_32(Elf32_Sym s_table, Elf32_Shdr *shdr);
 
 void print_tables_32(int num_symbols, Elf32_Sym *s_table,
 					 char *strtab, Elf32_Shdr *shdr);
