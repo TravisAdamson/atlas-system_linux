@@ -3,7 +3,7 @@
 int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
 					 int is_big_endian)
 {
-	Elf32_Shdr *sym_shdr;
+	Elf32_Shdr *sym_shdr = NULL;
 	Elf32_Sym *s_table;
 	int i, num_symbols;
 	char *strtab;
