@@ -4,6 +4,8 @@ char get_type_32(Elf32_Sym s_table)
 {
 	char type;
 
+	if (s_table.st_shndx == SHT_NOBITS)
+		type = 'B';
 	switch (ELF32_ST_TYPE(s_table.st_info))
 	{
 		case STT_FUNC:
@@ -26,6 +28,8 @@ char get_type_32(Elf32_Sym s_table)
 			type = 't';
 		else if (type == 'D')
 			type = 'd';
+		else if (type == 'B')
+			type = 'b';
 	}
 	else if (ELF32_ST_BIND(s_table.st_info) == STB_WEAK)
 	{
