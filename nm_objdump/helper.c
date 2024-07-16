@@ -63,4 +63,5 @@ void swap_endianess(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, int shnum)
 
 	ehdr->e_shnum = bswap_16(ehdr->e_shnum);
 	ehdr->e_shstrndx = bswap_16(ehdr->e_shstrndx);
+	ehdr->e_shoff = bswap_32(ehdr->e_shoff);
 }

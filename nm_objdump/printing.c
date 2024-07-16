@@ -1,6 +1,6 @@
 #include "hnm.h"
 
-void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
+int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
 					 int is_big_endian)
 {
 	Elf32_Shdr *sym_shdr;
@@ -20,10 +20,13 @@ void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
 			break;
 		}
 	}
+	if (!sym_shdr)
+		return (-1);
 	strtab = STRING_TABLE(ehdr, shdr, sym_shdr);
 	s_table = SYMBOL_TABLE(ehdr, sym_shdr);
 	num_symbols = SYMBOL_COUNT(sym_shdr);
 	print_tables_32(num_symbols, s_table, is_big_endian, strtab, shdr);
+	return (0);
 }
 
 void print_tables_32(int num_symbols, Elf32_Sym *s_table,
