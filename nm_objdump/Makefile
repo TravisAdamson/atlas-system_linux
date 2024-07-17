@@ -2,19 +2,29 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic -std=gnu89 -g
 
 SRC = $(wildcard *.c)
-nm = $(patsubst %.c, %.o, $(wildcard nm*.c))
-objdump = $(patsubst %.c, %.o, $(wildcard objdump*.c))
+OBJ = $(SRC:.c=.o)
 
-.PHONY: hnm hobjdump clean
+HOBJ_SRC = $(wildcard hobj*.c)
+HNM_SRC = $(filter-out $(HOBJ_SRC), $(SRC))
 
-hnm: $(SRC)
-	$(CC) $(CFLAGS) $(0) -o hnm $^
+HOBJ_OBJ = $(HOBJ_SRC:.c=.o)
+HNM_OBJ = $(HNM_SRC:.c=.o)
 
-hobjdump:
-	@echo '#!/bin/bash' > $@
-	@echo '( exec -a "./hobjdump" objdump -sf $$1 )' >> $@
-	chmod u+x -v $@
+HOBJ_HEADERS = hobjdump.h
+
+all: hnm hobj
+
+hnm: $(HNM_OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
+
+hobjdump: $(HOBJ_OBJ)
+	$(CC) $(CFLAGS) -o $@ $^
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+hobj%.o: hobj%.c $(HOBJ_HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f hnm
-	rm -f *.o
+	rm -f *.o hnm hobjdump
