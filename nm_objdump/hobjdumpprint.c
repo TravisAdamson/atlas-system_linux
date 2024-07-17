@@ -21,7 +21,10 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 	{
 		section = &shdr[i];
 		section_name = shstrtab + section->sh_name;
-		print_section_contents_32(section, section_name, maps);
+		if (strcmp((const char *)section_name, ".strtab") != 0 &&
+			(strcmp((const char *)section_name, ".symtab") != 0) &&
+			(strcmp((const char *)section_name, ".shstrtab") != 0))
+			print_section_contents_32(section, section_name, maps);
 	}
 
 	return (0);
@@ -33,7 +36,8 @@ void print_section_contents_32(Elf32_Shdr *section,
 {
 	size_t i, j;
 
-	printf("Contents of section %s:\n", section_name);
+	if (strcmp((const char *)section_name, "") != 0)
+		printf("Contents of section %s:\n", section_name);
 	for (i = 0; i < section->sh_size; i += 16)
 	{
 		printf(" %08lx ", section->sh_addr + i);
@@ -64,7 +68,8 @@ void print_section_contents_64(Elf64_Shdr *section,
 {
 	size_t i, j;
 
-	printf("Contents of section %s:\n", section_name);
+	if (strcmp((const char *)section_name, "") != 0)
+		printf("Contents of section %s:\n", section_name);
 	for (i = 0; i < section->sh_size; i += 16)
 	{
 		printf(" %08lx ", section->sh_addr + i);
@@ -105,7 +110,10 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps)
 	{
 		section = &shdr[i];
 		section_name = shstrtab + section->sh_name;
-		print_section_contents_64(section, section_name, maps);
+		if (strcmp((const char *)section_name, ".strtab") != 0 &&
+			(strcmp((const char *)section_name, ".symtab") != 0) &&
+			(strcmp((const char *)section_name, ".shstrtab") != 0))
+			print_section_contents_64(section, section_name, maps);
 	}
 	return (0);
 }
