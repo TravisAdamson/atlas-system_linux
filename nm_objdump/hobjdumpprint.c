@@ -1,10 +1,10 @@
 #include "hobjdump.h"
 
-int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
+int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 					int is_big_endian)
 {
 	int i;
-	const char *section_name, *shstrtab;
+	const unsigned char *section_name, *shstrtab;
 	Elf32_Shdr *section;
 
 	if (is_big_endian)
@@ -14,7 +14,8 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
 	printf("architecture: i386, flags 0x%08x:\n", ehdr->e_flags);
 	printf("start address 0x%08x\n\n", ehdr->e_entry);
 
-	shstrtab = (const char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
+	shstrtab = (const unsigned char *)(maps +
+				shdr[ehdr->e_shstrndx].sh_offset);
 
     for (i = 0; i < ehdr->e_shnum; ++i) {
         section = &shdr[i];
@@ -25,7 +26,9 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
 	return (0);
 }
 
-void print_section_contents_32(Elf32_Shdr *section, const char *section_name, const char *maps)
+void print_section_contents_32(Elf32_Shdr *section,
+							   const unsigned char *section_name,
+							   const unsigned char *maps)
 {
 	size_t i, j;
 
@@ -53,7 +56,9 @@ void print_section_contents_32(Elf32_Shdr *section, const char *section_name, co
     }
 }
 
-void print_section_contents_64(Elf64_Shdr *section, const char *section_name, const char *maps)
+void print_section_contents_64(Elf64_Shdr *section,
+							   const unsigned char *section_name,
+							   const unsigned char *maps)
 {
 	size_t i, j;
 
@@ -81,17 +86,17 @@ void print_section_contents_64(Elf64_Shdr *section, const char *section_name, co
     }
 }
 
-int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const char *maps)
+int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps)
 {
 	int i;
-	const char *shstrtab, *section_name;
+	const unsigned char *shstrtab, *section_name;
 	Elf64_Shdr *section;
 
 	printf("File format: ELF64-x86-64\n");
 	printf("architecture: x86-64, flags 0x%08x:\n", ehdr->e_flags);
 	printf("start address 0x%016lx\n\n", ehdr->e_entry);
 
-	shstrtab = (const char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
+	shstrtab = (const unsigned char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
 
     for (i = 0; i < ehdr->e_shnum; ++i) {
         section = &shdr[i];
