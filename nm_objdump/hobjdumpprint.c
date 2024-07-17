@@ -1,7 +1,7 @@
 #include "hobjdump.h"
 
 int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
-					 int is_big_endian)
+					int is_big_endian)
 {
 	int i;
 	const char *section_name, *shstrtab;
@@ -10,20 +10,20 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
 		swap_endianess(ehdr, shdr, bswap_32(ehdr->e_shoff));
 
 	printf("File format: ELF32-i386\n");
-    printf("architecture: i386, flags 0x%08x:\n", ehdr->e_flags);
-    printf("start address 0x%08x\n\n", ehdr->e_entry);
+	printf("architecture: i386, flags 0x%08x:\n", ehdr->e_flags);
+	printf("start address 0x%08x\n\n", ehdr->e_entry);
 
-    shstrtab = (const char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
+	shstrtab = (const char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
 
-    for (i = 0; i < ehdr->e_shnum; i++)
+	for (i = 0; i < ehdr->e_shnum; i++)
 	{
-        section_name = shstrtab + shdr[i].sh_name;
-        if (shdr[i].sh_size > 0)
+		section_name = shstrtab + shdr[i].sh_name;
+		if (shdr[i].sh_size > 0)
 		{
-            printf("Contents of section %s:\n", section_name);
-            print_section(maps + shdr[i].sh_offset, shdr[i].sh_size, shdr[i].sh_addr);
-        }
-    }
+			printf("Contents of section %s:\n", section_name);
+			print_section(maps + shdr[i].sh_offset, shdr[i].sh_size, shdr[i].sh_addr);
+		}
+	}
 	return (0);
 }
 
@@ -31,32 +31,32 @@ void print_section(const char *section, int size, int address)
 {
 	int i, line_size;
 
-    for (i = 0; i < size; i += 16) {
-        line_size = (size - i) < 16 ? (size - i) : 16;
-        print_hex_ascii_line(section + i, line_size, address + i);
-    }
+	for (i = 0; i < size; i += 16) {
+		line_size = (size - i) < 16 ? (size - i) : 16;
+		print_hex_ascii_line(section + i, line_size, address + i);
+	}
 }
 
 void print_hex_ascii_line(const char *data, int len, int offset)
 {
-    int i;
+	int i;
 
-    printf("  %07x ", offset);
-    for (i = 0; i < len; i++) {
-        printf("%02x ", data[i]);
-    }
-    for (; i < 16; i++) {
-        printf("   ");
-    }
-    printf(" ");
-    for (i = 0; i < len; i++) {
-        if (data[i] >= 32 && data[i] <= 126) {
-            printf("%c", data[i]);
-        } else {
-            printf(".");
-        }
-    }
-    printf("\n");
+	printf("  %07x ", offset);
+	for (i = 0; i < len; i++) {
+		printf("%02x ", data[i]);
+	}
+	for (; i < 16; i++) {
+		printf("   ");
+	}
+	printf(" ");
+	for (i = 0; i < len; i++) {
+		if (data[i] >= 32 && data[i] <= 126) {
+			printf("%c", data[i]);
+		} else {
+			printf(".");
+		}
+	}
+	printf("\n");
 }
 
 int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const char *maps)
@@ -64,19 +64,19 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const char *maps)
 	int i;
 	const char *shstrtab, *section_name;
 
-    printf("File format: ELF64-x86-64\n");
-    printf("architecture: x86-64, flags 0x%08x:\n", ehdr->e_flags);
-    printf("start address 0x%016lx\n\n", ehdr->e_entry);
+	printf("File format: ELF64-x86-64\n");
+	printf("architecture: x86-64, flags 0x%08x:\n", ehdr->e_flags);
+	printf("start address 0x%016lx\n\n", ehdr->e_entry);
 
-    shstrtab = (const char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
+	shstrtab = (const char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
 
-    for (i = 0; i < ehdr->e_shnum; i++) {
-        section_name = shstrtab + shdr[i].sh_name;
-        if (shdr[i].sh_size > 0) {
-            printf("Contents of section %s:\n", section_name);
-            print_section(maps + shdr[i].sh_offset, shdr[i].sh_size, shdr[i].sh_addr);
-        }
-    }
+	for (i = 0; i < ehdr->e_shnum; i++) {
+		section_name = shstrtab + shdr[i].sh_name;
+		if (shdr[i].sh_size > 0) {
+			printf("Contents of section %s:\n", section_name);
+			print_section(maps + shdr[i].sh_offset, shdr[i].sh_size, shdr[i].sh_addr);
+		}
+	}
 	return (0);
 }
 

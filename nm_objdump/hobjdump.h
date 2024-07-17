@@ -12,7 +12,7 @@
 #include <byteswap.h>
 #include <string.h>
 
-int setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
+int setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr * ehdr,
 					const char *maps);
 
 int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const char *maps,
