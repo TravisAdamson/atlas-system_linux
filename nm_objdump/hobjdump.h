@@ -22,8 +22,10 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const char *maps);
 
 void swap_endianess(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, int shnum);
 
-void print_section(const char *section, int size, int address);
+void print_section_contents_64(Elf64_Shdr *section, const char *section_name,
+							const char *maps);
 
-void print_hex_ascii_line(const char *data, int len, int offset);
+void print_section_contents_32(Elf32_Shdr *section, const char *section_name,
+							const char *maps);
 
 #endif
