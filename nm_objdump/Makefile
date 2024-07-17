@@ -10,8 +10,6 @@ HNM_SRC = $(filter-out $(HOBJ_SRC), $(SRC))
 HOBJ_OBJ = $(HOBJ_SRC:.c=.o)
 HNM_OBJ = $(HNM_SRC:.c=.o)
 
-HOBJ_HEADERS = hobjdump.h
-
 all: hnm hobj
 
 hnm: $(HNM_OBJ)
@@ -21,9 +19,6 @@ hobjdump: $(HOBJ_OBJ)
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-hobj%.o: hobj%.c $(HOBJ_HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:

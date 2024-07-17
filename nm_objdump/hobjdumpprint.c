@@ -31,7 +31,8 @@ void print_section(const char *section, int size, int address)
 {
 	int i, line_size;
 
-	for (i = 0; i < size; i += 16) {
+	for (i = 0; i < size; i += 16)
+	{
 		line_size = (size - i) < 16 ? (size - i) : 16;
 		print_hex_ascii_line(section + i, line_size, address + i);
 	}
@@ -42,17 +43,22 @@ void print_hex_ascii_line(const char *data, int len, int offset)
 	int i;
 
 	printf("  %07x ", offset);
-	for (i = 0; i < len; i++) {
+	for (i = 0; i < len; i++)
+	{
 		printf("%02x ", data[i]);
 	}
-	for (; i < 16; i++) {
+	for (; i < 16; i++)
+	{
 		printf("   ");
 	}
 	printf(" ");
-	for (i = 0; i < len; i++) {
-		if (data[i] >= 32 && data[i] <= 126) {
+	for (i = 0; i < len; i++)
+	{
+		if (data[i] >= 32 && data[i] <= 126)
+		{
 			printf("%c", data[i]);
-		} else {
+		} else
+		{
 			printf(".");
 		}
 	}
@@ -70,9 +76,11 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const char *maps)
 
 	shstrtab = (const char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
 
-	for (i = 0; i < ehdr->e_shnum; i++) {
+	for (i = 0; i < ehdr->e_shnum; i++)
+	{
 		section_name = shstrtab + shdr[i].sh_name;
-		if (shdr[i].sh_size > 0) {
+		if (shdr[i].sh_size > 0)
+		{
 			printf("Contents of section %s:\n", section_name);
 			print_section(maps + shdr[i].sh_offset, shdr[i].sh_size, shdr[i].sh_addr);
 		}
