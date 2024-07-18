@@ -114,7 +114,8 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
 	printf("architecture: x86-64, flags 0x%08x:\n", ehdr->e_flags);
 	printf("start address 0x%016lx\n\n", ehdr->e_entry);
 
-	shstrtab = (const unsigned char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
+	shstrtab = (const unsigned char *)(maps +
+				shdr[ehdr->e_shstrndx].sh_offset);
 
 	for (i = 0; i < ehdr->e_shnum; ++i)
 	{
