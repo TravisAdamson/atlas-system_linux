@@ -1,14 +1,7 @@
 #include "hobjdump.h"
 
-void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
-					int is_big_endian, const char *filename)
+void print_header_32(Elf32_Ehdr *ehdr, const char *filename)
 {
-	int i;
-	const unsigned char *section_name, *shstrtab;
-	Elf32_Shdr *section;
-
-	if (is_big_endian)
-		swap_endianess(ehdr, shdr, bswap_16(ehdr->e_shnum));
 	if (ehdr->e_type == 2)
 	{
 		printf("\n%s:     file format elf32-i386\n", filename);
@@ -31,6 +24,18 @@ void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 		printf("EXEC_P, HAS_SYMS, D_PAGED\n");
 	}
 	printf("start address 0x%08x\n\n", ehdr->e_entry);
+}
+
+void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
+					int is_big_endian, const char *filename)
+{
+	int i;
+	const unsigned char *section_name, *shstrtab;
+	Elf32_Shdr *section;
+
+	if (is_big_endian)
+		swap_endianess(ehdr, shdr, bswap_16(ehdr->e_shnum));
+	print_header_32(ehdr, filename);
 	shstrtab = (const unsigned char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
 	for (i = 0; i < ehdr->e_shnum; ++i)
 	{
@@ -171,28 +176,4 @@ void print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
 			if (section->sh_size > 0)
 				print_section_contents_64(section, section_name, maps);
 	}
-}
-
-void swap_endianess(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, int shnum)
-{
-	int i = 0;
-
-	for (i = 0; i < shnum; i++)
-	{
-		shdr[i].sh_name = bswap_32(shdr[i].sh_name);
-		shdr[i].sh_type = bswap_32(shdr[i].sh_type);
-		shdr[i].sh_addr = bswap_32(shdr[i].sh_addr);
-		shdr[i].sh_offset = bswap_32(shdr[i].sh_offset);
-		shdr[i].sh_size = bswap_32(shdr[i].sh_size);
-		shdr[i].sh_entsize = bswap_32(shdr[i].sh_entsize);
-		shdr[i].sh_flags = bswap_32(shdr[i].sh_flags);
-		shdr[i].sh_link = bswap_32(shdr[i].sh_link);
-		shdr[i].sh_info = bswap_32(shdr[i].sh_info);
-		shdr[i].sh_addralign = bswap_32(shdr[i].sh_addralign);
-	}
-
-	ehdr->e_shnum = bswap_16(ehdr->e_shnum);
-	ehdr->e_shstrndx = bswap_16(ehdr->e_shstrndx);
-	ehdr->e_shoff = bswap_32(ehdr->e_shoff);
-	ehdr->e_entry = bswap_32(ehdr->e_entry);
 }

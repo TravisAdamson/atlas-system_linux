@@ -31,4 +31,6 @@ void print_section_contents_32(Elf32_Shdr *section,
 							const unsigned char *section_name,
 							const unsigned char *maps);
 
+void print_header_32(Elf32_Ehdr *ehdr, const char *filename);
+
 #endif
