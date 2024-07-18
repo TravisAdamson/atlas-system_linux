@@ -22,6 +22,10 @@ void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 	{
 		printf("architecture: i386, flags 0x00000011:\n");
 		printf("HAS_RELOC, HAS_SYMS\n");
+	} else
+	{
+		printf("architecture: UNKNOWN!, flags 0x00000112:\n");
+		printf("EXEC_P, HAS_SYMS, D_PAGED\n");
 	}
 	printf("start address 0x%08x\n\n", ehdr->e_entry);
 	shstrtab = (const unsigned char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
