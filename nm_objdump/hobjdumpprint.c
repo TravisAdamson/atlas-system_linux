@@ -40,7 +40,7 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 			(strcmp((const char *)section_name, ".tm_clone_table")) &&
 			(strcmp((const char *)section_name, ".rel.text")) &&
 			(strcmp((const char *)section_name, ".rel.data")))
-			if (section->sh_size != 0)
+			if (section->sh_type != SHT_NOBITS)
 				print_section_contents_32(section, section_name, maps);
 	}
 
