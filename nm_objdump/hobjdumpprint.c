@@ -25,7 +25,8 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 		if (strcmp((const char *)section_name, ".strtab") != 0 &&
 			(strcmp((const char *)section_name, ".symtab") != 0) &&
 			(strcmp((const char *)section_name, ".shstrtab") != 0) &&
-			(strcmp((const char *)section_name, ".bss")))
+			(strcmp((const char *)section_name, ".bss")) &&
+			(strcmp((const char *)section_name, ".tm_clone_table")))
 			print_section_contents_32(section, section_name, maps);
 	}
 
@@ -132,7 +133,8 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
 		if (strcmp((const char *)section_name, ".strtab") != 0 &&
 			(strcmp((const char *)section_name, ".symtab") != 0) &&
 			(strcmp((const char *)section_name, ".shstrtab") != 0) &&
-			(strcmp((const char *)section_name, ".bss")))
+			(strcmp((const char *)section_name, ".bss")) &&
+			(strcmp((const char *)section_name, ".tm_clone_table")))
 			print_section_contents_64(section, section_name, maps);
 	}
 	return (0);
