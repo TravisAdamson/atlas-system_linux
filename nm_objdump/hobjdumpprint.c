@@ -39,10 +39,9 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 			(strcmp((const char *)section_name, ".bss")) &&
 			(strcmp((const char *)section_name, ".tm_clone_table")) &&
 			(strcmp((const char *)section_name, ".rel.text")) &&
-			(strcmp((const char *)section_name, ".rel.data")) &&
-			(strcmp((const char *)section_name, ".text")) &&
-			(strcmp((const char *)section_name, ".data")))
-			print_section_contents_32(section, section_name, maps);
+			(strcmp((const char *)section_name, ".rel.data")))
+			if (section->sh_size != 0)
+				print_section_contents_32(section, section_name, maps);
 	}
 
 	return (0);
@@ -162,9 +161,7 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
 			(strcmp((const char *)section_name, ".bss")) &&
 			(strcmp((const char *)section_name, ".tm_clone_table")) &&
 			(strcmp((const char *)section_name, ".rel.text")) &&
-			(strcmp((const char *)section_name, ".rel.data")) &&
-			(strcmp((const char *)section_name, ".text")) &&
-			(strcmp((const char *)section_name, ".data")))
+			(strcmp((const char *)section_name, ".rel.data")))
 			print_section_contents_64(section, section_name, maps);
 	}
 	return (0);
