@@ -162,7 +162,8 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
 			(strcmp((const char *)section_name, ".tm_clone_table")) &&
 			(strcmp((const char *)section_name, ".rel.text")) &&
 			(strcmp((const char *)section_name, ".rel.data")))
-			print_section_contents_64(section, section_name, maps);
+			if (section->sh_type != SHT_NOBITS)
+				print_section_contents_64(section, section_name, maps);
 	}
 	return (0);
 }
