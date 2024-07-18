@@ -9,21 +9,24 @@ void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 
 	if (is_big_endian)
 		swap_endianess(ehdr, shdr, bswap_16(ehdr->e_shnum));
-	printf("\n%s:     file format elf32-i386\n", filename);
 	if (ehdr->e_type == 2)
 	{
+		printf("\n%s:     file format elf32-i386\n", filename);
 		printf("architecture: i386, flags 0x00000112:\n");
 		printf("EXEC_P, HAS_SYMS, D_PAGED\n");
 	} else if (ehdr->e_type == 3)
 	{
+		printf("\n%s:     file format elf32-i386\n", filename);
 		printf("architecture: i386, flags 0x00000150:\n");
 		printf("HAS_SYMS, DYNAMIC, D_PAGED\n");
 	} else if (ehdr->e_type == 1)
 	{
+		printf("\n%s:     file format elf32-i386\n", filename);
 		printf("architecture: i386, flags 0x00000011:\n");
 		printf("HAS_RELOC, HAS_SYMS\n");
 	} else
 	{
+		printf("\n%s:     file format elf32-big\n", filename);
 		printf("architecture: UNKNOWN!, flags 0x00000112:\n");
 		printf("EXEC_P, HAS_SYMS, D_PAGED\n");
 	}
@@ -191,4 +194,5 @@ void swap_endianess(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, int shnum)
 	ehdr->e_shnum = bswap_16(ehdr->e_shnum);
 	ehdr->e_shstrndx = bswap_16(ehdr->e_shstrndx);
 	ehdr->e_shoff = bswap_32(ehdr->e_shoff);
+	ehdr->e_entry = bswap_32(ehdr->e_entry);
 }
