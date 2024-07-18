@@ -33,7 +33,7 @@ int main(int argc, char **argv)
 	}
 	is_big_endian = (ehdr->e_ident[EI_DATA] == ELFDATA2MSB);
 	is_64_bit = (ehdr->e_ident[EI_CLASS] == ELFCLASS64);
-	err = setup_printing(is_big_endian, is_64_bit, ehdr, maps);
+	err = setup_printing(is_big_endian, is_64_bit, ehdr, maps, filename);
 	if (err == -1)
 		fprintf(stderr, "%s: %s: no symbols\n", argv[0], filename);
 	munmap(maps, st.st_size);
@@ -41,7 +41,7 @@ int main(int argc, char **argv)
 }
 
 int setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
-					const char *maps)
+					const char *maps, const char *filename)
 {
 	Elf32_Ehdr *ehdr32;
 	Elf64_Shdr *shdr;
@@ -50,7 +50,7 @@ int setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
 	if (is_64_bit)
 	{
 		shdr = (Elf64_Shdr *)((uint8_t *)maps + ehdr->e_shoff);
-		return (print_64(ehdr, shdr, (const unsigned char *)maps));
+		return (print_64(ehdr, shdr, (const unsigned char *)maps, filename));
 	}
 	else
 	{
@@ -58,6 +58,6 @@ int setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
 		shdr32 = (Elf32_Shdr *)((uint8_t *)maps +
 			(is_big_endian ? bswap_32(ehdr32->e_shoff) : ehdr32->e_shoff));
 		return (print_32(ehdr32, shdr32,
-				(const unsigned char *)maps, is_big_endian));
+				(const unsigned char *)maps, is_big_endian, filename));
 	}
 }
