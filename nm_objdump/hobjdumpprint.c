@@ -54,7 +54,8 @@ void print_section_contents_32(Elf32_Shdr *section,
 		printf(" ");
 		for (j = 0; j < 16 && i + j < section->sh_size; ++j)
 		{
-			if (maps[section->sh_offset + i + j] >= 32 && maps[section->sh_offset + i + j] <= 126)
+			if (maps[section->sh_offset + i + j] >= 32 &&
+				maps[section->sh_offset + i + j] <= 126)
 				printf("%c", maps[section->sh_offset + i + j]);
 			else
 				printf(".");
@@ -89,7 +90,8 @@ void print_section_contents_64(Elf64_Shdr *section,
 		printf(" ");
 		for (j = 0; j < 16 && i + j < section->sh_size; ++j)
 		{
-			if (maps[section->sh_offset + i + j] >= 32 && maps[section->sh_offset + i + j] <= 126)
+			if (maps[section->sh_offset + i + j] >= 32 &&
+				maps[section->sh_offset + i + j] <= 126)
 				printf("%c", maps[section->sh_offset + i + j]);
 			else
 				printf(".");
