@@ -9,7 +9,6 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 
 	if (is_big_endian)
 		swap_endianess(ehdr, shdr, bswap_32(ehdr->e_shoff));
-
 	printf("\n%s:     file format elf32-i386\n", filename);
 	if (ehdr->e_type == 2)
 	{
@@ -25,10 +24,7 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 		printf("HAS_RELOC, HAS_SYMS\n");
 	}
 	printf("start address 0x%08x\n\n", ehdr->e_entry);
-
-	shstrtab = (const unsigned char *)(maps +
-				shdr[ehdr->e_shstrndx].sh_offset);
-
+	shstrtab = (const unsigned char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
 	for (i = 0; i < ehdr->e_shnum; ++i)
 	{
 		section = &shdr[i];
@@ -47,7 +43,6 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 			if (section->sh_size > 0)
 				print_section_contents_32(section, section_name, maps);
 	}
-
 	return (0);
 }
 
@@ -151,10 +146,7 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
 		printf("HAS_RELOC, HAS_SYMS\n");
 	}
 	printf("start address 0x%016lx\n\n", ehdr->e_entry);
-
-	shstrtab = (const unsigned char *)(maps +
-				shdr[ehdr->e_shstrndx].sh_offset);
-
+	shstrtab = (const unsigned char *)(maps + shdr[ehdr->e_shstrndx].sh_offset);
 	for (i = 0; i < ehdr->e_shnum; ++i)
 	{
 		section = &shdr[i];
