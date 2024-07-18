@@ -42,14 +42,7 @@ void print_section_contents_32(Elf32_Shdr *section,
 		printf("Contents of section %s:\n", section_name);
 	for (i = 0; i < section->sh_size; i += 16)
 	{
-		if ((section->sh_addr + i) > 0x1000)
-		{
-    		printf("%8lx ", (unsigned long)(section->sh_addr + i));
-		}
-		else
-    	{
-			printf("%08lx ", (unsigned long)(section->sh_addr + i));
-		}
+		printf("%lx ", (unsigned long)(section->sh_addr + i));
 		for (j = 0; j < 16; ++j)
 		{
 			if (i + j < section->sh_size)
@@ -112,7 +105,7 @@ void print_section_contents_64(Elf64_Shdr *section,
 }
 
 int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
-			 const char *filename)
+			const char *filename)
 {
 	int i;
 	const unsigned char *shstrtab, *section_name;
