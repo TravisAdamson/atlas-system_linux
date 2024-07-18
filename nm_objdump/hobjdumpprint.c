@@ -8,7 +8,7 @@ void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 	Elf32_Shdr *section;
 
 	if (is_big_endian)
-		swap_endianess(ehdr, shdr, bswap_32(ehdr->e_shoff));
+		swap_endianess(ehdr, shdr, bswap_16(ehdr->e_shnum));
 	printf("\n%s:     file format elf32-i386\n", filename);
 	if (ehdr->e_type == 2)
 	{
