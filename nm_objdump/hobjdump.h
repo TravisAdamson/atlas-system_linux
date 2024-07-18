@@ -15,10 +15,10 @@
 int setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr * ehdr,
 					const char *maps, const char *filename);
 
-int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
+void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 					int is_big_endian, const char *filename);
 
-int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
+void print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
 			 const char *filename);
 
 void swap_endianess(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, int shnum);

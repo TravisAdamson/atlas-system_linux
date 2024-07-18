@@ -50,14 +50,15 @@ int setup_printing(int is_big_endian, int is_64_bit, Elf64_Ehdr *ehdr,
 	if (is_64_bit)
 	{
 		shdr = (Elf64_Shdr *)((uint8_t *)maps + ehdr->e_shoff);
-		return (print_64(ehdr, shdr, (const unsigned char *)maps, filename));
+		print_64(ehdr, shdr, (const unsigned char *)maps, filename);
 	}
 	else
 	{
 		ehdr32 = (Elf32_Ehdr *)ehdr;
 		shdr32 = (Elf32_Shdr *)((uint8_t *)maps +
 			(is_big_endian ? bswap_32(ehdr32->e_shoff) : ehdr32->e_shoff));
-		return (print_32(ehdr32, shdr32,
-				(const unsigned char *)maps, is_big_endian, filename));
+		print_32(ehdr32, shdr32,
+				(const unsigned char *)maps, is_big_endian, filename);
 	}
+	return (0);
 }

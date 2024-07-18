@@ -1,6 +1,6 @@
 #include "hobjdump.h"
 
-int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
+void print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 					int is_big_endian, const char *filename)
 {
 	int i;
@@ -43,7 +43,6 @@ int print_32(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, const unsigned char *maps,
 			if (section->sh_size > 0)
 				print_section_contents_32(section, section_name, maps);
 	}
-	return (0);
 }
 
 void print_section_contents_32(Elf32_Shdr *section,
@@ -124,7 +123,7 @@ void print_section_contents_64(Elf64_Shdr *section,
 	}
 }
 
-int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
+void print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
 			const char *filename)
 {
 	int i;
@@ -165,7 +164,6 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
 			if (section->sh_size > 0)
 				print_section_contents_64(section, section_name, maps);
 	}
-	return (0);
 }
 
 void swap_endianess(Elf32_Ehdr *ehdr, Elf32_Shdr *shdr, int shnum)
