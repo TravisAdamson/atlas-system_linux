@@ -103,7 +103,7 @@ void print_section_contents_64(Elf64_Shdr *section,
 		if ((section->sh_addr + i) > 0x1000)
 			printf(" %lx ", (unsigned long)(section->sh_addr + i));
 		else
-			printf(" %04lx ", (unsigned long)(section->sh_addr + i));
+			printf(" %4lx ", (unsigned long)(section->sh_addr + i));
 		for (j = 0; j < 16; ++j)
 		{
 			if (i + j < section->sh_size)
