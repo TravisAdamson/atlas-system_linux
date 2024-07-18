@@ -112,7 +112,7 @@ int print_64(Elf64_Ehdr *ehdr, Elf64_Shdr *shdr, const unsigned char *maps,
 	Elf64_Shdr *section;
 
 	printf("\n%s:     file format elf64-x86-64\n", filename);
-	printf("architecture: x86-64, flags 0x00000112:\n");
+	printf("architecture: i386:x86-64, flags 0x00000112:\n");
 	printf("EXEC_P, HAS_SYMS, D_PAGED\n");
 	printf("start address 0x%016lx\n\n", ehdr->e_entry);
 
