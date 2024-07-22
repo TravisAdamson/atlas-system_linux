@@ -5,8 +5,8 @@
 void print_python_list(PyObject *p);
 
 /**
- * print_python_list - FUnction for printing info of a python list
- * @p: pointer to the python list
+ * print_python_list - Print pyhton list
+ * @p: pointer to the list
 */
 void print_python_list(PyObject *p)
 {
