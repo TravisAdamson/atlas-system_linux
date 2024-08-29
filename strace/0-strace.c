@@ -8,7 +8,7 @@
  * Return: returns -1 on fail, or 0 on success
 */
 
-int main(int argc, const char *argv[], char *const envp[])
+int main(int argc, char **argv, char **envp)
 {
 	pid_t child;
 	int status, print_check = 0;
@@ -23,7 +23,7 @@ int main(int argc, const char *argv[], char *const envp[])
 	if (child == 0)
 	{
 		ptrace(PTRACE_TRACEME, child, NULL, NULL);
-		execve(argv[1], (char * const *)(argv + 1), (char * const *)envp);
+		execve(argv[1], &argv[1], envp);
 	}
 	else
 	{
