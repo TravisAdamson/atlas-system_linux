@@ -1,21 +1,21 @@
-#include "syscall.h"
+#include "syscalls.h"
 
 void print_params(size_t i, struct user_regs_struct *regs);
 
 /**
- * main - Main function
- * @argc: Number of arguments provided
- * @argv: array of arguments provided
- * @envp: Environment variable
- * Return: returns -1 on fail, or 0 on success
+ * main - entrance to program
+ * @argc: Number of arguments
+ * @argv: array of arguments
+ * @envp: Environ variable
+ * Return: returns -1 on fail, else 0
 */
 
-int main(int argc, char **argv, char **envp)
+int main(int argc, const char *argv[], char *const envp[])
 {
 	pid_t child;
 	int status, print_check = 0;
+	size_t i =0;
 	struct user_regs_struct regs;
-	size_t i = 0;
 
 	if (argc < 2)
 	{
@@ -26,7 +26,7 @@ int main(int argc, char **argv, char **envp)
 	if (child == 0)
 	{
 		ptrace(PTRACE_TRACEME, child, NULL, NULL);
-		execve(argv[1], &argv[1], envp);
+		execve(argv[1], (char * const *)(argv + 1), (char * const *)envp);
 	}
 	else
 	{
@@ -37,7 +37,7 @@ int main(int argc, char **argv, char **envp)
 			ptrace(PTRACE_GETREGS, child, NULL, &regs);
 			if (WIFEXITED(status))
 			{
-				fprintf(stderr, " = ?\n");
+				fprintf(stderr, ") = ?\n");
 				break;
 			}
 			if (print_check == 0 || print_check % 2 != 0)
@@ -54,9 +54,7 @@ int main(int argc, char **argv, char **envp)
 				}
 			}
 			if (print_check % 2 == 0)
-			{
 				fprintf(stderr, ") = %#lx\n", (size_t)regs.rax);
-			}
 			print_check++;
 		}
 	}
