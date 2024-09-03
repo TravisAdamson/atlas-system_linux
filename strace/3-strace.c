@@ -1,5 +1,7 @@
 #include "syscall.h"
 
+void print_params(size_t i, struct user_regs_struct *regs);
+
 /**
  * main - Main function
  * @argc: Number of arguments provided
@@ -39,6 +41,7 @@ int main(int argc, char **argv, char **envp)
 				break;
 			}
 			if (print_check == 0 || print_check % 2 != 0)
+			{
 				fprintf(stderr, "%s(", SYSNAME);
 				for (i = 0; i < SYSPARAM; i++)
 				{
@@ -49,6 +52,7 @@ int main(int argc, char **argv, char **envp)
 					else
 						print_params(i, &regs);
 				}
+			}
 			if (print_check % 2 == 0)
 			{
 				fprintf(stderr, ") = %#lx\n", (size_t)regs.rax);
