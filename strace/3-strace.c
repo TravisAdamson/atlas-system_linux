@@ -1,4 +1,4 @@
-#include "syscalls.h"
+#include "syscall.h"
 
 void print_params(size_t i, struct user_regs_struct *regs);
 
