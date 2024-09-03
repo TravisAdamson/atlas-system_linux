@@ -70,4 +70,8 @@ void *thread_entry(void *arg);
 
 int tprintf(char const *format, ...);
 
+void blur_portion(blur_portion_t const *portion);
+void blur_pixel(blur_portion_t const *portion, size_t target_i);
+int is_neighbor(blur_portion_t const *portion, int neighbor_i, size_t target_i);
+
 #endif
