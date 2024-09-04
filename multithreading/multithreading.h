@@ -3,6 +3,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <pthread.h>
 
 pthread_mutex_t tprintf_mutex;
 pthread_mutex_t tasks_mutex;
