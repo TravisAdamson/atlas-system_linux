@@ -66,7 +66,8 @@ void *exec_tasks(list_t const *tasks)
 		pthread_exit(NULL);
 
 	while (pend_task)
-		for (pend_task = 0, this_node = tasks->head; this_node; this_node = this_node->next)
+		for (pend_task = 0, this_node = tasks->head; this_node;
+			 this_node = this_node->next)
 			if (get_status(this_node->content) == PENDING)
 			{
 				pend_task = 1;
