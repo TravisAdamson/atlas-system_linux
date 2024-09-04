@@ -84,4 +84,6 @@ void *exec_tasks(list_t const *tasks)
 					tprintf("[%02d] Failure\n", task_id);
 				}
 			}
+
+	return;
 }
