@@ -4,6 +4,7 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <pthread.h>
+#include "list.h"
 
 pthread_mutex_t tprintf_mutex;
 pthread_mutex_t tasks_mutex;
@@ -84,5 +85,7 @@ size_t split_image_into_portions(blur_portion_t **portions, img_t *img_blur,
 size_t get_portion_grid_size(size_t max_threads);
 void portion_init(blur_portion_t *portion, img_t *img_blur, img_t const *img,
 				  kernel_t const *kernel, size_t x, size_t y, size_t w, size_t h);
+
+list_t *prime_factors(char const *s);
 
 #endif
