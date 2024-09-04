@@ -2,35 +2,35 @@
 #include <stdlib.h>
 
 /**
- * prime_factors - factors a number into a list of prime factors
- * @s: string representation of the number to factor
- * Return: list_t of prime factors
+ * prime_factors - factors a given number into a list containing prime factors
+ * @s: string of the number to factor
+ * Return: list of prime factors
  **/
 list_t *prime_factors(char const *s)
 {
-	unsigned long n = strtoul(s, NULL, 10);
-	unsigned long *tmp, p = 2;
-	list_t *list = malloc(sizeof(list_t));
+	unsigned long num = strtoul(s, NULL, 10);
+	unsigned long *temp, prime = 2;
+	list_t *prime_list = malloc(sizeof(list_t));
 
-	list_init(list);
-	while (p * p <= n)
+	list_init(prime_list);
+	while (prime * prime <= num)
 	{
-		while (n % p == 0)
+		while (num % prime == 0)
 		{
-			tmp = malloc(sizeof(unsigned long));
-			*tmp = p;
-			list_add(list, (void *)tmp);
-			n /= p;
+			temp = malloc(sizeof(unsigned long));
+			*temp = prime;
+			list_add(prime_list, (void *)temp);
+			num /= prime;
 		}
 
-		p += 1 + (p != 2);
+		prime += 1 + (prime != 2);
 	}
 
-	if (n >= 2)
+	if (num >= 2)
 	{
-		tmp = malloc(sizeof(unsigned long));
-		*tmp = n;
-		list_add(list, (void *)tmp);
+		temp = malloc(sizeof(unsigned long));
+		*temp = num;
+		list_add(prime_list, (void *)temp);
 	}
-	return (list);
+	return (prime_list);
 }
