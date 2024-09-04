@@ -85,5 +85,5 @@ void *exec_tasks(list_t const *tasks)
 				}
 			}
 
-	return;
+	return (NULL);
 }
