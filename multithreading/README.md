@@ -1,4 +1,4 @@
-## Learning Objectives
+# Learning Objectives
 
 At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
@@ -11,9 +11,9 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 * What is a deadlock
 * What is a race condition
 
-## Requirements
+# Requirements
 
-# General
+## General
 
 * Allowed editors: vi, vim, emacs
 * All your files will be compiled on Ubuntu 20.04 LTS
@@ -28,10 +28,10 @@ At the end of this project, you are expected to be able to explain to anyone, wi
 * You are allowed to use global variables
 * You are allowed to use static functions and variables
 
-# Betty Compliance
+## Betty Compliance
 
 All the C source files in your directory and subdirectories must be Betty-compliant
 
-# Allowed Functions and System Calls
+## Allowed Functions and System Calls
 
 Unless specified otherwise, you are allowed to use the C standard library
