@@ -7,6 +7,10 @@
 #include <arpa/inet.h>
 #include <unistd.h>
 
+/**
+ * main - socket server
+ * Return: SUCCESS or FAILURE
+ */
 int main(void)
 {
 	int socket_fd;
